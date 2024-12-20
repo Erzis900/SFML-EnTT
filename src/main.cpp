@@ -2,22 +2,13 @@
 #include "../inc/entt.hpp"
 #include <random>
 #include <iostream>
-
-struct position
-{
-    float x;
-    float y;
-};
-
-struct velocity
-{
-    float dx;
-    float dy;
-};
+#include "components/position.hpp"
+#include "components/velocity.hpp"
+#include "systems/playerInput.hpp"
 
 void update(entt::registry &registry)
 {
-    auto view = registry.view<const position, velocity>();
+    auto view = registry.view<const components::position, components::velocity>();
 
     // use a callback
     view.each([](const auto &pos, auto &vel) { /* ... */ });
@@ -29,13 +20,13 @@ void update(entt::registry &registry)
     for (auto [entity, pos, vel] : view.each())
     {
         // ...
-        // registry.replace<position>(entity, pos.x + vel.dx, pos.y + vel.dx);
+        // registry.replace<components::position>(entity, pos.x + vel.dx, pos.y + vel.dx);
     }
 
     // use forward iterators and get only the components of interest
     for (auto entity : view)
     {
-        auto &vel = view.get<velocity>(entity);
+        auto &vel = view.get<components::velocity>(entity);
         // ...
     }
 
@@ -57,7 +48,7 @@ void update(entt::registry &registry)
     {
         dir.x = 1.f;
     }
-    // Normalize the velocity vector
+    // Normalize the components::velocity vector
     float magnitude = std::sqrt(dir.x * dir.x + dir.y * dir.y);
     if (magnitude > 0)
     {
@@ -68,20 +59,20 @@ void update(entt::registry &registry)
     for (auto [entity, pos, vel] : view.each())
     {
         std::cout << dir.x << " " << dir.y << std::endl;
-        registry.replace<position>(entity, pos.x + vel.dx * dir.x, pos.y + vel.dy * dir.y);
+        registry.replace<components::position>(entity, pos.x + vel.dx * dir.x, pos.y + vel.dy * dir.y);
 
         if (-20 > pos.x || pos.x > 1200)
         {
-            registry.replace<velocity>(entity, -vel.dx, vel.dy);
+            registry.replace<components::velocity>(entity, -vel.dx, vel.dy);
         }
         if (-20 > pos.y || pos.y > 800)
         {
-            registry.replace<velocity>(entity, vel.dx, -vel.dy);
+            registry.replace<components::velocity>(entity, vel.dx, -vel.dy);
         }
     }
 }
 
-sf::CircleShape CreateO(position pos)
+sf::CircleShape CreateO(components::position pos)
 {
     // Radius: 50px
     sf::CircleShape o(50);
@@ -101,8 +92,8 @@ int main()
     for (auto i = 0u; i < 3u; ++i)
     {
         const auto entity = registry.create();
-        registry.emplace<position>(entity, i * 30.f, i * 150.f);
-        registry.emplace<velocity>(entity, 2.f, 2.f);
+        registry.emplace<components::position>(entity, i * 30.f, i * 150.f);
+        registry.emplace<components::velocity>(entity, 2.f, 2.f);
     }
 
     while (window.isOpen())
@@ -119,7 +110,7 @@ int main()
         update(registry);
 
         const auto &cregistry = registry;
-        auto view = registry.view<position, velocity>();
+        auto view = registry.view<components::position, components::velocity>();
 
         for (auto entity : view)
         {
