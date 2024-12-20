@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../inc/entt.hpp"
+#include <random>
 struct position
 {
     float x;
@@ -35,6 +36,23 @@ void update(entt::registry &registry)
         auto &vel = view.get<velocity>(entity);
         // ...
     }
+
+    for (auto [entity, pos, vel] : view.each())
+    {
+        registry.replace<position>(entity, pos.x + vel.dx, pos.y + vel.dy);
+    }
+
+    for (auto [entity, pos, vel] : view.each())
+    {
+        if (-20 > pos.x || pos.x > 1200)
+        {
+            registry.replace<velocity>(entity, -vel.dx, vel.dy);
+        }
+        if (-20 > pos.y || pos.y > 800)
+        {
+            registry.replace<velocity>(entity, vel.dx, -vel.dy);
+        }
+    }
 }
 sf::CircleShape CreateO(position pos)
 {
@@ -52,13 +70,15 @@ int main()
     window.setFramerateLimit(144);
     entt::registry registry;
 
-    for (auto i = 0u; i < 10u; ++i)
+    for (auto i = 0u; i < 20u; ++i)
     {
         const auto entity = registry.create();
-        registry.emplace<position>(entity, i * 134.f, i * 140.f);
+        float random1 = ((float)rand()) / (float)RAND_MAX;
+        float random2 = ((float)rand()) / (float)RAND_MAX;
+        registry.emplace<position>(entity, i * .2f, i * .2f);
         if (i % 2 == 0)
         {
-            registry.emplace<velocity>(entity, i * .1f, i * .1f);
+            registry.emplace<velocity>(entity, i * random1 * .1f, i * random2 * .1f);
         }
     }
 
@@ -67,7 +87,7 @@ int main()
     {
         for (auto event = sf::Event(); window.pollEvent(event);)
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 window.close();
             }
