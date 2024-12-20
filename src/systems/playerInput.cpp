@@ -4,11 +4,11 @@
 #include "inc/entt.hpp"
 #include "components/position.hpp"
 #include "components/velocity.hpp"
-#include "playerInput.hpp"
+#include "systems/playerInput.hpp"
 
 namespace systems
 {
-    void handlePlayerInput(entt::registry &registry)
+    void playerInput(entt::registry &registry)
     {
         auto view = registry.view<components::position, components::velocity>();
 
@@ -43,15 +43,6 @@ namespace systems
         {
             std::cout << dir.x << " " << dir.y << std::endl;
             registry.replace<components::position>(entity, pos.x + vel.dx * dir.x, pos.y + vel.dy * dir.y);
-
-            if (-20 > pos.x || pos.x > 1200)
-            {
-                registry.replace<components::velocity>(entity, -vel.dx, vel.dy);
-            }
-            if (-20 > pos.y || pos.y > 800)
-            {
-                registry.replace<components::velocity>(entity, vel.dx, -vel.dy);
-            }
         }
     }
 }

@@ -6,72 +6,6 @@
 #include "components/velocity.hpp"
 #include "systems/playerInput.hpp"
 
-void update(entt::registry &registry)
-{
-    auto view = registry.view<const components::position, components::velocity>();
-
-    // use a callback
-    view.each([](const auto &pos, auto &vel) { /* ... */ });
-
-    // use an extended callback
-    view.each([](const auto entity, const auto &pos, auto &vel) { /* ... */ });
-
-    // use a range-for
-    for (auto [entity, pos, vel] : view.each())
-    {
-        // ...
-        // registry.replace<components::position>(entity, pos.x + vel.dx, pos.y + vel.dx);
-    }
-
-    // use forward iterators and get only the components of interest
-    for (auto entity : view)
-    {
-        auto &vel = view.get<components::velocity>(entity);
-        // ...
-    }
-
-    sf::Vector2f dir = {0.f, 0.f};
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        dir.y = -1.f;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        dir.y = 1.f;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        dir.x = -1.f;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        dir.x = 1.f;
-    }
-    // Normalize the components::velocity vector
-    float magnitude = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-    if (magnitude > 0)
-    {
-        dir.x /= magnitude;
-        dir.y /= magnitude;
-    }
-
-    for (auto [entity, pos, vel] : view.each())
-    {
-        std::cout << dir.x << " " << dir.y << std::endl;
-        registry.replace<components::position>(entity, pos.x + vel.dx * dir.x, pos.y + vel.dy * dir.y);
-
-        if (-20 > pos.x || pos.x > 1200)
-        {
-            registry.replace<components::velocity>(entity, -vel.dx, vel.dy);
-        }
-        if (-20 > pos.y || pos.y > 800)
-        {
-            registry.replace<components::velocity>(entity, vel.dx, -vel.dy);
-        }
-    }
-}
-
 sf::CircleShape CreateO(components::position pos)
 {
     // Radius: 50px
@@ -107,7 +41,7 @@ int main()
         }
 
         window.clear();
-        update(registry);
+        systems::playerInput(registry);
 
         const auto &cregistry = registry;
         auto view = registry.view<components::position, components::velocity>();
