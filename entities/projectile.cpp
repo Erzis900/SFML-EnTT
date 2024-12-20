@@ -2,7 +2,7 @@
 #include "components/position.hpp"
 #include "components/velocity.hpp"
 
-namespace entity
+namespace entities
 {
     entt::entity createProjectile(entt::registry &registry)
     {
