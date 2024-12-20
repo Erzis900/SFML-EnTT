@@ -2,9 +2,11 @@
 #include "../inc/entt.hpp"
 #include <random>
 #include <iostream>
+
 #include "components/position.hpp"
 #include "components/velocity.hpp"
 #include "systems/playerInput.hpp"
+#include "entities/player.hpp"
 
 sf::CircleShape CreateO(components::position pos)
 {
@@ -19,16 +21,11 @@ sf::CircleShape CreateO(components::position pos)
 
 int main()
 {
-    auto window = sf::RenderWindow({1920u, 1080u}, "CMake SFML Project");
+    auto window = sf::RenderWindow({1280u, 720u}, "CMake SFML Project");
     window.setFramerateLimit(144);
-    entt::registry registry;
 
-    for (auto i = 0u; i < 3u; ++i)
-    {
-        const auto entity = registry.create();
-        registry.emplace<components::position>(entity, i * 30.f, i * 150.f);
-        registry.emplace<components::velocity>(entity, 2.f, 2.f);
-    }
+    entt::registry registry;
+    entities::createPlayer(registry);
 
     while (window.isOpen())
     {
