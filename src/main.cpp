@@ -39,19 +39,30 @@ void update(entt::registry &registry)
         // ...
     }
 
-    sf::Vector2i dir = {0, 0};
+    sf::Vector2f dir = {0.f, 0.f};
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        dir.y = -1;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        dir.y = -1.f;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        dir.y = 1;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        dir.y = 1.f;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        dir.x = -1;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        dir.x = -1.f;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        dir.x = 1;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        dir.x = 1.f;
+    }
+    // Normalize the velocity vector
+    float magnitude = std::sqrt(dir.x * dir.x + dir.y * dir.y);
+    if (magnitude > 0)
+    {
+        dir.x /= magnitude;
+        dir.y /= magnitude;
     }
 
     for (auto [entity, pos, vel] : view.each())
