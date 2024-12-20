@@ -1,0 +1,4 @@
+namespace components
+{
+    int damage;
+}

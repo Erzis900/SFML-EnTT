@@ -1,0 +1,4 @@
+namespace components
+{
+    float speed;
+}
