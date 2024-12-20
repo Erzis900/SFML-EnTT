@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "../inc/entt.hpp"
 #include <random>
+#include <iostream>
+
 struct position
 {
     float x;
@@ -27,7 +29,7 @@ void update(entt::registry &registry)
     for (auto [entity, pos, vel] : view.each())
     {
         // ...
-        registry.replace<position>(entity, pos.x + vel.dx, pos.y + vel.dx);
+        // registry.replace<position>(entity, pos.x + vel.dx, pos.y + vel.dx);
     }
 
     // use forward iterators and get only the components of interest
@@ -37,13 +39,26 @@ void update(entt::registry &registry)
         // ...
     }
 
-    for (auto [entity, pos, vel] : view.each())
-    {
-        registry.replace<position>(entity, pos.x + vel.dx, pos.y + vel.dy);
+    sf::Vector2i dir = {0, 0};
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        dir.y = -1;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        dir.y = 1;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        dir.x = -1;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        dir.x = 1;
     }
 
     for (auto [entity, pos, vel] : view.each())
     {
+        std::cout << dir.x << " " << dir.y << std::endl;
+        registry.replace<position>(entity, pos.x + vel.dx * dir.x, pos.y + vel.dy * dir.y);
+
         if (-20 > pos.x || pos.x > 1200)
         {
             registry.replace<velocity>(entity, -vel.dx, vel.dy);
@@ -54,6 +69,7 @@ void update(entt::registry &registry)
         }
     }
 }
+
 sf::CircleShape CreateO(position pos)
 {
     // Radius: 50px
@@ -64,25 +80,20 @@ sf::CircleShape CreateO(position pos)
     o.setPosition(pos.x, pos.y);
     return o;
 }
+
 int main()
 {
     auto window = sf::RenderWindow({1920u, 1080u}, "CMake SFML Project");
     window.setFramerateLimit(144);
     entt::registry registry;
 
-    for (auto i = 0u; i < 20u; ++i)
+    for (auto i = 0u; i < 3u; ++i)
     {
         const auto entity = registry.create();
-        float random1 = ((float)rand()) / (float)RAND_MAX;
-        float random2 = ((float)rand()) / (float)RAND_MAX;
-        registry.emplace<position>(entity, i * .2f, i * .2f);
-        if (i % 2 == 0)
-        {
-            registry.emplace<velocity>(entity, i * random1 * .1f, i * random2 * .1f);
-        }
+        registry.emplace<position>(entity, i * 30.f, i * 150.f);
+        registry.emplace<velocity>(entity, 2.f, 2.f);
     }
 
-    update(registry);
     while (window.isOpen())
     {
         for (auto event = sf::Event(); window.pollEvent(event);)
@@ -95,6 +106,7 @@ int main()
 
         window.clear();
         update(registry);
+
         const auto &cregistry = registry;
         auto view = registry.view<position, velocity>();
 
