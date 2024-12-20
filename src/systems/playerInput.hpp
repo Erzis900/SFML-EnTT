@@ -1,4 +1,4 @@
-#include "inc/entt.hpp"
+#include "entt/entt.hpp"
 
 namespace systems
 {

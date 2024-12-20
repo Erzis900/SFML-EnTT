@@ -3,6 +3,7 @@ project(CMakeSFMLProject LANGUAGES CXX)
 
 # Add the components, entities, and systems directories to the include paths
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/entt)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src/components)
 include_directories(${CMAKE_SOURCE_DIR}/src/entities)
@@ -20,7 +21,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-file(GLOB SOURCES "*.cpp" "src/*.cpp" "src/entities/*.cpp" "src/components/*.cpp" "src/systems/*.cpp")
+file(GLOB SOURCES "*.cpp" "entt/*.cpp" "src/*.cpp" "src/entities/*.cpp" "src/components/*.cpp" "src/systems/*.cpp")
 
 add_executable(main ${SOURCES})
 target_link_libraries(main PRIVATE sfml-graphics)

@@ -1,12 +1,14 @@
 #include <SFML/Graphics.hpp>
-#include "../inc/entt.hpp"
+#include "entt/entt.hpp"
 #include <random>
 #include <iostream>
 
 #include "components/position.hpp"
 #include "components/velocity.hpp"
 #include "systems/playerInput.hpp"
+#include "systems/moveEntities.hpp"
 #include "entities/player.hpp"
+#include "entities/projectile.hpp"
 
 sf::CircleShape CreateO(components::position pos)
 {
@@ -26,6 +28,9 @@ int main()
 
     entt::registry registry;
     entities::createPlayer(registry);
+    entities::createProjectile(registry);
+
+    sf::Clock clock;
 
     while (window.isOpen())
     {
@@ -37,8 +42,12 @@ int main()
             }
         }
 
-        window.clear();
+        float deltaTime = clock.restart().asSeconds();
+
         systems::playerInput(registry);
+        systems::moveEntities(registry, deltaTime);
+
+        window.clear();
 
         const auto &cregistry = registry;
         auto view = registry.view<components::position, components::velocity>();

@@ -1,15 +1,20 @@
-#include "inc/entt.hpp"
+#include "entt/entt.hpp"
 #include "components/position.hpp"
-#include "components/velocity.hpp"
+#include "components/source.hpp"
+#include "components/direction.hpp"
+#include "components/damage.hpp"
+#include "components/speed.hpp"
 
 namespace entities
 {
     entt::entity createProjectile(entt::registry &registry)
     {
-        auto entity = registry.create();
-        registry.emplace<components::position>(entity, 30.f, 150.f);
-        registry.emplace<components::velocity>(entity, 2.f, 2.f);
-        return entity;
+        const auto projectile = registry.create();
+        // registry.emplace<components::source>(projectile, entt::entity{});
+        // registry.emplace<components::speed>(projectile, 500.f);
+        registry.emplace<components::direction>(projectile, 0.7f, -0.7f);
+        registry.emplace<components::position>(projectile, 10.f, 10.f);
+        // registry.emplace<components::damage>(projectile, 10.f);
+        return projectile;
     }
-
 }
