@@ -7,13 +7,13 @@
 
 namespace entities
 {
-    entt::entity createProjectile(entt::registry &registry)
+    entt::entity createProjectile(entt::registry &registry, components::position &start)
     {
         const auto projectile = registry.create();
         registry.emplace<components::source>(projectile, registry.create());
         registry.emplace<components::speed>(projectile, 100.f);
         registry.emplace<components::direction>(projectile, 0.7f, 0.7f);
-        registry.emplace<components::position>(projectile, 10.f, 10.f);
+        registry.emplace<components::position>(projectile, start.x, start.y);
         registry.emplace<components::damage>(projectile, 10.f);
         return projectile;
     }

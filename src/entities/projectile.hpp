@@ -2,5 +2,5 @@
 
 namespace entities
 {
-    entt::entity createProjectile(entt::registry &registry);
+    entt::entity createProjectile(entt::registry &registry, components::position &start);
 }

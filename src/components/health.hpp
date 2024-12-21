@@ -1,4 +1,7 @@
 namespace components
 {
-    int health;
+    struct health
+    {
+        int value;
+    };
 }

@@ -1,4 +1,7 @@
 namespace components
 {
-    int maxHealth;
+    struct maxHealth
+    {
+        int value;
+    };
 }

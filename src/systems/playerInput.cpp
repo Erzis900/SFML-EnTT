@@ -42,7 +42,7 @@ namespace systems
 
         for (auto [entity, playerControlled] : view.each())
         {
-            std::cout << dir.x << " " << dir.y << std::endl;
+            // std::cout << dir.x << " " << dir.y << std::endl;
             registry.replace<components::direction>(entity, dir.x, dir.y);
         }
     }

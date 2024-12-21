@@ -6,8 +6,11 @@
 #include "components/position.hpp"
 #include "components/direction.hpp"
 #include "components/speed.hpp"
+#include "components/playerControlled.hpp"
+
 #include "systems/playerInput.hpp"
 #include "systems/moveEntities.hpp"
+
 #include "entities/player.hpp"
 #include "entities/projectile.hpp"
 
@@ -22,13 +25,21 @@ sf::CircleShape CreateO(components::position pos)
     return o;
 }
 
-void processEvents(sf::RenderWindow &window)
+void processEvents(entt::registry& registry, sf::RenderWindow &window)
 {
     for (auto event = sf::Event(); window.pollEvent(event);)
     {
         if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
             window.close();
+        }
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            auto view = registry.view<components::position, components::playerControlled>();
+            auto playerEntity = *view.begin();
+            auto &playerPos = view.get<components::position>(playerEntity);
+
+            entities::createProjectile(registry, playerPos);
         }
     }
 }
@@ -62,7 +73,6 @@ int main()
 
     entt::registry registry;
     entities::createPlayer(registry);
-    entities::createProjectile(registry);
 
     sf::Clock clock;
 
@@ -70,7 +80,7 @@ int main()
     {
         float deltaTime = clock.restart().asSeconds();
 
-        processEvents(window);
+        processEvents(registry, window);
         update(registry, deltaTime);
         render(registry, window);
     }
