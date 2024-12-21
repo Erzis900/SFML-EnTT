@@ -22,6 +22,39 @@ sf::CircleShape CreateO(components::position pos)
     return o;
 }
 
+void processEvents(sf::RenderWindow &window)
+{
+    for (auto event = sf::Event(); window.pollEvent(event);)
+    {
+        if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            window.close();
+        }
+    }
+}
+
+void update(entt::registry& registry, float deltaTime)
+{
+    systems::playerInput(registry);
+    systems::moveEntities(registry, deltaTime);
+}
+
+void render(entt::registry& registry, sf::RenderWindow &window)
+{
+    window.clear();
+
+    const auto &cregistry = registry;
+    auto view = registry.view<components::position>();
+
+    for (auto entity : view)
+    {
+        auto [pos] = view.get(entity);
+        window.draw(CreateO(pos));
+    }
+
+    window.display();
+}
+
 int main()
 {
     auto window = sf::RenderWindow({1280u, 720u}, "CMake SFML Project");
@@ -35,30 +68,10 @@ int main()
 
     while (window.isOpen())
     {
-        for (auto event = sf::Event(); window.pollEvent(event);)
-        {
-            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                window.close();
-            }
-        }
-
         float deltaTime = clock.restart().asSeconds();
 
-        systems::playerInput(registry);
-        systems::moveEntities(registry, deltaTime);
-
-        window.clear();
-
-        const auto &cregistry = registry;
-        auto view = registry.view<components::position>();
-
-        for (auto entity : view)
-        {
-            auto [pos] = view.get(entity);
-            window.draw(CreateO(pos));
-        }
-
-        window.display();
+        processEvents(window);
+        update(registry, deltaTime);
+        render(registry, window);
     }
 }

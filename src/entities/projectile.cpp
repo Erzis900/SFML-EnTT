@@ -11,7 +11,7 @@ namespace entities
     {
         const auto projectile = registry.create();
         registry.emplace<components::source>(projectile, registry.create());
-        registry.emplace<components::speed>(projectile, 15.4f);
+        registry.emplace<components::speed>(projectile, 100.f);
         registry.emplace<components::direction>(projectile, 0.7f, 0.7f);
         registry.emplace<components::position>(projectile, 10.f, 10.f);
         registry.emplace<components::damage>(projectile, 10.f);
