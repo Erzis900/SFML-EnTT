@@ -32,7 +32,7 @@ add_subdirectory(${SRC_DIR}/features)
 add_executable(main ${SOURCES})
 
 # Link the features library and SFML to the main executable
-target_link_libraries(main PRIVATE features sfml-graphics)
+target_link_libraries(main PRIVATE sfml-graphics)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)
