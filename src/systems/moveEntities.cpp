@@ -9,14 +9,9 @@ namespace systems
     {
         auto view = registry.view<components::position, components::speed, components::direction>();
 
-        for (auto entity : view)
+        for (auto [entity, pos, speed, dir] : view.each())
         {
-            auto &pos = view.get<components::position>(entity);
-            const auto &speed = view.get<components::speed>(entity);
-            const auto &dir = view.get<components::direction>(entity);
-
-            pos.x += static_cast<int>(dir.x * speed.value * deltaTime);
-            pos.y += static_cast<int>(dir.y * speed.value * deltaTime);
+            registry.replace<components::position>(entity, pos.x + dir.x * speed.value * deltaTime, pos.y + dir.y * speed.value * deltaTime);
         }
     }
 }

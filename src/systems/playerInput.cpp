@@ -3,14 +3,15 @@
 #include <iostream>
 #include "entt/entt.hpp"
 #include "components/position.hpp"
-#include "components/velocity.hpp"
+#include "components/direction.hpp"
+#include "components/playerControlled.hpp"
 #include "systems/playerInput.hpp"
 
 namespace systems
 {
     void playerInput(entt::registry &registry)
     {
-        auto view = registry.view<components::position, components::velocity>();
+        auto view = registry.view<components::playerControlled>();
 
         sf::Vector2f dir = {0.f, 0.f};
 
@@ -39,10 +40,10 @@ namespace systems
             dir.y /= magnitude;
         }
 
-        for (auto [entity, pos, vel] : view.each())
+        for (auto [entity, playerControlled] : view.each())
         {
             std::cout << dir.x << " " << dir.y << std::endl;
-            registry.replace<components::position>(entity, pos.x + vel.dx * dir.x, pos.y + vel.dy * dir.y);
+            registry.replace<components::direction>(entity, dir.x, dir.y);
         }
     }
 }

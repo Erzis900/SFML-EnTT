@@ -1,4 +1,10 @@
 namespace components
 {
-    int damage;
+    struct damage
+    {
+        float value;
+
+        // Parameterized constructor
+        damage(float value) : value(value) {}
+    };
 }

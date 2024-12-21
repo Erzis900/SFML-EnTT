@@ -1,6 +1,16 @@
 #include "entt/entt.hpp"
 
 namespace components
+
 {
-    entt::entity source;
+
+    struct source
+
+    {
+
+        source(entt::entity entity) : entity(entity) {}
+
+        entt::entity entity;
+    };
+
 }

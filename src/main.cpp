@@ -4,7 +4,8 @@
 #include <iostream>
 
 #include "components/position.hpp"
-#include "components/velocity.hpp"
+#include "components/direction.hpp"
+#include "components/speed.hpp"
 #include "systems/playerInput.hpp"
 #include "systems/moveEntities.hpp"
 #include "entities/player.hpp"
@@ -50,13 +51,14 @@ int main()
         window.clear();
 
         const auto &cregistry = registry;
-        auto view = registry.view<components::position, components::velocity>();
+        auto view = registry.view<components::position>();
 
         for (auto entity : view)
         {
-            auto [pos, vel] = view.get(entity);
+            auto [pos] = view.get(entity);
             window.draw(CreateO(pos));
         }
+
         window.display();
     }
 }
