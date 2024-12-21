@@ -6,15 +6,16 @@
 #include "components/position.hpp"
 #include "components/direction.hpp"
 #include "components/speed.hpp"
-#include "components/playerControlled.hpp"
 
-#include "systems/playerInput.hpp"
 #include "systems/moveEntities.hpp"
 
-#include "entities/player.hpp"
+#include "features/player/components/playerControlled.hpp"
+#include "features/player/systems/playerInput.hpp"
+#include "features/player/entities/player.hpp"
+
 #include "entities/projectile.hpp"
 
-sf::CircleShape CreateO(components::position pos)
+sf::CircleShape CreateO(common::components::position pos)
 {
     // Radius: 50px
     sf::CircleShape o(50);
@@ -25,7 +26,7 @@ sf::CircleShape CreateO(components::position pos)
     return o;
 }
 
-void processEvents(entt::registry& registry, sf::RenderWindow &window)
+void processEvents(entt::registry &registry, sf::RenderWindow &window)
 {
     for (auto event = sf::Event(); window.pollEvent(event);)
     {
@@ -33,11 +34,11 @@ void processEvents(entt::registry& registry, sf::RenderWindow &window)
         {
             window.close();
         }
-        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            auto view = registry.view<components::position, components::playerControlled>();
+            auto view = registry.view<common::components::position, features::player::components::playerControlled>();
             auto playerEntity = *view.begin();
-            auto &playerPos = view.get<components::position>(playerEntity);
+            auto &playerPos = view.get<common::components::position>(playerEntity);
 
             sf::Vector2f mousePos = (sf::Vector2f)sf::Mouse::getPosition(window);
             sf::Vector2f dirVec = {mousePos.x - playerPos.x, mousePos.y - playerPos.y};
@@ -49,27 +50,27 @@ void processEvents(entt::registry& registry, sf::RenderWindow &window)
                 dirVec.y /= magnitude;
             }
 
-            components::direction dir(dirVec.x, dirVec.y);
+            common::components::direction dir(dirVec.x, dirVec.y);
 
             std::cout << playerPos.x << " " << playerPos.y << std::endl;
-            
-            entities::createProjectile(registry, playerPos, dir);
+
+            common::entities::createProjectile(registry, playerPos, dir);
         }
     }
 }
 
-void update(entt::registry& registry, float deltaTime)
+void update(entt::registry &registry, float deltaTime)
 {
-    systems::playerInput(registry);
-    systems::moveEntities(registry, deltaTime);
+    features::player::systems::playerInput(registry);
+    common::systems::moveEntities(registry, deltaTime);
 }
 
-void render(entt::registry& registry, sf::RenderWindow &window)
+void render(entt::registry &registry, sf::RenderWindow &window)
 {
     window.clear();
 
     const auto &cregistry = registry;
-    auto view = registry.view<components::position>();
+    auto view = registry.view<common::components::position>();
 
     for (auto entity : view)
     {
@@ -86,7 +87,7 @@ int main()
     window.setFramerateLimit(144);
 
     entt::registry registry;
-    entities::createPlayer(registry);
+    features::player::entities::createPlayer(registry);
 
     sf::Clock clock;
 

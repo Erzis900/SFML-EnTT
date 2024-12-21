@@ -1,4 +1,4 @@
-namespace components 
+namespace common::components
 {
     struct destination
     {

@@ -1,6 +1,6 @@
 #include "entt/entt.hpp"
 
-namespace entities
+namespace features::player::entities
 {
     entt::entity createPlayer(entt::registry &registry);
 }

@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace entities
+namespace common::entities
 {
     entt::entity createProjectile(entt::registry &registry, components::position &start, components::direction &dir)
     {

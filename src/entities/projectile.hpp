@@ -1,6 +1,6 @@
 #include "entt/entt.hpp"
 
-namespace entities
+namespace common::entities
 {
-    entt::entity createProjectile(entt::registry &registry, components::position &start, components::direction &dir);
+    entt::entity createProjectile(entt::registry &registry, common::components::position &start, common::components::direction &dir);
 }

@@ -2,16 +2,14 @@
 #include <random>
 #include <iostream>
 #include "entt/entt.hpp"
-#include "components/position.hpp"
 #include "components/direction.hpp"
-#include "components/playerControlled.hpp"
-#include "systems/playerInput.hpp"
+#include "features/player/components/playerControlled.hpp"
 
-namespace systems
+namespace features::player::systems
 {
     void playerInput(entt::registry &registry)
     {
-        auto view = registry.view<components::playerControlled>();
+        auto view = registry.view<features::player::components::playerControlled>();
 
         sf::Vector2f dir = {0.f, 0.f};
 
@@ -43,7 +41,7 @@ namespace systems
         for (auto [entity, playerControlled] : view.each())
         {
             // std::cout << dir.x << " " << dir.y << std::endl;
-            registry.replace<components::direction>(entity, dir.x, dir.y);
+            registry.replace<common::components::direction>(entity, dir.x, dir.y);
         }
     }
 }

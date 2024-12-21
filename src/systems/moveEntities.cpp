@@ -3,15 +3,15 @@
 #include "components/speed.hpp"
 #include "components/direction.hpp"
 
-namespace systems
+namespace common::systems
 {
     void moveEntities(entt::registry &registry, float deltaTime)
     {
-        auto view = registry.view<components::position, components::speed, components::direction>();
+        auto view = registry.view<common::components::position, common::components::speed, common::components::direction>();
 
         for (auto [entity, pos, speed, dir] : view.each())
         {
-            registry.replace<components::position>(entity, pos.x + dir.x * speed.value * deltaTime, pos.y + dir.y * speed.value * deltaTime);
+            registry.replace<common::components::position>(entity, pos.x + dir.x * speed.value * deltaTime, pos.y + dir.y * speed.value * deltaTime);
         }
     }
 }

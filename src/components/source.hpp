@@ -1,6 +1,6 @@
 #include "entt/entt.hpp"
 
-namespace components
+namespace common::components
 
 {
 

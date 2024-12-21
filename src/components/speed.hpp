@@ -1,7 +1,7 @@
 #ifndef SPEED_HPP
 #define SPEED_HPP
 
-namespace components
+namespace common::components
 {
     struct speed
     {
