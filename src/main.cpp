@@ -39,7 +39,21 @@ void processEvents(entt::registry& registry, sf::RenderWindow &window)
             auto playerEntity = *view.begin();
             auto &playerPos = view.get<components::position>(playerEntity);
 
-            entities::createProjectile(registry, playerPos);
+            sf::Vector2f mousePos = (sf::Vector2f)sf::Mouse::getPosition(window);
+            sf::Vector2f dirVec = {mousePos.x - playerPos.x, mousePos.y - playerPos.y};
+
+            float magnitude = std::sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
+            if (magnitude > 0)
+            {
+                dirVec.x /= magnitude;
+                dirVec.y /= magnitude;
+            }
+
+            components::direction dir(dirVec.x, dirVec.y);
+
+            std::cout << playerPos.x << " " << playerPos.y << std::endl;
+            
+            entities::createProjectile(registry, playerPos, dir);
         }
     }
 }
