@@ -21,7 +21,9 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-file(GLOB SOURCES "*.cpp" "entt/*.cpp" "src/*.cpp" "src/entities/*.cpp" "src/components/*.cpp" "src/systems/*.cpp")
+set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+
+file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
 
 add_executable(main ${SOURCES})
 target_link_libraries(main PRIVATE sfml-graphics)
