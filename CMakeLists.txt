@@ -25,8 +25,14 @@ set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
 
+# Add the features directory
+add_subdirectory(${SRC_DIR}/features)
+
+# Create the main executable
 add_executable(main ${SOURCES})
-target_link_libraries(main PRIVATE sfml-graphics)
+
+# Link the features library and SFML to the main executable
+target_link_libraries(main PRIVATE features sfml-graphics)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)
