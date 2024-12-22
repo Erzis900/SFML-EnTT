@@ -1,12 +1,12 @@
 #include "playerShoot.hpp"
-#include "../components/playerControlled.hpp"
-#include "../components/cooldown.hpp"
+
+#include "components/cooldown.hpp"
 #include "components/position.hpp"
 #include "components/direction.hpp"
 #include "entities/projectile.hpp"
 
-// TODO place it somewhere else
-sf::Clock cdClock;
+#include "../components/playerControlled.hpp"
+#include "../components/cooldown.hpp"
 
 namespace features::player::systems
 {
@@ -19,9 +19,8 @@ namespace features::player::systems
             auto &playerPos = view.get<common::components::position>(playerEntity);
             auto &playerCd = view.get<features::player::components::cooldown>(playerEntity);
 
-            if (cdClock.getElapsedTime().asSeconds() >= playerCd.value)
+            if (!registry.all_of<common::components::cooldown>(playerEntity))
             {
-
                 sf::Vector2f mousePos = (sf::Vector2f)sf::Mouse::getPosition(window);
                 sf::Vector2f dirVec = {mousePos.x - playerPos.x, mousePos.y - playerPos.y};
 
@@ -34,7 +33,7 @@ namespace features::player::systems
 
                 common::components::direction dir(dirVec.x, dirVec.y);
                 common::entities::createProjectile(registry, playerPos, dir);
-                cdClock.restart();
+                registry.emplace<common::components::cooldown>(playerEntity, playerCd.value);
             }
         }
     }

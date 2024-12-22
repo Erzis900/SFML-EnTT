@@ -9,6 +9,7 @@
 #include "components/shape.hpp"
 
 #include "systems/moveEntities.hpp"
+#include "systems/processCooldown.hpp"
 
 #include "features/player/components/playerControlled.hpp"
 #include "features/player/systems/playerInput.hpp"
@@ -44,6 +45,7 @@ void update(entt::registry &registry, float deltaTime)
 {
     features::player::systems::playerInput(registry);
     common::systems::moveEntities(registry, deltaTime);
+    common::systems::processCooldown(registry, deltaTime);
 }
 
 void render(entt::registry &registry, sf::RenderWindow &window)
@@ -57,7 +59,7 @@ void render(entt::registry &registry, sf::RenderWindow &window)
     for (auto entity : view)
     {
         auto [pos, shape] = view.get(entity);
-        shape.value.setPosition({ pos.x, pos.y });
+        shape.value.setPosition({pos.x, pos.y});
         window.draw(shape.value);
     }
 
