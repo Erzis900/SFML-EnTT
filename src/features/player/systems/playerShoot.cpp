@@ -16,13 +16,14 @@ namespace features::player::systems
         {
             auto view = registry.view<common::components::position, features::player::components::playerControlled, features::player::components::cooldown>();
             auto playerEntity = *view.begin();
-            auto &playerPos = view.get<common::components::position>(playerEntity);
-            auto &playerCd = view.get<features::player::components::cooldown>(playerEntity);
 
             if (!registry.all_of<common::components::cooldown>(playerEntity))
             {
+                auto &playerPos = view.get<common::components::position>(playerEntity);
+                auto &playerCd = view.get<features::player::components::cooldown>(playerEntity);
+
                 sf::Vector2f mousePos = (sf::Vector2f)sf::Mouse::getPosition(window);
-                sf::Vector2f dirVec = {mousePos.x - playerPos.x, mousePos.y - playerPos.y};
+                sf::Vector2f dirVec = { mousePos.x - playerPos.x, mousePos.y - playerPos.y };
 
                 float magnitude = std::sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
                 if (magnitude > 0)
