@@ -6,6 +6,7 @@
 #include "components/position.hpp"
 #include "components/direction.hpp"
 #include "components/speed.hpp"
+#include "components/shape.hpp"
 
 #include "systems/moveEntities.hpp"
 
@@ -50,12 +51,14 @@ void render(entt::registry &registry, sf::RenderWindow &window)
     window.clear();
 
     const auto &cregistry = registry;
-    auto view = registry.view<common::components::position>();
+    // auto view = registry.view<common::components::position, features::player::components::shape>();
+    auto view = registry.view<common::components::position, common::components::shape>();
 
     for (auto entity : view)
     {
-        auto [pos] = view.get(entity);
-        window.draw(CreateO(pos));
+        auto [pos, shape] = view.get(entity);
+        shape.value.setPosition({ pos.x, pos.y });
+        window.draw(shape.value);
     }
 
     window.display();
