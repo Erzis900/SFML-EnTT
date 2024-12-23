@@ -16,7 +16,9 @@ namespace features::player::entities
         playerShape.setFillColor(sf::Color::Yellow);
         playerShape.setOrigin(playerShape.getRadius(), playerShape.getRadius());
 
-        createUnit(registry, entity, pos);
+        float speed = 300.f;
+
+        createUnit(registry, entity, pos, speed);
 
         registry.emplace<features::player::components::playerControlled>(entity, true);
         registry.emplace<features::player::components::cooldown>(entity, 0.1f);

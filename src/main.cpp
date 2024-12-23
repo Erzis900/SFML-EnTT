@@ -78,7 +78,11 @@ int main()
 
     entt::registry registry;
     features::player::entities::createPlayer(registry);
-    features::enemy::entities::createEnemy(registry);
+
+    for (int i = 0; i < 5; i++)
+    {
+        features::enemy::entities::createEnemy(registry);
+    }
 
     sf::Clock clock;
 
