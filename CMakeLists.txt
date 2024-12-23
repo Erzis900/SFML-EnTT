@@ -3,7 +3,7 @@ project(CMakeSFMLProject LANGUAGES CXX)
 
 # Add the components, entities, and systems directories to the include paths
 include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/entt)
+include_directories(${CMAKE_SOURCE_DIR}/external)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src/components)
 include_directories(${CMAKE_SOURCE_DIR}/src/entities)

@@ -16,6 +16,8 @@
 #include "features/player/systems/playerShoot.hpp"
 #include "features/player/entities/player.hpp"
 
+#include "features/enemy/entities/enemy.hpp"
+
 #include "entities/projectile.hpp"
 
 sf::CircleShape CreateO(common::components::position pos)
@@ -73,6 +75,7 @@ int main()
 
     entt::registry registry;
     features::player::entities::createPlayer(registry);
+    features::enemy::entities::createEnemy(registry);
 
     sf::Clock clock;
 
