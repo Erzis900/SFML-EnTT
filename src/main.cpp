@@ -10,6 +10,7 @@
 
 #include "systems/moveEntities.hpp"
 #include "systems/processCooldown.hpp"
+#include "features/enemy/systems/followPlayer.hpp"
 
 #include "features/player/components/playerControlled.hpp"
 #include "features/player/systems/playerInput.hpp"
@@ -46,6 +47,8 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window)
 void update(entt::registry &registry, float deltaTime)
 {
     features::player::systems::playerInput(registry);
+    features::enemy::systems::followPlayer(registry);
+
     common::systems::moveEntities(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);
 }
