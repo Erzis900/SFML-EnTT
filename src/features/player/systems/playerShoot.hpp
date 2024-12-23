@@ -1,4 +1,4 @@
-#include "entt/entt.hpp"
+#include "external/entt.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace features::player::systems

@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "entt/entt.hpp"
+#include "external/entt.hpp"
 #include <random>
 #include <iostream>
 

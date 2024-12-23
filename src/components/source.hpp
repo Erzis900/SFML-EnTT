@@ -1,4 +1,4 @@
-#include "entt/entt.hpp"
+#include "external/entt.hpp"
 
 namespace common::components
 

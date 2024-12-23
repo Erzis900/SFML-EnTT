@@ -21,6 +21,7 @@ namespace common::entities
 
         sf::CircleShape projectileShape(10.f);
         projectileShape.setFillColor(sf::Color::White);
+        projectileShape.setOrigin(projectileShape.getRadius(), projectileShape.getRadius());
 
         registry.emplace<common::components::shape>(projectile, projectileShape);
 

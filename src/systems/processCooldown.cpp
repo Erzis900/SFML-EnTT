@@ -1,4 +1,4 @@
-#include "entt/entt.hpp"
+#include "external/entt.hpp"
 #include "components/cooldown.hpp"
 
 namespace common::systems

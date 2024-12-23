@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <random>
 #include <iostream>
-#include "entt/entt.hpp"
+#include "external/entt.hpp"
 #include "components/direction.hpp"
 #include "features/player/components/playerControlled.hpp"
 
