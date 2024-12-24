@@ -19,6 +19,7 @@
 
 #include "features/projectile/entities/projectile.hpp"
 #include "features/projectile/systems/checkCollision.hpp"
+#include "features/projectile/systems/isOnScreen.hpp"
 
 sf::CircleShape CreateO(common::components::position pos)
 {
@@ -49,6 +50,7 @@ void update(entt::registry &registry, float deltaTime)
     features::enemy::systems::followPlayer(registry);
 
     features::projectile::systems::checkCollision(registry);
+    features::projectile::systems::isOnScreen(registry);
 
     common::systems::moveEntities(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);
