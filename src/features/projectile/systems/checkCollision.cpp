@@ -17,7 +17,7 @@ namespace features::projectile::systems
             for (auto [enemyEntity, aiControlled, position] : enemyView.each())
             {
                 auto enemyPos = enemyView.get<common::components::position>(enemyEntity);
-                std::cout << enemyPos.x << " " << enemyPos.y << std::endl;
+                // std::cout << enemyPos.x << " " << enemyPos.y << std::endl;
             }
         }
     }
