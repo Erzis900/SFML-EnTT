@@ -1,9 +1,8 @@
-#include "components/position.hpp"
 #include "components/source.hpp"
-#include "components/direction.hpp"
 #include "components/damage.hpp"
 #include "components/speed.hpp"
 #include "components/shape.hpp"
+#include "../components/isProjectile.hpp"
 #include "projectile.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -18,6 +17,7 @@ namespace common::entities
         registry.emplace<components::direction>(projectile, dir.x, dir.y);
         registry.emplace<components::position>(projectile, start.x, start.y);
         registry.emplace<components::damage>(projectile, 10.f);
+        registry.emplace<features::projectile::components::isProjectile>(projectile, true);
 
         sf::CircleShape projectileShape(10.f);
         projectileShape.setFillColor(sf::Color::White);

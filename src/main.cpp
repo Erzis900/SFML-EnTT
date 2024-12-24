@@ -3,8 +3,6 @@
 #include <random>
 #include <iostream>
 
-#include "components/position.hpp"
-#include "components/direction.hpp"
 #include "components/speed.hpp"
 #include "components/shape.hpp"
 
@@ -19,7 +17,8 @@
 
 #include "features/enemy/entities/enemy.hpp"
 
-#include "entities/projectile.hpp"
+#include "features/projectile/entities/projectile.hpp"
+#include "features/projectile/systems/checkCollision.hpp"
 
 sf::CircleShape CreateO(common::components::position pos)
 {
@@ -49,13 +48,17 @@ void update(entt::registry &registry, float deltaTime)
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
 
+    features::projectile::systems::checkCollision(registry);
+
     common::systems::moveEntities(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);
 }
 
-void render(entt::registry &registry, sf::RenderWindow &window)
+void render(entt::registry &registry, sf::RenderWindow &window, sf::Text &text)
 {
     window.clear();
+
+    window.draw(text);
 
     const auto &cregistry = registry;
     // auto view = registry.view<common::components::position, features::player::components::shape>();
@@ -73,6 +76,14 @@ void render(entt::registry &registry, sf::RenderWindow &window)
 
 int main()
 {
+    sf::Font font;
+    font.loadFromFile("../../fonts/Arial.ttf");
+
+    sf::Text fpsText;
+    fpsText.setFont(font);
+    fpsText.setCharacterSize(24);
+    fpsText.setFillColor(sf::Color::White);
+
     auto window = sf::RenderWindow({1280u, 720u}, "CMake SFML Project");
     window.setFramerateLimit(144);
 
@@ -85,13 +96,26 @@ int main()
     }
 
     sf::Clock clock;
+    sf::Clock fpsClock;
+    int frameCount = 0;
+    float lastTime = 0.f;
 
     while (window.isOpen())
     {
         float deltaTime = clock.restart().asSeconds();
 
+        frameCount++;
+        float currentTime = fpsClock.getElapsedTime().asSeconds();
+
+        if (currentTime - lastTime >= 1.0f) {
+            fpsText.setString("FPS: " + std::to_string(frameCount));
+
+            frameCount = 0;
+            lastTime = currentTime;
+        }
+
         processEvents(registry, window);
         update(registry, deltaTime);
-        render(registry, window);
+        render(registry, window, fpsText);
     }
 }

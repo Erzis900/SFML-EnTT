@@ -1,4 +1,6 @@
 #include "external/entt.hpp"
+#include "components/position.hpp"
+#include "components/direction.hpp"
 
 namespace common::entities
 {

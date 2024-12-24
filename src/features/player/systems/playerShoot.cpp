@@ -1,9 +1,7 @@
 #include "playerShoot.hpp"
 
 #include "components/cooldown.hpp"
-#include "components/position.hpp"
-#include "components/direction.hpp"
-#include "entities/projectile.hpp"
+#include "features/projectile/entities/projectile.hpp"
 
 #include "../components/playerControlled.hpp"
 #include "../components/cooldown.hpp"
