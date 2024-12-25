@@ -20,7 +20,10 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f &pos
     attributes[static_cast<std::size_t>(common::entities::Stat::Health)] = common::entities::createAttribute(registry, common::entities::Stat::Health, 100.f);
     attributes[static_cast<std::size_t>(common::entities::Stat::MaxHealth)] = common::entities::createAttribute(registry, common::entities::Stat::MaxHealth, 100.f);
     attributes[static_cast<std::size_t>(common::entities::Stat::Speed)] = common::entities::createAttribute(registry, common::entities::Stat::Speed, speed);
-    auto modifier = common::entities::createModifier(registry, common::components::Scope::Flat, 1300.f);
-    registry.get<common::components::relationship>(attributes[static_cast<std::size_t>(common::entities::Stat::Speed)]).first_child = modifier;
+    auto modifier1 = common::entities::createModifier(registry, common::components::Scope::Flat, 10.f);
+    auto modifier2 = common::entities::addModifier(registry, modifier1, common::components::Scope::Flat, 10.f);
+    auto modifier3 = common::entities::addModifier(registry, modifier2, common::components::Scope::Flat, 10.f);
+
+    registry.get<common::components::relationship>(attributes[static_cast<std::size_t>(common::entities::Stat::Speed)]).first_child = modifier1;
     registry.emplace<common::components::recalculate>(attributes[static_cast<std::size_t>(common::entities::Stat::Speed)], true);
 }

@@ -3,6 +3,7 @@
 #include "components/unit.hpp"
 #include "components/children.hpp"
 #include "components/speed.hpp"
+#include "components/attribute.hpp"
 #include "entities/attribute.hpp"
 
 namespace common::systems
@@ -13,8 +14,7 @@ namespace common::systems
 
         for (auto [entity, unit, children, speed] : view.each())
         {
-            auto &child_speed = registry.get<common::components::speed>(children.entities[static_cast<std::size_t>(common::entities::Stat::Speed)]);
-            // std::cout << "Child speed: " << child_speed.value << std::endl;
+            auto &child_speed = registry.get<common::components::attribute>(children.entities[static_cast<std::size_t>(common::entities::Stat::Speed)]);
             registry.replace<common::components::speed>(entity, child_speed.value);
         }
     }

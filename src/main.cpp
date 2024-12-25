@@ -47,7 +47,6 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window)
 
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
-    
     features::player::systems::playerShoot(registry, window);
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
