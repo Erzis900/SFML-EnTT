@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.28)
 project(CMakeSFMLProject LANGUAGES CXX)
 
+# Add the components, entities, and systems directories to the include paths
+include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/external)
+include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src/components)
+include_directories(${CMAKE_SOURCE_DIR}/src/entities)
+include_directories(${CMAKE_SOURCE_DIR}/src/systems)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
@@ -13,9 +21,17 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-file(GLOB SOURCES "src/*.cpp")
+set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
+file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
+
+# Add the features directory
+add_subdirectory(${SRC_DIR}/features)
+
+# Create the main executable
 add_executable(main ${SOURCES})
+
+# Link the features library and SFML to the main executable
 target_link_libraries(main PRIVATE sfml-graphics)
 target_compile_features(main PRIVATE cxx_std_17)
 
