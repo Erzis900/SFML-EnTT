@@ -1,5 +1,4 @@
-#ifndef FEATURES_PLAYER_COMPONENTS_PLAYERCONTROLLED_HPP
-#define FEATURES_PLAYER_COMPONENTS_PLAYERCONTROLLED_HPP
+#pragma once
 
 namespace features::player::components
 {
@@ -10,5 +9,3 @@ namespace features::player::components
     };
 
 }
-
-#endif // FEATURES_PLAYER_COMPONENTS_PLAYERCONTROLLED_HPP

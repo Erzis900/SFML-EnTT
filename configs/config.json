@@ -3,7 +3,7 @@
     {
         "width": 1280,
         "height": 720,
-        "maxFps": 144
+        "maxFps": 0
     },
     "player":
     {

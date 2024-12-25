@@ -1,7 +1,9 @@
+#pragma once
+
 namespace common::components
 {
     struct maxHealth
     {
-        int value;
+        float value;
     };
 }
