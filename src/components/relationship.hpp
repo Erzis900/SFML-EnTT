@@ -1,5 +1,4 @@
-#ifndef RELATIONSHIP_HPP
-#define RELATIONSHIP_HPP
+#pragma once
 
 #include <array>
 
@@ -16,5 +15,3 @@ namespace common::components
         entt::entity parent{entt::null};
     };
 }
-
-#endif // RELATIONSHIP_HPP

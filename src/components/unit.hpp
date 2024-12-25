@@ -1,5 +1,4 @@
-#ifndef UNIT_HPP
-#define UNIT_HPP
+#pragma once
 
 namespace common::components
 {
@@ -10,5 +9,3 @@ namespace common::components
         unit(bool _active) : active(_active) {}
     };
 }
-
-#endif // UNIT_HPP

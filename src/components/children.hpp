@@ -1,5 +1,4 @@
-#ifndef CHILDREN_HPP
-#define CHILDREN_HPP
+#pragma once
 
 #include <array>
 
@@ -14,5 +13,3 @@ namespace common::components
         std::array<entt::entity, N> entities{};
     };
 }
-
-#endif // CHILDREN_HPP

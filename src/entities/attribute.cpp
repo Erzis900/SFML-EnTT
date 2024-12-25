@@ -6,6 +6,7 @@ namespace common::entities
     {
         auto entity = registry.create();
         auto &relationship = registry.emplace<common::components::relationship>(entity);
+        registry.emplace<common::components::attribute>(entity, initialValue, initialValue);
         switch (stat)
         {
         case common::entities::Stat::Health:
@@ -25,6 +26,7 @@ namespace common::entities
     entt::entity createModifier(entt::registry &registry, common::components::Scope scope, float value)
     {
         auto modifierEntity = registry.create();
+        registry.emplace<common::components::relationship>(modifierEntity);
         registry.emplace<common::components::modifier>(modifierEntity, value, scope);
 
         return modifierEntity;

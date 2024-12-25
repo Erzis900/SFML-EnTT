@@ -1,6 +1,4 @@
-// filepath: /c:/Users/piotr/Projects/SFML-EnTT/include/systems/applyUnitStat.hpp
-#ifndef APPLY_UNIT_STAT_HPP
-#define APPLY_UNIT_STAT_HPP
+#pragma once
 
 #include <array>
 
@@ -16,5 +14,3 @@ namespace common::systems
 {
     void applyUnitStat(entt::registry &registry);
 }
-
-#endif // APPLY_UNIT_STAT_HPP

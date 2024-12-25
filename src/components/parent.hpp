@@ -1,5 +1,4 @@
-#ifndef PARENT_HPP
-#define PARENT_HPP
+#pragma once
 
 #include "external/entt.hpp"
 
@@ -11,5 +10,3 @@ namespace common::components
         entt::entity entity{entt::null};
     };
 }
-
-#endif // PARENT_HPP

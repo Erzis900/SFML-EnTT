@@ -1,5 +1,4 @@
-#ifndef MAX_HEALTH_HPP
-#define MAX_HEALTH_HPP
+#pragma once
 
 namespace common::components
 {
@@ -8,5 +7,3 @@ namespace common::components
         float value;
     };
 }
-
-#endif // MAX_HEALTH_HPP

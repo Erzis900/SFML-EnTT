@@ -8,6 +8,7 @@
 
 #include "systems/moveEntities.hpp"
 #include "systems/processCooldown.hpp"
+#include "systems/recalculateStat.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
 #include "systems/applyUnitStat.hpp"
 
@@ -53,6 +54,7 @@ void update(entt::registry &registry, float deltaTime)
     features::projectile::systems::checkCollision(registry);
     features::projectile::systems::isOnScreen(registry);
 
+    common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);
     common::systems::moveEntities(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);

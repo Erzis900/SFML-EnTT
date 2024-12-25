@@ -1,5 +1,4 @@
-#ifndef SPEED_HPP
-#define SPEED_HPP
+#pragma once
 
 namespace common::components
 {
@@ -11,5 +10,3 @@ namespace common::components
         speed(float value) : value(value) {}
     };
 }
-
-#endif // SPEED_HPP

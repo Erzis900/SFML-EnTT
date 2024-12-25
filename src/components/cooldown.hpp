@@ -1,5 +1,4 @@
-#ifndef COOLDOWN_HPP
-#define COOLDOWN_HPP
+#pragma once
 
 namespace common::components
 {
@@ -10,5 +9,3 @@ namespace common::components
         cooldown(float _value) : time(_value) {}
     };
 }
-
-#endif // COOLDOWN_HPP

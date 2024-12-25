@@ -7,6 +7,7 @@
 #include "components/recalculate.hpp"
 #include "components/modifiers.hpp"
 #include "components/relationship.hpp"
+#include "components/attribute.hpp"
 
 namespace common::entities
 {

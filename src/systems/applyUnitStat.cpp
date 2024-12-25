@@ -1,4 +1,5 @@
 #include "applyUnitStat.hpp"
+#include <iostream>
 #include "components/unit.hpp"
 #include "components/children.hpp"
 #include "components/speed.hpp"
@@ -13,8 +14,8 @@ namespace common::systems
         for (auto [entity, unit, children, speed] : view.each())
         {
             auto &child_speed = registry.get<common::components::speed>(children.entities[static_cast<std::size_t>(common::entities::Stat::Speed)]);
-
-            registry.emplace_or_replace<common::components::speed>(entity, child_speed.value);
+            // std::cout << "Child speed: " << child_speed.value << std::endl;
+            registry.replace<common::components::speed>(entity, child_speed.value);
         }
     }
 }
