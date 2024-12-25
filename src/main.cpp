@@ -42,17 +42,18 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window)
         {
             window.close();
         }
-        features::player::systems::playerShoot(registry, window);
     }
 }
 
-void update(entt::registry &registry, float deltaTime)
+void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
+    
+    features::player::systems::playerShoot(registry, window);
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
 
     features::projectile::systems::checkCollision(registry);
-    features::projectile::systems::isOnScreen(registry);
+    features::projectile::systems::isOnScreen(registry, window.getSize().x, window.getSize().y);
 
     common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);
@@ -82,6 +83,8 @@ void render(entt::registry &registry, sf::RenderWindow &window, sf::Text &text)
 
 int main()
 {
+    Config config("../../configs/config.json");
+
     sf::Font font;
     font.loadFromFile("../../fonts/Arial.ttf");
 
@@ -90,11 +93,11 @@ int main()
     fpsText.setCharacterSize(24);
     fpsText.setFillColor(sf::Color::White);
 
-    auto window = sf::RenderWindow({1280u, 720u}, "CMake SFML Project");
-    window.setFramerateLimit(144);
+    auto window = sf::RenderWindow({config.screenWidth, config.screenHeight}, "CMake SFML Project");
+    window.setFramerateLimit(config.maxFps);
 
     entt::registry registry;
-    features::player::entities::createPlayer(registry);
+    features::player::entities::createPlayer(registry, config);
 
     for (int i = 0; i < 5; i++)
     {
@@ -122,7 +125,7 @@ int main()
         }
 
         processEvents(registry, window);
-        update(registry, deltaTime);
+        update(registry, deltaTime, window);
         render(registry, window, fpsText);
     }
 }

@@ -6,22 +6,20 @@
 
 namespace features::player::entities
 {
-    entt::entity createPlayer(entt::registry &registry)
+    entt::entity createPlayer(entt::registry &registry, Config config)
     {
         auto entity = registry.create();
 
-        sf::Vector2f pos = { 200.f, 200.f };
+        sf::Vector2f pos = { config.startX, config.startY };
 
-        sf::CircleShape playerShape(50.f);
+        sf::CircleShape playerShape(config.radius);
         playerShape.setFillColor(sf::Color::Yellow);
         playerShape.setOrigin(playerShape.getRadius(), playerShape.getRadius());
 
-        float speed = 300.f;
-
-        createUnit(registry, entity, pos, speed);
+        createUnit(registry, entity, pos, config.speed);
 
         registry.emplace<features::player::components::playerControlled>(entity, true);
-        registry.emplace<features::player::components::cooldown>(entity, 0.1f);
+        registry.emplace<features::player::components::cooldown>(entity, config.cooldown);
 
         registry.emplace<common::components::shape>(entity, playerShape);
 

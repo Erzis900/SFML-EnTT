@@ -4,7 +4,7 @@
 
 namespace features::projectile::systems
 {
-    void isOnScreen(entt::registry &registry)
+    void isOnScreen(entt::registry &registry, unsigned int screenWidth, unsigned int screenHeight)
     {
         auto projectileView = registry.view<features::projectile::components::isProjectile, common::components::position>();
 
@@ -12,8 +12,7 @@ namespace features::projectile::systems
         {
             auto pos = registry.get<common::components::position>(projectileEntity);
             
-            // TODO not hard coding these values
-            if (pos.x > 1280 || pos.x < 0 || pos.y < 0 || pos.y > 720)
+            if (pos.x > screenWidth || pos.x < 0 || pos.y < 0 || pos.y > screenHeight)
             {
                 registry.destroy(projectileEntity);
             }
