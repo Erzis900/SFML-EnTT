@@ -9,6 +9,7 @@
 #include "systems/moveEntities.hpp"
 #include "systems/processCooldown.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
+#include "systems/applyUnitStat.hpp"
 
 #include "features/player/components/playerControlled.hpp"
 #include "features/player/systems/playerInput.hpp"
@@ -52,6 +53,7 @@ void update(entt::registry &registry, float deltaTime)
     features::projectile::systems::checkCollision(registry);
     features::projectile::systems::isOnScreen(registry);
 
+    common::systems::applyUnitStat(registry);
     common::systems::moveEntities(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);
 }
@@ -109,7 +111,8 @@ int main()
         frameCount++;
         float currentTime = fpsClock.getElapsedTime().asSeconds();
 
-        if (currentTime - lastTime >= 1.0f) {
+        if (currentTime - lastTime >= 1.0f)
+        {
             fpsText.setString("FPS: " + std::to_string(frameCount));
 
             frameCount = 0;
