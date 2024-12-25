@@ -36,9 +36,9 @@ namespace common::systems
                 modifier = registry.get<common::components::relationship>(modifier).next;
             }
 
-            std::cout << "Entity " << static_cast<int>(entity) << " attribute value: " << value << std::endl;
-            registry.get<common::components::attribute>(entity).value = value;
-            std::cout << "Entity " << static_cast<int>(entity) << " attribute value: " << value << std::endl;
+            std::cout << "Entity " << static_cast<int>(entity) << " attribute value: " << registry.get<common::components::attribute>(entity).value << std::endl;
+            registry.replace<common::components::attribute>(entity, attr.baseValue, value);
+            std::cout << "Entity " << static_cast<int>(entity) << " attribute value: " << registry.get<common::components::attribute>(entity).value << std::endl;
             registry.remove<common::components::recalculate>(entity);
         }
     }
