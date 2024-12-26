@@ -15,7 +15,6 @@ include(FetchContent)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
-include(FetchContent)
 FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 2.6.x
@@ -23,6 +22,16 @@ FetchContent_Declare(SFML
     EXCLUDE_FROM_ALL
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
+
+set(BUILD_SHARED_LIBS ON)      # Determines whether TGUI build a static or dynamic/shared library
+set(TGUI_BACKEND SFML_GRAPHICS)  # Sets which backend TGUI will use
+
+FetchContent_Declare(
+  TGUI
+  GIT_REPOSITORY https://github.com/texus/TGUI
+  GIT_TAG v1.4.0  # Change this to wanted version
+)
+FetchContent_MakeAvailable(TGUI)
 
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
@@ -35,7 +44,7 @@ add_subdirectory(${SRC_DIR}/features)
 add_executable(main ${SOURCES})
 
 # Link the features library and SFML to the main executable
-target_link_libraries(main PRIVATE sfml-graphics)
+target_link_libraries(main PRIVATE sfml-graphics TGUI::TGUI)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)

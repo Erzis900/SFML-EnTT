@@ -1,4 +1,11 @@
+#define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
+
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <TGUI/TGUI.hpp>
+#include <TGUI/Backend/SFML-Graphics.hpp>
+#include <TGUI/Widgets/Label.hpp>
+
 #include "external/entt.hpp"
 #include <random>
 #include <iostream>
@@ -9,8 +16,12 @@
 #include "systems/moveEntities.hpp"
 #include "systems/processCooldown.hpp"
 #include "systems/recalculateStat.hpp"
-#include "features/enemy/systems/followPlayer.hpp"
 #include "systems/applyUnitStat.hpp"
+
+#include "renderers/drawShapes.hpp"
+#include "renderers/drawHealthbars.hpp"
+
+#include "features/enemy/systems/followPlayer.hpp"
 
 #include "features/player/components/playerControlled.hpp"
 #include "features/player/systems/playerInput.hpp"
@@ -23,21 +34,11 @@
 #include "features/projectile/systems/checkCollision.hpp"
 #include "features/projectile/systems/isOnScreen.hpp"
 
-sf::CircleShape CreateO(common::components::position pos)
-{
-    // Radius: 50px
-    sf::CircleShape o(50);
-    o.setFillColor(sf::Color::White);
-    o.setOutlineThickness(1);
-    o.setOutlineColor(sf::Color::White);
-    o.setPosition(pos.x, pos.y);
-    return o;
-}
-
-void processEvents(entt::registry &registry, sf::RenderWindow &window)
+void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui &gui)
 {
     for (auto event = sf::Event(); window.pollEvent(event);)
     {
+        gui.handleEvent(event);
         if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
             window.close();
@@ -60,24 +61,10 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
     common::systems::processCooldown(registry, deltaTime);
 }
 
-void render(entt::registry &registry, sf::RenderWindow &window, sf::Text &text)
+void render(entt::registry &registry, sf::RenderWindow &window)
 {
-    window.clear();
-
-    window.draw(text);
-
-    const auto &cregistry = registry;
-    // auto view = registry.view<common::components::position, features::player::components::shape>();
-    auto view = registry.view<common::components::position, common::components::shape>();
-
-    for (auto entity : view)
-    {
-        auto [pos, shape] = view.get(entity);
-        shape.value.setPosition({pos.x, pos.y});
-        window.draw(shape.value);
-    }
-
-    window.display();
+    common::renderers::drawShapes(registry, window);
+    common::renderers::drawHealthbars(registry, window);
 }
 
 int main()
@@ -95,6 +82,8 @@ int main()
     auto window = sf::RenderWindow({config.screen.width, config.screen.height}, "CMake SFML Project");
     window.setFramerateLimit(config.screen.maxFps);
 
+    tgui::Gui gui(window);
+
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
 
@@ -107,6 +96,19 @@ int main()
     sf::Clock fpsClock;
     int frameCount = 0;
     float lastTime = 0.f;
+
+    tgui::Label::Ptr label = tgui::Label::create();
+    label->setText("Hello world.\nLorem ipsum dolor sit amet");
+
+    // An auto-sizing label can be given a maximum width where text should start at a new line
+    label->setMaximumTextWidth(300);
+
+    // If setSize is called then the size no longer depends on the text inside the label
+    // and a vertical scrollbar can appear if the text does not fit.
+    label->setSize({300, 400});
+    label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Right);
+    label->setPosition(10, 10);
+    gui.add(label);
 
     while (window.isOpen())
     {
@@ -123,8 +125,13 @@ int main()
             lastTime = currentTime;
         }
 
-        processEvents(registry, window);
+        processEvents(registry, window, gui);
         update(registry, deltaTime, window, config);
-        render(registry, window, fpsText);
+
+        window.clear();
+        render(registry, window);
+        window.draw(fpsText);
+        gui.draw();
+        window.display();
     }
 }
