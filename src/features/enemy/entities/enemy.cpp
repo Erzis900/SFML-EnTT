@@ -1,6 +1,7 @@
 #include "enemy.hpp"
 #include "entities/unit.hpp"
 #include "components/shape.hpp"
+#include "components/faction.hpp"
 #include "features/enemy/components/aiControlled.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -23,7 +24,7 @@ namespace features::enemy::entities
         float minX = 100.f, maxX = 1000.f;
         float minY = 100.f, maxY = 600.f;
 
-        sf::Vector2f pos = { randomFloat(minX, maxX), randomFloat(minY, maxY) };
+        sf::Vector2f pos = {randomFloat(minX, maxX), randomFloat(minY, maxY)};
 
         sf::CircleShape enemyShape(config.enemy.radius);
         enemyShape.setFillColor(sf::Color::Red);
@@ -33,6 +34,7 @@ namespace features::enemy::entities
 
         registry.emplace<features::enemy::components::aiControlled>(entity, true);
         registry.emplace<common::components::shape>(entity, enemyShape);
+        registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
 
         return entity;
     }

@@ -12,7 +12,8 @@
 
 namespace common::entities
 {
-    using Attributes = common::components::children<3>;
+    constexpr std::size_t ATTRIBUTES_SIZE = 3;
+    using Attributes = common::components::children<ATTRIBUTES_SIZE>;
 
     enum Stat : int
     {

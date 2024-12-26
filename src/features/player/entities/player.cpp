@@ -3,6 +3,7 @@
 #include "features/player/components/playerControlled.hpp"
 #include "features/player/components/cooldown.hpp"
 #include "components/shape.hpp"
+#include "components/faction.hpp"
 
 namespace features::player::entities
 {
@@ -18,8 +19,9 @@ namespace features::player::entities
 
         registry.emplace<features::player::components::playerControlled>(entity, true);
         registry.emplace<features::player::components::cooldown>(entity, config.player.cooldown);
-                
+
         registry.emplace<common::components::shape>(entity, playerShape);
+        registry.emplace<common::components::faction>(entity, common::components::ALLY_MASK, common::components::ALLY_MASK, common::components::FOES_MASK);
 
         return entity;
     }
