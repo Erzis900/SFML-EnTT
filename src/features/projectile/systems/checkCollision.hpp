@@ -2,5 +2,5 @@
 
 namespace features::projectile::systems
 {
-    void checkCollision(entt::registry &registry);
+    void checkCollision(entt::registry &registry, float projectileRadius, float enemyRadius);
 }

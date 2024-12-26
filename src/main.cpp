@@ -45,14 +45,14 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window)
     }
 }
 
-void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
+void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, Config config)
 {
     features::player::systems::playerShoot(registry, window);
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
 
-    features::projectile::systems::checkCollision(registry);
     features::projectile::systems::isOnScreen(registry, window.getSize().x, window.getSize().y);
+    features::projectile::systems::checkCollision(registry, config.projectile.radius, config.enemy.radius);
 
     common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);
@@ -92,15 +92,15 @@ int main()
     fpsText.setCharacterSize(24);
     fpsText.setFillColor(sf::Color::White);
 
-    auto window = sf::RenderWindow({config.screenWidth, config.screenHeight}, "CMake SFML Project");
-    window.setFramerateLimit(config.maxFps);
+    auto window = sf::RenderWindow({config.screen.width, config.screen.height}, "CMake SFML Project");
+    window.setFramerateLimit(config.screen.maxFps);
 
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 20; i++)
     {
-        features::enemy::entities::createEnemy(registry);
+        features::enemy::entities::createEnemy(registry, config);
     }
 
     sf::Clock clock;
@@ -124,7 +124,7 @@ int main()
         }
 
         processEvents(registry, window);
-        update(registry, deltaTime, window);
+        update(registry, deltaTime, window, config);
         render(registry, window, fpsText);
     }
 }

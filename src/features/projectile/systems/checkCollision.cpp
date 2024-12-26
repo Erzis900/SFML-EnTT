@@ -8,7 +8,7 @@
 
 namespace features::projectile::systems
 {
-    void checkCollision(entt::registry &registry)
+    void checkCollision(entt::registry &registry, float projectileRadius, float enemyRadius)
     {
         auto projectileView = registry.view<features::projectile::components::isProjectile, common::components::position>();
         auto enemyView = registry.view<features::enemy::components::aiControlled, common::components::position>();  
@@ -42,7 +42,7 @@ namespace features::projectile::systems
 
         for (auto projectile : projectilesToDestroy)
         {
-            registry.destroy(projectile);
+            registry.destroy(projectile);   
         }
 
         for (auto enemy : enemiesToDestroy)

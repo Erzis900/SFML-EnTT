@@ -1,3 +1,5 @@
+#pragma once
+
 #include "external/json.hpp"
 #include <iostream>
 
@@ -5,11 +7,34 @@ class Config {
 public:
     Config(std::string configPath);
 
-    unsigned int screenWidth, screenHeight;
-    unsigned int maxFps;
+    struct screen
+    {
+        unsigned int width, height;
+        unsigned int maxFps;
+    } screen;
 
-    float startX, startY;
-    float radius;
-    float speed;
-    float cooldown;
+    struct player
+    {
+        float startX, startY;
+        float radius;
+        float speed;
+        float cooldown;
+        float health;
+        float maxHealth;
+    } player;
+
+    struct enemy
+    {
+        float startX, startY;
+        float radius;
+        float speed;
+        float cooldown;
+        float health;
+        float maxHealth;
+    } enemy;
+
+    struct projectile
+    {
+        float radius;
+    } projectile;
 };

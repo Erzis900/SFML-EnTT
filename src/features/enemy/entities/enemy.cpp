@@ -16,7 +16,7 @@ float randomFloat(float min, float max)
 
 namespace features::enemy::entities
 {
-    entt::entity createEnemy(entt::registry &registry)
+    entt::entity createEnemy(entt::registry &registry, Config config)
     {
         auto entity = registry.create();
 
@@ -25,15 +25,14 @@ namespace features::enemy::entities
 
         sf::Vector2f pos = { randomFloat(minX, maxX), randomFloat(minY, maxY) };
 
-        sf::CircleShape enemyShape(50.f);
+        sf::CircleShape enemyShape(config.enemy.radius);
         enemyShape.setFillColor(sf::Color::Red);
         enemyShape.setOrigin(enemyShape.getRadius(), enemyShape.getRadius());
 
-        float speed = 50.f;
-        createUnit(registry, entity, pos, speed);
+        createUnit(registry, entity, {pos.x, pos.y}, {0, 0}, config.enemy.speed, config.enemy.health, config.enemy.maxHealth);
 
-        registry.emplace<common::components::shape>(entity, enemyShape);
         registry.emplace<features::enemy::components::aiControlled>(entity, true);
+        registry.emplace<common::components::shape>(entity, enemyShape);
 
         return entity;
     }

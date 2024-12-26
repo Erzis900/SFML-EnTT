@@ -3,7 +3,7 @@
     {
         "width": 1280,
         "height": 720,
-        "maxFps": 0
+        "maxFps": 144
     },
     "player":
     {
@@ -11,6 +11,19 @@
         "startY": 200,
         "radius": 50,
         "speed": 300,
-        "cooldown": 0.1
+        "cooldown": 0.1,
+        "health": 100,
+        "maxHealth": 100
+    },
+    "enemy":
+    {
+        "radius": 50,
+        "speed": 50,
+        "health": 100,
+        "maxHealth": 100
+    },
+    "projectile":
+    {
+        "radius": 10
     }
 }
