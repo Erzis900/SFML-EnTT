@@ -8,6 +8,9 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src/components)
 include_directories(${CMAKE_SOURCE_DIR}/src/entities)
 include_directories(${CMAKE_SOURCE_DIR}/src/systems)
+include_directories(${CMAKE_SOURCE_DIR}/src/renderers)
+
+include(FetchContent)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
