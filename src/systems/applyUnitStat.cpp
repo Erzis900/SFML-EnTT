@@ -10,11 +10,11 @@ namespace common::systems
 {
     void applyUnitStat(entt::registry &registry)
     {
-        auto view = registry.view<common::components::unit, common::components::children<common::entities::ATTRIBUTES_COUNT>, common::components::speed>();
+        auto view = registry.view<common::components::unit, common::entities::Attributes, common::components::speed>();
 
         for (auto [entity, unit, children, speed] : view.each())
         {
-            auto &child_speed = registry.get<common::components::attribute>(children.entities[static_cast<std::size_t>(common::entities::Stat::Speed)]);
+            auto &child_speed = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Speed]);
             registry.replace<common::components::speed>(entity, child_speed.value);
         }
     }

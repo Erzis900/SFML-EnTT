@@ -5,7 +5,7 @@
 
 namespace common::components
 {
-    enum class Scope : int
+    enum Scope : int
     {
         Flat = 100,
         PercentAdd = 200,

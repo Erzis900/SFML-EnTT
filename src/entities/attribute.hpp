@@ -7,13 +7,14 @@
 #include "components/recalculate.hpp"
 #include "components/modifiers.hpp"
 #include "components/relationship.hpp"
+#include "components/children.hpp"
 #include "components/attribute.hpp"
 
 namespace common::entities
 {
-    inline constexpr std::size_t ATTRIBUTES_COUNT = 3;
+    using Attributes = common::components::children<3>;
 
-    enum class Stat : int
+    enum Stat : int
     {
         Health = 0,
         MaxHealth = 1,
