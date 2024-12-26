@@ -16,6 +16,8 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos,
     registry.emplace<common::components::position>(entity, pos.x, pos.y);
     registry.emplace<common::components::direction>(entity, dir.x, dir.y);
     registry.emplace<common::components::speed>(entity, speed);
+    registry.emplace<common::components::health>(entity, health);
+    registry.emplace<common::components::maxHealth>(entity, maxHealth);
     auto &attributes = registry.emplace<common::entities::Attributes>(entity, common::entities::Attributes{}).entities;
     attributes[common::entities::Stat::Health] = common::entities::createAttribute(registry, common::entities::Stat::Health, health);
     attributes[common::entities::Stat::MaxHealth] = common::entities::createAttribute(registry, common::entities::Stat::MaxHealth, maxHealth);
