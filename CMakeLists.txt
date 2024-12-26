@@ -38,7 +38,7 @@ set(TGUI_BACKEND SFML_GRAPHICS)  # Sets which backend TGUI will use
 FetchContent_Declare(
   TGUI
   GIT_REPOSITORY https://github.com/texus/TGUI
-  GIT_TAG v1.4.0  # Change this to wanted version
+  GIT_TAG v1.7.0  # Change this to wanted version
 )
 FetchContent_MakeAvailable(TGUI)
 
