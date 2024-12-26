@@ -23,16 +23,6 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-set(BUILD_SHARED_LIBS ON)      # Determines whether TGUI build a static or dynamic/shared library
-set(TGUI_BACKEND SFML_GRAPHICS)  # Sets which backend TGUI will use
-
-FetchContent_Declare(
-  TGUI
-  GIT_REPOSITORY https://github.com/texus/TGUI
-  GIT_TAG v1.4.0  # Change this to wanted version
-)
-FetchContent_MakeAvailable(TGUI)
-
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
@@ -42,6 +32,15 @@ add_subdirectory(${SRC_DIR}/features)
 
 # Create the main executable
 add_executable(main ${SOURCES})
+
+set(TGUI_BACKEND SFML_GRAPHICS)  # Sets which backend TGUI will use
+
+FetchContent_Declare(
+  TGUI
+  GIT_REPOSITORY https://github.com/texus/TGUI
+  GIT_TAG v1.4.0  # Change this to wanted version
+)
+FetchContent_MakeAvailable(TGUI)
 
 # Link the features library and SFML to the main executable
 target_link_libraries(main PRIVATE sfml-graphics TGUI::TGUI)

@@ -33,10 +33,10 @@ namespace common::systems
 
         for (auto [entity, unit, children, health, maxHealth] : view.each())
         {
-            auto &health = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Health]);
+            /*auto &health = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Health]);
             auto &maxHealth = registry.get<common::components::attribute>(children.entities[common::entities::Stat::MaxHealth]);
             registry.replace<common::components::health>(entity, health.value);
-            registry.replace<common::components::maxHealth>(entity, maxHealth.value);
+            registry.replace<common::components::maxHealth>(entity, maxHealth.value);*/
         }
     }
 }
