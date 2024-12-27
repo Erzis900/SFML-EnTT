@@ -3,8 +3,6 @@
 #include "features/enemy/components/aiControlled.hpp"
 #include "components/position.hpp"
 #include "components/direction.hpp"
-#include <iostream>
-#include <SFML/Graphics.hpp>
 
 namespace features::enemy::systems
 {

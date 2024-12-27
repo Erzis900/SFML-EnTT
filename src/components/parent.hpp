@@ -1,10 +1,9 @@
 #pragma once
 
-#include "external/entt.hpp"
+#include "pch.hpp"
 
 namespace common::components
 {
-
     struct parent
     {
         entt::entity entity{entt::null};

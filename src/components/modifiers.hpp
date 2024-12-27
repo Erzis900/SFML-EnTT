@@ -1,7 +1,6 @@
 #pragma once
 
-#include "external/entt.hpp"
-#include <array>
+#include "pch.hpp"
 
 namespace common::components
 {

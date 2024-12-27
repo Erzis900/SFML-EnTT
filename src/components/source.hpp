@@ -1,16 +1,12 @@
-#include "external/entt.hpp"
+#pragma once
+
+#include "pch.hpp"
 
 namespace common::components
-
 {
-
     struct source
-
     {
-
-        source(entt::entity entity) : entity(entity) {}
-
         entt::entity entity;
+        source(entt::entity entity) : entity(entity) {}
     };
-
 }

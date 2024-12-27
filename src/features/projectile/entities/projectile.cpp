@@ -1,11 +1,9 @@
+#include "projectile.hpp"
 #include "components/source.hpp"
 #include "components/damage.hpp"
 #include "components/speed.hpp"
 #include "components/shape.hpp"
 #include "../components/isProjectile.hpp"
-#include "projectile.hpp"
-
-#include <SFML/Graphics.hpp>
 
 namespace common::entities
 {

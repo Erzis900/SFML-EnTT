@@ -14,7 +14,7 @@ target_sources(features PRIVATE ${FEATURES_SOURCES})
 target_include_directories(features PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/external)
 
 # Link dependencies for the features library
-target_link_libraries(features PUBLIC sfml-graphics)
+target_link_libraries(features PUBLIC sfml-graphics TGUI::TGUI)
 
 # Set the C++ standard to C++17
 target_compile_features(features PUBLIC cxx_std_17)

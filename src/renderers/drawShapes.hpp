@@ -1,9 +1,4 @@
-#include <SFML/Graphics.hpp>
-
-#include "external/entt.hpp"
-
-#include "components/position.hpp"
-#include "components/shape.hpp"
+#include "pch.hpp"
 
 namespace common::renderers
 {

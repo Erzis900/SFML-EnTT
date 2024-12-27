@@ -1,4 +1,6 @@
-#include "external/entt.hpp"
+#pragma once
+
+#include "pch.hpp"
 
 namespace common::components
 {

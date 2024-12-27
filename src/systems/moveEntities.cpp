@@ -1,3 +1,4 @@
+#include "moveEntities.hpp"
 #include "systems/moveEntities.hpp"
 #include "components/position.hpp"
 #include "components/speed.hpp"

@@ -1,14 +1,9 @@
 #pragma once
 
-#include "external/entt.hpp"
-#include "components/health.hpp"
-#include "components/maxHealth.hpp"
-#include "components/speed.hpp"
-#include "components/recalculate.hpp"
-#include "components/modifiers.hpp"
-#include "components/relationship.hpp"
+#include "pch.hpp"
+
 #include "components/children.hpp"
-#include "components/attribute.hpp"
+#include "components/modifiers.hpp"
 
 namespace common::entities
 {

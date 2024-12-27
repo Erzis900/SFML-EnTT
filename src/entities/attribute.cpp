@@ -1,5 +1,12 @@
 #include "attribute.hpp"
 
+#include "components/health.hpp"
+#include "components/maxHealth.hpp"
+#include "components/speed.hpp"
+#include "components/recalculate.hpp"
+#include "components/relationship.hpp"
+#include "components/attribute.hpp"
+
 namespace common::entities
 {
     entt::entity createAttribute(entt::registry &registry, common::entities::Stat stat, float initialValue)

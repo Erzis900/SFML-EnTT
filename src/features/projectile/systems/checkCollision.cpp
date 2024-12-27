@@ -1,10 +1,7 @@
-#include "../entities/projectile.hpp"
 #include "checkCollision.hpp"
+#include "../entities/projectile.hpp"
 #include "../components/isProjectile.hpp"
 #include "features/enemy/components/aiControlled.hpp"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <unordered_set>
 
 namespace features::projectile::systems
 {

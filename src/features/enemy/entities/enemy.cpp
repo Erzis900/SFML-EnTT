@@ -4,9 +4,6 @@
 #include "components/faction.hpp"
 #include "features/enemy/components/aiControlled.hpp"
 
-#include <SFML/Graphics.hpp>
-#include <random>
-
 float randomFloat(float min, float max)
 {
     static std::random_device rd;

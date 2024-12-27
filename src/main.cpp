@@ -1,17 +1,6 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <TGUI/TGUI.hpp>
-#include <TGUI/Backend/SFML-Graphics.hpp>
-#include <TGUI/Widgets/Label.hpp>
-
-#include "external/entt.hpp"
-#include <random>
-#include <iostream>
-
-#include "components/speed.hpp"
-#include "components/shape.hpp"
+#include "pch.hpp"
 
 #include "systems/moveEntities.hpp"
 #include "systems/processCooldown.hpp"
@@ -21,14 +10,12 @@
 #include "renderers/drawShapes.hpp"
 #include "renderers/drawHealthbars.hpp"
 
+#include "features/enemy/entities/enemy.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
 
-#include "features/player/components/playerControlled.hpp"
+#include "features/player/entities/player.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
-#include "features/player/entities/player.hpp"
-
-#include "features/enemy/entities/enemy.hpp"
 
 #include "features/projectile/entities/projectile.hpp"
 #include "features/projectile/systems/checkCollision.hpp"
@@ -106,7 +93,7 @@ int main()
     // If setSize is called then the size no longer depends on the text inside the label
     // and a vertical scrollbar can appear if the text does not fit.
     label->setSize({300, 400});
-    label->setHorizontalAlignment(tgui::Label::HorizontalAlignment::Right);
+    tgui::HorizontalAlignment(tgui::HorizontalAlignment::Right);
     label->setPosition(10, 10);
     gui.add(label);
 

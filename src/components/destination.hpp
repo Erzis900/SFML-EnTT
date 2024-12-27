@@ -1,3 +1,5 @@
+#pragma once
+
 namespace common::components
 {
     struct destination

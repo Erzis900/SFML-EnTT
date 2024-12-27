@@ -1,5 +1,4 @@
-#include "external/entt.hpp"
-#include <SFML/Graphics.hpp>
+#include "pch.hpp"
 
 namespace features::player::systems
 {

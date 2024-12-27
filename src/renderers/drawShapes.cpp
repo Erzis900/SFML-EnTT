@@ -1,7 +1,4 @@
-#include <SFML/Graphics.hpp>
-
-#include "external/entt.hpp"
-
+#include "drawShapes.hpp"
 #include "components/position.hpp"
 #include "components/shape.hpp"
 
