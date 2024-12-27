@@ -14,7 +14,7 @@ namespace features::enemy::systems
         auto playerEntity = *playerView.begin();
 
         auto &playerPos = playerView.get<common::components::position>(playerEntity);
-        
+
         auto enemyView = registry.view<features::enemy::components::aiControlled, common::components::position>();
 
         for (auto enemyEntity : enemyView)

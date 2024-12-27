@@ -14,6 +14,7 @@
 #include "components/shape.hpp"
 
 #include "systems/moveEntities.hpp"
+#include "systems/processPhysics.hpp"
 #include "systems/processCooldown.hpp"
 #include "systems/recalculateStat.hpp"
 #include "systems/applyUnitStat.hpp"
@@ -58,6 +59,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
     common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);
     common::systems::moveEntities(registry, deltaTime);
+    common::systems::processPhysics(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);
 }
 
