@@ -30,6 +30,11 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui
         {
             window.close();
         }
+        if (event.type == sf::Event::Resized)
+        {
+            sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+            window.setView(sf::View(visibleArea));
+        }
     }
 }
 
@@ -58,9 +63,6 @@ int main()
 {
     Config config("../../configs/config.json");
 
-    sf::Font font;
-    font.loadFromFile("../../fonts/Arial.ttf");
-
     sf::Texture crosshairTexture;
     crosshairTexture.loadFromFile("../../assets/crosshair012.png");
     sf::Sprite crosshairSprite(crosshairTexture);
@@ -68,9 +70,16 @@ int main()
 
     auto window = sf::RenderWindow({config.screen.width, config.screen.height}, "CMake SFML Project");
     window.setFramerateLimit(config.screen.maxFps);
-    window.setMouseCursorVisible(false);
+    // window.setMouseCursorVisible(false);
 
     tgui::Gui gui(window);
+    gui.loadWidgetsFromFile("../../forms/gameForm.txt");
+
+    auto settingsWindow = gui.get<tgui::ChildWindow>("settingsWindow");
+    gui.get<tgui::Button>("settingsBtn")->onPress([&] {
+        settingsWindow->setVisible(true);
+        // window.setSize(sf::Vector2u(300u, 300u));    
+    });
 
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
@@ -85,11 +94,6 @@ int main()
     int frameCount = 0;
     float lastTime = 0.f;
 
-    tgui::Label::Ptr label = tgui::Label::create();
-    label->setTextSize(24);
-    label->getRenderer()->setTextColor(tgui::Color::White);
-    gui.add(label);
-
     while (window.isOpen())
     {
         float deltaTime = clock.restart().asSeconds();
@@ -99,8 +103,6 @@ int main()
 
         if (currentTime - lastTime >= 1.0f)
         {
-            label->setText("FPS: " + std::to_string(frameCount));
-
             frameCount = 0;
             lastTime = currentTime;
         }
@@ -115,7 +117,7 @@ int main()
         render(registry, window);
         window.draw(crosshairSprite);
         gui.draw();
-        
+
         window.display();
     }
 }
