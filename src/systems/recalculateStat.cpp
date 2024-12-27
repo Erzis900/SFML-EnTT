@@ -15,9 +15,20 @@ namespace common::systems
             auto modifier = relationship.first_child;
 
             auto value = attribute.baseValue;
+            std::vector<common::components::modifier> mods;
             while (modifier != entt::null)
             {
                 const auto &mod = registry.get<common::components::modifier>(modifier);
+                mods.push_back(mod);
+
+                modifier = registry.get<common::components::relationship>(modifier).next;
+            }
+
+            sort(mods.begin(), mods.end(), [](const common::components::modifier &a, const common::components::modifier &b)
+                 { return a.scope < b.scope; });
+
+            for (const auto &mod : mods)
+            {
                 switch (mod.scope)
                 {
                 case common::components::Scope::Flat:
@@ -32,10 +43,7 @@ namespace common::systems
                 default:
                     break;
                 }
-
-                modifier = registry.get<common::components::relationship>(modifier).next;
             }
-
             registry.replace<common::components::attribute>(entity, attr.baseValue, value);
             registry.remove<common::components::recalculate>(entity);
         }
