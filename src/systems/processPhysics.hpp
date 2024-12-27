@@ -1,6 +1,6 @@
-#include <SFML/Graphics.hpp>
+#pragma once
 
-#include "external/entt.hpp"
+#include "pch.hpp"
 
 namespace common::systems
 {

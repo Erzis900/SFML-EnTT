@@ -1,8 +1,3 @@
-#include <iostream>
-#include <cmath>
-#include <SFML/Graphics.hpp>
-#include "external/entt.hpp"
-
 #include "processPhysics.hpp"
 #include "components/position.hpp"
 #include "components/collider.hpp"

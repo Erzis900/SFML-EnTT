@@ -1,15 +1,6 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
 #include "pch.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <TGUI/TGUI.hpp>
-#include <TGUI/Backend/SFML-Graphics.hpp>
-#include <TGUI/Widgets/Label.hpp>
-
-#include "external/entt.hpp"
-#include <random>
-#include <iostream>
 
 #include "systems/moveEntities.hpp"
 #include "systems/processPhysics.hpp"
