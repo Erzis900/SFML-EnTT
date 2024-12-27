@@ -4,6 +4,7 @@
 #include "features/player/components/cooldown.hpp"
 #include "components/shape.hpp"
 #include "components/faction.hpp"
+#include "components/healthRegen.hpp"
 
 namespace features::player::entities
 {
@@ -22,6 +23,8 @@ namespace features::player::entities
 
         registry.emplace<common::components::shape>(entity, playerShape);
         registry.emplace<common::components::faction>(entity, common::components::ALLY_MASK, common::components::ALLY_MASK, common::components::FOES_MASK);
+
+        registry.emplace<common::components::healthRegen>(entity, config.player.healthRegen);
 
         return entity;
     }

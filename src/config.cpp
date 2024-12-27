@@ -19,12 +19,14 @@ Config::Config(std::string configPath)
     player.cooldown = data["player"]["cooldown"];
     player.health = data["player"]["health"];
     player.maxHealth = data["player"]["maxHealth"];
+    player.healthRegen = data["player"]["healthRegen"];
 
     // enemy
     enemy.radius = data["enemy"]["radius"];
     enemy.speed = data["enemy"]["speed"];
     enemy.health = data["enemy"]["health"];
     enemy.maxHealth = data["enemy"]["maxHealth"];
+    enemy.healthRegen = data["enemy"]["healthRegen"];
 
     // projectile
     projectile.radius = data["projectile"]["radius"];

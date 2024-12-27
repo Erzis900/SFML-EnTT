@@ -21,6 +21,7 @@ public:
         float cooldown;
         float health;
         float maxHealth;
+        float healthRegen;
     } player;
 
     struct enemy
@@ -31,6 +32,7 @@ public:
         float cooldown;
         float health;
         float maxHealth;
+        float healthRegen;
     } enemy;
 
     struct projectile

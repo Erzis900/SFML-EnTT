@@ -13,14 +13,16 @@
         "speed": 300,
         "cooldown": 0.1,
         "health": 100,
-        "maxHealth": 100
+        "maxHealth": 100,
+        "healthRegen": 20
     },
     "enemy":
     {
         "radius": 50,
         "speed": 50,
         "health": 100,
-        "maxHealth": 100
+        "maxHealth": 100,
+        "healthRegen": 10
     },
     "projectile":
     {

@@ -2,6 +2,7 @@
 #include "entities/unit.hpp"
 #include "components/shape.hpp"
 #include "components/faction.hpp"
+#include "components/healthRegen.hpp"
 #include "features/enemy/components/aiControlled.hpp"
 
 float randomFloat(float min, float max)
@@ -32,6 +33,8 @@ namespace features::enemy::entities
         registry.emplace<features::enemy::components::aiControlled>(entity, true);
         registry.emplace<common::components::shape>(entity, enemyShape);
         registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
+
+        registry.emplace<common::components::healthRegen>(entity, config.enemy.healthRegen);
 
         return entity;
     }
