@@ -1,6 +1,7 @@
 #include "enemy.hpp"
 #include "entities/unit.hpp"
-#include "components/shape.hpp"
+#include "components/collider.hpp"
+#include "components/renderable.hpp"
 #include "components/faction.hpp"
 #include "features/enemy/components/aiControlled.hpp"
 
@@ -33,7 +34,8 @@ namespace features::enemy::entities
         createUnit(registry, entity, {pos.x, pos.y}, {0, 0}, config.enemy.speed, config.enemy.health, config.enemy.maxHealth);
 
         registry.emplace<features::enemy::components::aiControlled>(entity, true);
-        registry.emplace<common::components::shape>(entity, enemyShape);
+        registry.emplace<common::components::renderable>(entity, enemyShape);
+        registry.emplace<common::components::collider>(entity, config.enemy.radius);
         registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
 
         return entity;

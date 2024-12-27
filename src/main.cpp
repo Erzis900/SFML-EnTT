@@ -10,9 +10,6 @@
 #include <random>
 #include <iostream>
 
-#include "components/speed.hpp"
-#include "components/shape.hpp"
-
 #include "systems/moveEntities.hpp"
 #include "systems/processPhysics.hpp"
 #include "systems/processCooldown.hpp"
@@ -24,7 +21,6 @@
 
 #include "features/enemy/systems/followPlayer.hpp"
 
-#include "features/player/components/playerControlled.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
 #include "features/player/entities/player.hpp"
@@ -47,14 +43,14 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui
     }
 }
 
-void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, Config config)
+void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
     features::player::systems::playerShoot(registry, window);
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
 
     features::projectile::systems::isOnScreen(registry, window.getSize().x, window.getSize().y);
-    features::projectile::systems::checkCollision(registry, config.projectile.radius, config.enemy.radius);
+    features::projectile::systems::checkCollision(registry);
 
     common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);
@@ -128,7 +124,7 @@ int main()
         }
 
         processEvents(registry, window, gui);
-        update(registry, deltaTime, window, config);
+        update(registry, deltaTime, window);
 
         window.clear();
         render(registry, window);
