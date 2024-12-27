@@ -1,6 +1,15 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
 #include "pch.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <TGUI/TGUI.hpp>
+#include <TGUI/Backend/SFML-Graphics.hpp>
+#include <TGUI/Widgets/Label.hpp>
+
+#include "external/entt.hpp"
+#include <random>
+#include <iostream>
 
 #include "systems/moveEntities.hpp"
 #include "systems/processPhysics.hpp"
@@ -34,14 +43,14 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui
     }
 }
 
-void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, Config config)
+void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
     features::player::systems::playerShoot(registry, window);
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
 
     features::projectile::systems::isOnScreen(registry, window.getSize().x, window.getSize().y);
-    features::projectile::systems::checkCollision(registry, config.projectile.radius, config.enemy.radius);
+    features::projectile::systems::checkCollision(registry);
 
     common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);
@@ -108,7 +117,7 @@ int main()
         }
 
         processEvents(registry, window, gui);
-        update(registry, deltaTime, window, config);
+        update(registry, deltaTime, window);
 
         crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 
@@ -117,7 +126,7 @@ int main()
         render(registry, window);
         window.draw(crosshairSprite);
         gui.draw();
-        
+
         window.display();
     }
 }

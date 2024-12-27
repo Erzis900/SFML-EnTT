@@ -2,7 +2,8 @@
 #include "entities/unit.hpp"
 #include "features/player/components/playerControlled.hpp"
 #include "features/player/components/cooldown.hpp"
-#include "components/shape.hpp"
+#include "components/renderable.hpp"
+#include "components/collider.hpp"
 #include "components/faction.hpp"
 #include "components/healthRegen.hpp"
 
@@ -21,7 +22,8 @@ namespace features::player::entities
         registry.emplace<features::player::components::playerControlled>(entity, true);
         registry.emplace<features::player::components::cooldown>(entity, config.player.cooldown);
 
-        registry.emplace<common::components::shape>(entity, playerShape);
+        registry.emplace<common::components::renderable>(entity, playerShape);
+        registry.emplace<common::components::collider>(entity, config.player.radius);
         registry.emplace<common::components::faction>(entity, common::components::ALLY_MASK, common::components::ALLY_MASK, common::components::FOES_MASK);
 
         registry.emplace<common::components::healthRegen>(entity, config.player.healthRegen);

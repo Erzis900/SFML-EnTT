@@ -5,23 +5,23 @@
 
 #include "processPhysics.hpp"
 #include "components/position.hpp"
-#include "components/shape.hpp"
+#include "components/collider.hpp"
 #include "components/speed.hpp"
 
 namespace common::systems
 {
     void processPhysics(entt::registry &registry, float deltaTime)
     {
-        auto view = registry.view<common::components::position, common::components::shape, common::components::speed>();
+        auto view = registry.view<common::components::position, common::components::collider, common::components::speed>();
 
-        for (auto [entityA, posA, shapeA, speedA] : view.each())
+        for (auto [entityA, posA, collA, speedA] : view.each())
         {
-            for (auto [entityB, posB, shapeB, speedB] : view.each())
+            for (auto [entityB, posB, collB, speedB] : view.each())
             {
                 float deltaX = posB.x - posA.x;
                 float deltaY = posB.y - posA.y;
                 float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
-                if (distance < (shapeA.value.getRadius() + shapeB.value.getRadius()) && entityA != entityB)
+                if (distance < (collA.radius + collB.radius) && entityA != entityB)
                 {
                     sf::Vector2f dirVec = {posA.x - posB.x, posA.y - posB.y};
 

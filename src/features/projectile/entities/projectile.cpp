@@ -2,7 +2,8 @@
 #include "components/source.hpp"
 #include "components/damage.hpp"
 #include "components/speed.hpp"
-#include "components/shape.hpp"
+#include "components/area.hpp"
+#include "components/renderable.hpp"
 #include "../components/isProjectile.hpp"
 
 namespace common::entities
@@ -17,11 +18,13 @@ namespace common::entities
         registry.emplace<components::damage>(projectile, 10.f);
         registry.emplace<features::projectile::components::isProjectile>(projectile, true);
 
-        sf::CircleShape projectileShape(10.f);
+        float radius = 10.f;
+        sf::CircleShape projectileShape(radius);
         projectileShape.setFillColor(sf::Color::White);
         projectileShape.setOrigin(projectileShape.getRadius(), projectileShape.getRadius());
 
-        registry.emplace<common::components::shape>(projectile, projectileShape);
+        registry.emplace<common::components::renderable>(projectile, projectileShape);
+        registry.emplace<common::components::area>(projectile, radius);
 
         return projectile;
     }
