@@ -61,13 +61,14 @@ int main()
     sf::Font font;
     font.loadFromFile("../../fonts/Arial.ttf");
 
-    sf::Text fpsText;
-    fpsText.setFont(font);
-    fpsText.setCharacterSize(24);
-    fpsText.setFillColor(sf::Color::White);
+    sf::Texture crosshairTexture;
+    crosshairTexture.loadFromFile("../../assets/crosshair012.png");
+    sf::Sprite crosshairSprite(crosshairTexture);
+    crosshairSprite.setOrigin(crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f);
 
     auto window = sf::RenderWindow({config.screen.width, config.screen.height}, "CMake SFML Project");
     window.setFramerateLimit(config.screen.maxFps);
+    window.setMouseCursorVisible(false);
 
     tgui::Gui gui(window);
 
@@ -85,16 +86,8 @@ int main()
     float lastTime = 0.f;
 
     tgui::Label::Ptr label = tgui::Label::create();
-    label->setText("Hello world.\nLorem ipsum dolor sit amet");
-
-    // An auto-sizing label can be given a maximum width where text should start at a new line
-    label->setMaximumTextWidth(300);
-
-    // If setSize is called then the size no longer depends on the text inside the label
-    // and a vertical scrollbar can appear if the text does not fit.
-    label->setSize({300, 400});
-    tgui::HorizontalAlignment(tgui::HorizontalAlignment::Right);
-    label->setPosition(10, 10);
+    label->setTextSize(24);
+    label->getRenderer()->setTextColor(tgui::Color::White);
     gui.add(label);
 
     while (window.isOpen())
@@ -106,7 +99,7 @@ int main()
 
         if (currentTime - lastTime >= 1.0f)
         {
-            fpsText.setString("FPS: " + std::to_string(frameCount));
+            label->setText("FPS: " + std::to_string(frameCount));
 
             frameCount = 0;
             lastTime = currentTime;
@@ -115,10 +108,14 @@ int main()
         processEvents(registry, window, gui);
         update(registry, deltaTime, window, config);
 
+        crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+
         window.clear();
+
         render(registry, window);
-        window.draw(fpsText);
+        window.draw(crosshairSprite);
         gui.draw();
+        
         window.display();
     }
 }
