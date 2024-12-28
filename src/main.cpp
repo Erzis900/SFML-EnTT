@@ -83,6 +83,8 @@ int main()
         // window.setSize(sf::Vector2u(300u, 300u));    
     });
 
+    auto FPScheckbox = gui.get<tgui::CheckBox>("FPScheckbox");
+
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
 
@@ -105,6 +107,16 @@ int main()
 
         if (currentTime - lastTime >= 1.0f)
         {
+            if(FPScheckbox->isChecked())
+            {
+                gui.get<tgui::Label>("FPSlabel")->setVisible(true);
+                gui.get<tgui::Label>("FPSlabel")->setText("FPS: " + std::to_string(frameCount));
+            }
+            else 
+            {
+                gui.get<tgui::Label>("FPSlabel")->setVisible(false);
+            }
+
             frameCount = 0;
             lastTime = currentTime;
         }
