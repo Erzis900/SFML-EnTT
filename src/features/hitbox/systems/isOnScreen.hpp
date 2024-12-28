@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-namespace features::projectile::systems
+namespace features::hitbox::systems
 {
     void isOnScreen(entt::registry &registry, unsigned int screenWidth, unsigned int screenHeight);
 }

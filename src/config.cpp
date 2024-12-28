@@ -27,6 +27,6 @@ Config::Config(std::string configPath)
     enemy.maxHealth = data["enemy"]["maxHealth"];
     enemy.healthRegen = data["enemy"]["healthRegen"];
 
-    // projectile
-    projectile.radius = data["projectile"]["radius"];
+    // hitbox
+    hitbox.radius = data["hitbox"]["radius"];
 }

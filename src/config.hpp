@@ -2,7 +2,8 @@
 
 #include "pch.hpp"
 
-class Config {
+class Config
+{
 public:
     Config(std::string configPath);
 
@@ -34,8 +35,8 @@ public:
         float healthRegen;
     } enemy;
 
-    struct projectile
+    struct hitbox
     {
         float radius;
-    } projectile;
+    } hitbox;
 };

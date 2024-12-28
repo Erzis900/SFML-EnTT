@@ -18,9 +18,10 @@
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
 
-#include "features/projectile/entities/projectile.hpp"
-#include "features/projectile/systems/checkCollision.hpp"
-#include "features/projectile/systems/isOnScreen.hpp"
+#include "features/hitbox/entities/hitbox.hpp"
+#include "features/hitbox/systems/processHitbox.hpp"
+#include "features/hitbox/systems/isOnScreen.hpp"
+#include "features/hitbox/systems/processLifeSpan.hpp"
 
 void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui &gui)
 {
@@ -45,8 +46,9 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
     features::player::systems::playerInput(registry);
     features::enemy::systems::followPlayer(registry);
 
-    features::projectile::systems::isOnScreen(registry, window.getSize().x, window.getSize().y);
-    features::projectile::systems::checkCollision(registry);
+    // features::hitbox::systems::isOnScreen(registry, window.getSize().x, window.getSize().y); // replaced with procesLifespan
+    features::hitbox::systems::processHitbox(registry);
+    features::hitbox::systems::processLifeSpan(registry, deltaTime);
 
     common::systems::recalculateStat(registry);
     common::systems::applyUnitStat(registry);

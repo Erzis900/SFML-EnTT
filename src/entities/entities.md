@@ -19,12 +19,12 @@
 | Position  | Vector2i  | The current location of the enemy in the game world. |
 | Target    | Entity    | The entity the enemy is currently targeting. |
 
-# Projectile Entity
+# Hitbox Entity
 
 | Component | Data Type | Description                                      |
 |-----------|-----------|--------------------------------------------------|
-| Source    | Entity    | The origin or entity that fired the projectile.  |
-| Speed     | Float     | The speed at which the projectile is moving.     |
-| Direction | Vector2f  | The direction in which the projectile is traveling. |
-| Position  | Vector2i  | The current location of the projectile in the game world. |
+| Source    | Entity    | The origin or entity that fired the hitbox.  |
+| Speed     | Float     | The speed at which the hitbox is moving.     |
+| Direction | Vector2f  | The direction in which the hitbox is traveling. |
+| Position  | Vector2i  | The current location of the hitbox in the game world. |
 | Damage    | Float     | The amount of hp it will substract from enemy entity. |

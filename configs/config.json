@@ -24,7 +24,7 @@
         "maxHealth": 100,
         "healthRegen": 10
     },
-    "projectile":
+    "hitbox":
     {
         "radius": 10
     }
