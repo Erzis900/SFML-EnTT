@@ -26,11 +26,8 @@ namespace common::systems
                         dirVec.x /= magnitude;
                         dirVec.y /= magnitude;
                     }
-
-                    posA.x += dirVec.x * speedA.value * deltaTime;
-                    posA.y += dirVec.y * speedA.value * deltaTime;
-                    posB.x -= dirVec.x * speedB.value * deltaTime;
-                    posB.y -= dirVec.y * speedB.value * deltaTime;
+                    registry.replace<common::components::position>(entityA, dirVec.x * speedA.value * deltaTime, dirVec.y * speedA.value * deltaTime);
+                    registry.replace<common::components::position>(entityB, dirVec.x * speedB.value * deltaTime, dirVec.y * speedB.value * deltaTime);
                 }
             }
         }

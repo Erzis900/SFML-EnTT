@@ -9,8 +9,7 @@ namespace features::hitbox::systems
 
         for (auto [entity, hitbox] : view.each())
         {
-            hitbox.lifeSpan -= deltaTime;
-
+            registry.replace<features::hitbox::components::hitbox>(entity, hitbox.initialLifeSpan, hitbox.lifeSpan - deltaTime);
             if (hitbox.lifeSpan <= 0)
             {
                 registry.destroy(entity);
