@@ -7,6 +7,8 @@
 #include "systems/processCooldown.hpp"
 #include "systems/recalculateStat.hpp"
 #include "systems/applyUnitStat.hpp"
+#include "systems/cleanupRemoved.hpp"
+#include "systems/processDeath.hpp"
 
 #include "renderers/drawShapes.hpp"
 #include "renderers/drawHealthbars.hpp"
@@ -55,6 +57,9 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
     common::systems::moveEntities(registry, deltaTime);
     common::systems::processPhysics(registry, deltaTime);
     common::systems::processCooldown(registry, deltaTime);
+    common::systems::processDeath(registry);
+
+    common::systems::cleanupRemoved(registry); // keep last
 }
 
 void render(entt::registry &registry, sf::RenderWindow &window)

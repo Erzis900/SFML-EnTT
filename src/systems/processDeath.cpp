@@ -1,5 +1,6 @@
 #include "processDeath.hpp"
 #include "components/health.hpp"
+#include "components/remove.hpp"
 
 namespace common::systems
 {
@@ -11,7 +12,7 @@ namespace common::systems
         {
             if (health.value <= 0.f)
             {
-                registry.destroy(entity);
+                registry.emplace<common::components::remove>(entity);
             }
         }
     }

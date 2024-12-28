@@ -1,6 +1,7 @@
 #include "isOnScreen.hpp"
 #include "features/hitbox/components/hitbox.hpp"
 #include "components/position.hpp"
+#include "components/remove.hpp"
 
 namespace features::hitbox::systems
 {
@@ -14,7 +15,7 @@ namespace features::hitbox::systems
 
             if (pos.x > screenWidth || pos.x < 0 || pos.y < 0 || pos.y > screenHeight)
             {
-                registry.destroy(hitboxEntity);
+                registry.emplace<common::components::remove>(hitboxEntity);
             }
         }
     }

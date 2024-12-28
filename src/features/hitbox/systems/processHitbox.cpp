@@ -2,6 +2,7 @@
 #include "../entities/hitbox.hpp"
 #include "../components/hitbox.hpp"
 #include "components/area.hpp"
+#include "components/remove.hpp"
 #include "components/collider.hpp"
 #include "components/position.hpp"
 #include "components/unit.hpp"
@@ -17,9 +18,6 @@ namespace features::hitbox::systems
         auto hitboxView = registry.view<features::hitbox::components::hitbox, common::components::faction, common::components::position, common::components::area>();
         auto unitView = registry.view<common::components::unit, common::components::faction, common::components::position, common::components::collider>();
 
-        std::unordered_set<entt::entity> hitboxesToDestroy;
-        std::unordered_set<entt::entity> unitsToDestroy;
-
         for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
         {
             for (auto [unitEntity, unit, unitFaction, enemyPos, coll] : unitView.each())
@@ -30,21 +28,10 @@ namespace features::hitbox::systems
 
                 if (distance < (area.radius + coll.radius) && hitboxFaction.hasOverlap(hitboxFaction.foes, unitFaction.affiliation))
                 {
-                    hitboxesToDestroy.insert(hitboxEntity);
-                    unitsToDestroy.insert(unitEntity);
+                    registry.emplace<common::components::remove>(hitboxEntity);
+                    registry.emplace<common::components::remove>(unitEntity);
                 }
-                // std::cout << enemyPos.x << " " << enemyPos.y << std::endl;
             }
-        }
-
-        for (auto hitboxEntity : hitboxesToDestroy)
-        {
-            registry.destroy(hitboxEntity);
-        }
-
-        for (auto unitEntity : unitsToDestroy)
-        {
-            registry.destroy(unitEntity);
         }
     }
 }

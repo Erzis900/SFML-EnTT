@@ -1,5 +1,6 @@
 #include "processLifespan.hpp"
 #include "../components/hitbox.hpp"
+#include "components/remove.hpp"
 
 namespace features::hitbox::systems
 {
@@ -12,7 +13,7 @@ namespace features::hitbox::systems
             registry.replace<features::hitbox::components::hitbox>(entity, hitbox.initialLifeSpan, hitbox.lifeSpan - deltaTime);
             if (hitbox.lifeSpan <= 0)
             {
-                registry.destroy(entity);
+                registry.emplace<common::components::remove>(entity);
             }
         }
     }
