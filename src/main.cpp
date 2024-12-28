@@ -72,6 +72,9 @@ int main()
 
     auto window = sf::RenderWindow({config.screen.width, config.screen.height}, "CMake SFML Project");
     window.setFramerateLimit(config.screen.maxFps);
+
+    int prevFpsLimit = config.screen.maxFps;
+    int prevResolutionIndex = 1;
     // window.setMouseCursorVisible(false);
 
     tgui::Gui gui(window);
@@ -83,7 +86,9 @@ int main()
         // window.setSize(sf::Vector2u(300u, 300u));    
     });
 
-    auto FPScheckbox = gui.get<tgui::CheckBox>("FPScheckbox");
+    auto fpsCheckbox = gui.get<tgui::CheckBox>("fpsCheckbox");
+    auto fpsLimitCombo = gui.get<tgui::ComboBox>("fpsLimitCombo");
+    auto resolutionCombo = gui.get<tgui::ComboBox>("resolutionCombo");
 
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
@@ -107,14 +112,14 @@ int main()
 
         if (currentTime - lastTime >= 1.0f)
         {
-            if(FPScheckbox->isChecked())
+            if(fpsCheckbox->isChecked())
             {
-                gui.get<tgui::Label>("FPSlabel")->setVisible(true);
-                gui.get<tgui::Label>("FPSlabel")->setText("FPS: " + std::to_string(frameCount));
+                gui.get<tgui::Label>("fpsLabel")->setVisible(true);
+                gui.get<tgui::Label>("fpsLabel")->setText("FPS: " + std::to_string(frameCount));
             }
             else 
             {
-                gui.get<tgui::Label>("FPSlabel")->setVisible(false);
+                gui.get<tgui::Label>("fpsLabel")->setVisible(false);
             }
 
             frameCount = 0;
@@ -123,6 +128,36 @@ int main()
 
         processEvents(registry, window, gui);
         update(registry, deltaTime, window);
+
+        int fpsLimit = fpsLimitCombo->getSelectedItem().toInt();
+        if (fpsLimit != prevFpsLimit)
+        {
+            prevFpsLimit = fpsLimit;
+            window.setFramerateLimit(fpsLimit);
+        }
+
+        int resolutionIndex = resolutionCombo->getSelectedItemIndex();
+        if(resolutionIndex != prevResolutionIndex)
+        {
+            prevResolutionIndex = resolutionIndex;
+            switch(resolutionIndex)
+            {
+                case 0:
+                    window.setSize(sf::Vector2u(800u, 600u));
+                    break;
+                case 1:
+                    window.setSize(sf::Vector2u(1280u, 720u));
+                    break;
+                case 2:   
+                    window.setSize(sf::Vector2u(1600u, 900u));
+                    break;
+                case 3:   
+                    window.setSize(sf::Vector2u(1920u, 1080u));
+                    break;
+                default:
+                    break;
+            }    
+        }
 
         crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 
