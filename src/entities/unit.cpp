@@ -22,6 +22,7 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos,
     attributes[common::entities::Stat::Health] = common::entities::createAttribute(registry, common::entities::Stat::Health, health);
     attributes[common::entities::Stat::MaxHealth] = common::entities::createAttribute(registry, common::entities::Stat::MaxHealth, maxHealth);
     attributes[common::entities::Stat::Speed] = common::entities::createAttribute(registry, common::entities::Stat::Speed, speed);
+    attributes[common::entities::Stat::Damage] = common::entities::createAttribute(registry, common::entities::Stat::Damage, 10.f);
     auto modifier1 = common::entities::createModifier(registry, common::components::Scope::Flat, 10.f);
     auto modifier2 = common::entities::addModifier(registry, modifier1, common::components::Scope::Flat, 10.f);
     auto modifier3 = common::entities::addModifier(registry, modifier2, common::components::Scope::Flat, 10.f);

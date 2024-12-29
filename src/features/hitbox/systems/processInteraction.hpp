@@ -3,5 +3,5 @@
 
 namespace features::hitbox::systems
 {
-    void processLifeSpan(entt::registry &registry, float deltaTime);
+    void processInteraction(entt::registry &registry);
 }

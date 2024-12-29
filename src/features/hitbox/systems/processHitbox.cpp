@@ -7,9 +7,7 @@
 #include "components/position.hpp"
 #include "components/unit.hpp"
 #include "components/faction.hpp"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <unordered_set>
+#include "components/relationship.hpp"
 
 namespace features::hitbox::systems
 {
@@ -20,16 +18,27 @@ namespace features::hitbox::systems
 
         for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
         {
+            if (hitbox.hitCount < 1)
+            {
+                registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+                continue;
+            }
             for (auto [unitEntity, unit, unitFaction, enemyPos, coll] : unitView.each())
             {
+                if (hitbox.hitCount < 1)
+                {
+                    registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+                    break;
+                }
                 float deltaX = hitboxPos.x - enemyPos.x;
                 float deltaY = hitboxPos.y - enemyPos.y;
                 float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 
                 if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
                 {
-                    registry.emplace_or_replace<common::components::remove>(hitboxEntity);
-                    registry.emplace_or_replace<common::components::remove>(unitEntity);
+                    hitbox.hitCount--;
+                    hitbox.entities.push_back(unitEntity);
+                    registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox);
                 }
             }
         }
