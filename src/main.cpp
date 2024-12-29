@@ -20,7 +20,6 @@
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
 
-#include "features/hitbox/entities/hitbox.hpp"
 #include "features/hitbox/systems/processHitbox.hpp"
 #include "features/hitbox/systems/isOnScreen.hpp"
 #include "features/hitbox/systems/processLifeSpan.hpp"
