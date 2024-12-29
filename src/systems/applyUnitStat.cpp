@@ -34,7 +34,10 @@ namespace common::systems
         {
             auto &hp = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Health]);
             auto &maxHp = registry.get<common::components::attribute>(children.entities[common::entities::Stat::MaxHealth]);
-            registry.replace<common::components::health>(entity, hp.value);
+
+            auto maxHpDiff = std::clamp(maxHp.value - maxHealth.value, 0.f, maxHp.value);
+            auto addedHealth = std::clamp(health.value + maxHpDiff, 0.f, hp.value);
+            registry.replace<common::components::health>(entity, addedHealth);
             registry.replace<common::components::maxHealth>(entity, maxHp.value);
         }
     }

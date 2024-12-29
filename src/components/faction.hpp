@@ -15,10 +15,5 @@ namespace common::components
         FactionMask affiliation;
         FactionMask allies;
         FactionMask foes;
-
-        bool hasOverlap(const FactionMask &factionA, const FactionMask &factionB) const
-        {
-            return (factionA & factionB).any();
-        }
     };
 }

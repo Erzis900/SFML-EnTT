@@ -26,10 +26,10 @@ namespace features::hitbox::systems
                 float deltaY = hitboxPos.y - enemyPos.y;
                 float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 
-                if (distance < (area.radius + coll.radius) && hitboxFaction.hasOverlap(hitboxFaction.foes, unitFaction.affiliation))
+                if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
                 {
-                    registry.emplace<common::components::remove>(hitboxEntity);
-                    registry.emplace<common::components::remove>(unitEntity);
+                    registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+                    registry.emplace_or_replace<common::components::remove>(unitEntity);
                 }
             }
         }
