@@ -27,7 +27,7 @@ namespace features::enemy::entities
 
         sf::CircleShape enemyShape(config.enemy.radius);
         enemyShape.setFillColor(sf::Color::Red);
-        enemyShape.setOrigin(enemyShape.getRadius(), enemyShape.getRadius());
+        enemyShape.setOrigin({enemyShape.getRadius(), enemyShape.getRadius()});
 
         createUnit(registry, entity, {pos.x, pos.y}, {0, 0}, config.enemy.speed, config.enemy.health, config.enemy.maxHealth);
 

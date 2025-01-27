@@ -27,17 +27,18 @@
 
 void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui &gui)
 {
-    for (auto event = sf::Event(); window.pollEvent(event);)
+    while (const std::optional event = window.pollEvent())
     {
-        gui.handleEvent(event);
-        if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        gui.handleEvent(*event);
+        if (event->is<sf::Event::Closed>() || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
         {
             window.close();
         }
-        if (event.type == sf::Event::Resized)
+
+        if (event->is<sf::Event::Resized>())
         {
-            sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-            window.setView(sf::View(visibleArea));
+            // sf::FloatRect visibleArea({0, 0}, {event.size.width, event.size.height});
+            // window.setView(sf::View(visibleArea));
         }
     }
 }
@@ -74,11 +75,15 @@ int main()
     Config config("../../configs/config.json");
 
     sf::Texture crosshairTexture;
-    crosshairTexture.loadFromFile("../../assets/crosshair012.png");
+    if(!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
+    {
+        std::cout << "Crosshair asset not found" << std::endl;
+        return 0;
+    }
     sf::Sprite crosshairSprite(crosshairTexture);
-    crosshairSprite.setOrigin(crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f);
+    crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
-    auto window = sf::RenderWindow({config.screen.width, config.screen.height}, "CMake SFML Project");
+    auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
     window.setFramerateLimit(config.screen.maxFps);
     // window.setMouseCursorVisible(false);
 

@@ -10,19 +10,19 @@ namespace features::player::systems
 
         sf::Vector2f dir = {0.f, 0.f};
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
         {
             dir.y = -1.f;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
         {
             dir.y = 1.f;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
         {
             dir.x = -1.f;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
         {
             dir.x = 1.f;
         }

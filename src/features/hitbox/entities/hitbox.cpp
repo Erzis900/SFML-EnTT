@@ -26,7 +26,7 @@ namespace common::entities
         float radius = 10.f;
         sf::CircleShape hitboxShape(radius);
         hitboxShape.setFillColor(sf::Color::White);
-        hitboxShape.setOrigin(hitboxShape.getRadius(), hitboxShape.getRadius());
+        hitboxShape.setOrigin({hitboxShape.getRadius(), hitboxShape.getRadius()});
 
         registry.emplace<common::components::renderable>(hitboxEntity, hitboxShape);
         registry.emplace<common::components::area>(hitboxEntity, radius);

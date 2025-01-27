@@ -12,7 +12,7 @@ namespace features::player::systems
 {
     void playerShoot(entt::registry &registry, sf::RenderWindow &window)
     {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
             auto view = registry.view<common::components::position, features::player::components::playerControlled, features::player::components::cooldown, common::components::faction>();
             auto playerEntity = *view.begin();

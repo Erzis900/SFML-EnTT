@@ -15,7 +15,7 @@ namespace features::player::entities
 
         sf::CircleShape playerShape(config.player.radius);
         playerShape.setFillColor(sf::Color::Yellow);
-        playerShape.setOrigin(playerShape.getRadius(), playerShape.getRadius());
+        playerShape.setOrigin({playerShape.getRadius(), playerShape.getRadius()});
 
         createUnit(registry, entity, {config.player.startX, config.player.startY}, {0, 0}, config.player.speed, config.player.health, config.player.maxHealth);
 
