@@ -7,7 +7,8 @@ namespace features::hitbox::components
     {
         float lifeSpan;
         float initialLifeSpan;
-        float hitCount = 1;
-        std::vector<entt::entity> entities = {};
+        float hitCount;
+        std::vector<entt::entity> entities;
+        std::vector<entt::entity> doneEntities;
     };
 }

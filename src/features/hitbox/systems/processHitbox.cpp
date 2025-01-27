@@ -25,6 +25,11 @@ namespace features::hitbox::systems
             }
             for (auto [unitEntity, unit, unitFaction, enemyPos, coll] : unitView.each())
             {
+
+                if (std::find(hitbox.doneEntities.begin(), hitbox.doneEntities.end(), unitEntity) != hitbox.doneEntities.end())
+                {
+                    continue;
+                }
                 if (hitbox.hitCount < 1)
                 {
                     registry.emplace_or_replace<common::components::remove>(hitboxEntity);
@@ -36,9 +41,8 @@ namespace features::hitbox::systems
 
                 if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
                 {
-                    hitbox.hitCount--;
                     hitbox.entities.push_back(unitEntity);
-                    registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox);
+                    registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f, hitbox.entities, hitbox.doneEntities);
                 }
             }
         }

@@ -21,6 +21,12 @@ namespace features::hitbox::systems
                 auto health = registry.get<common::components::health>(entity);
                 registry.replace<common::components::health>(entity, health.value - damage.value);
             }
+            auto it = std::next(hitbox.entities.begin(), hitbox.entities.size());
+
+            std::move(hitbox.entities.begin(), it, std::back_inserter(hitbox.doneEntities));
+
+            hitbox.entities.erase(hitbox.entities.begin(), it);
+            registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
         }
     }
 }

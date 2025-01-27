@@ -19,7 +19,7 @@ namespace common::entities
         registry.emplace<components::direction>(hitboxEntity, dir.x, dir.y);
         registry.emplace<components::position>(hitboxEntity, pos.x, pos.y);
         registry.emplace<components::damage>(hitboxEntity, 10.f);
-        auto &hitbox = registry.emplace<features::hitbox::components::hitbox>(hitboxEntity, .7f, .7f);
+        auto &hitbox = registry.emplace<features::hitbox::components::hitbox>(hitboxEntity, .7f, .7f, 2.f, std::vector<entt::entity>(), std::vector<entt::entity>());
         auto faction = registry.get<common::components::faction>(source);
         registry.emplace<common::components::faction>(hitboxEntity, faction.affiliation, faction.allies, faction.foes);
 

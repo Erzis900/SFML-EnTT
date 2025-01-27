@@ -10,8 +10,8 @@ namespace features::hitbox::systems
 
         for (auto [entity, hitbox] : view.each())
         {
-            registry.replace<features::hitbox::components::hitbox>(entity, hitbox.initialLifeSpan, hitbox.lifeSpan - deltaTime);
-            if (hitbox.lifeSpan <= 0)
+            registry.replace<features::hitbox::components::hitbox>(entity, hitbox.initialLifeSpan, hitbox.lifeSpan - deltaTime, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
+            if (hitbox.lifeSpan <= 0.f)
             {
                 registry.emplace<common::components::remove>(entity);
             }
