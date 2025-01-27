@@ -35,10 +35,10 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui
             window.close();
         }
 
-        if (event->is<sf::Event::Resized>())
+        if (const auto* resized = event->getIf<sf::Event::Resized>())
         {
-            // sf::FloatRect visibleArea({0, 0}, {event.size.width, event.size.height});
-            // window.setView(sf::View(visibleArea));
+            sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
+            window.setView(sf::View(visibleArea));
         }
     }
 }
