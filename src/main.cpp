@@ -25,7 +25,9 @@
 #include "features/hitbox/systems/processLifeSpan.hpp"
 #include "features/hitbox/systems/processInteraction.hpp"
 
-void processEvents(entt::registry &registry, sf::RenderWindow &window, tgui::Gui &gui)
+#include "gui.hpp"
+
+void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 {
     while (const std::optional event = window.pollEvent())
     {
@@ -87,19 +89,12 @@ int main()
     window.setFramerateLimit(config.screen.maxFps);
     // window.setMouseCursorVisible(false);
 
-    tgui::Gui gui(window);
-    gui.loadWidgetsFromFile("../../forms/gameForm.txt");
-
-    auto settingsWindow = gui.get<tgui::ChildWindow>("settingsWindow");
-    gui.get<tgui::Button>("settingsBtn")->onPress([&] {
-        settingsWindow->setVisible(true);
-        // window.setSize(sf::Vector2u(300u, 300u));    
-    });
+    GUI gui(window);
 
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 3; i++)
     {
         features::enemy::entities::createEnemy(registry, config);
     }
@@ -108,6 +103,7 @@ int main()
     sf::Clock fpsClock;
     int frameCount = 0;
     float lastTime = 0.f;
+    float fpsUpdateInterval = 0.1f;
 
     while (window.isOpen())
     {
@@ -116,8 +112,10 @@ int main()
         frameCount++;
         float currentTime = fpsClock.getElapsedTime().asSeconds();
 
-        if (currentTime - lastTime >= 1.0f)
+        if (currentTime - lastTime >= fpsUpdateInterval)
         {
+            float fps = frameCount / (currentTime - lastTime);
+            gui.update(static_cast<int>(fps));
             frameCount = 0;
             lastTime = currentTime;
         }
