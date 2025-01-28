@@ -1,11 +1,12 @@
 #pragma once
 #include "pch.hpp"
 #include "config.hpp"
+#include "stateManager.hpp"
 
 class GUI 
 {
 public:
-    GUI(sf::RenderWindow &window, Config &config);
+    GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager);
     void handleEvent(sf::Event event);
     void draw();
 
@@ -23,8 +24,10 @@ private:
     tgui::ComboBox::Ptr fpsLimitCombo;
     tgui::ComboBox::Ptr resolutionCombo;
 
-    void handleCallbacks(sf::RenderWindow &window);
+    void handleCallbacks(sf::RenderWindow &window, StateManager &stateManager);
 
     sf::Vector2u windowSize;
     unsigned int fpsLimit;
+
+    StateManager &stateManager;
 };

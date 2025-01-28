@@ -26,6 +26,7 @@
 #include "features/hitbox/systems/processInteraction.hpp"
 
 #include "gui.hpp"
+#include "stateManager.hpp"
 
 void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 {
@@ -80,16 +81,17 @@ int main()
     if(!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
     {
         std::cout << "Crosshair asset not found" << std::endl;
-        return 0;
+        return 1;
     }
     sf::Sprite crosshairSprite(crosshairTexture);
     crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
     auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
     window.setFramerateLimit(config.screen.maxFps);
-    // window.setMouseCursorVisible(false);
+    window.setMouseCursorVisible(false);
 
-    GUI gui(window, config);
+    StateManager stateManager;
+    GUI gui(window, config, stateManager);
 
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
@@ -107,6 +109,9 @@ int main()
 
     while (window.isOpen())
     {
+        // std::cout << "Game: " << stateManager.isActive(State::Game) << std::endl;
+        // std::cout << "Settings: " << stateManager.isActive(State::Settings) << std::endl;
+        
         float deltaTime = clock.restart().asSeconds();
 
         frameCount++;
@@ -122,14 +127,23 @@ int main()
         }
 
         processEvents(registry, window, gui);
-        update(registry, deltaTime, window);
+
+        if (stateManager.isActive(State::Game))
+        {
+            update(registry, deltaTime, window);
+        }
 
         crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 
         window.clear();
 
         render(registry, window);
-        window.draw(crosshairSprite);
+
+        if (stateManager.isActive(State::Game))
+        {
+            window.draw(crosshairSprite);
+        }
+
         gui.draw();
 
         window.display();

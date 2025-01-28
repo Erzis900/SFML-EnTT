@@ -1,7 +1,6 @@
 #include "gui.hpp"
-#include <iostream>
 
-GUI::GUI(sf::RenderWindow &window, Config &config) : gui(window)
+GUI::GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager) : gui(window), stateManager(stateManager)
 {
     gui.loadWidgetsFromFile("../../forms/gameForm.txt");
 
@@ -18,7 +17,7 @@ GUI::GUI(sf::RenderWindow &window, Config &config) : gui(window)
     fpsLimit = config.screen.maxFps;
     windowSize = {config.screen.width, config.screen.height};
 
-    handleCallbacks(window);
+    handleCallbacks(window, stateManager);
 }
 
 void GUI::handleEvent(sf::Event event)
@@ -38,10 +37,21 @@ void GUI::update(int fps)
     }
 }
 
-void GUI::handleCallbacks(sf::RenderWindow &window)
+void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 {
-    settingsBtn->onPress([this] {
+    settingsBtn->onPress([this, &window, &stateManager] {
         settingsWindow->setVisible(!settingsWindow->isVisible());
+        window.setMouseCursorVisible(settingsWindow->isVisible());
+
+        stateManager.setState(State::Settings, !stateManager.isActive(State::Settings));
+        stateManager.setState(State::Game, !stateManager.isActive(State::Game));  
+    });
+
+    settingsWindow->onClose([this, &window, &stateManager] {
+        window.setMouseCursorVisible(false);
+
+        stateManager.setState(State::Settings, false);
+        stateManager.setState(State::Game, true);  
     });
 
     fpsCheckbox->onChange([this] {
