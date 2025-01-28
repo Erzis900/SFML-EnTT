@@ -1,14 +1,13 @@
 #include "attribute.hpp"
 
+#include "components/attribute.hpp"
 #include "components/health.hpp"
 #include "components/maxHealth.hpp"
-#include "components/speed.hpp"
 #include "components/recalculate.hpp"
 #include "components/relationship.hpp"
-#include "components/attribute.hpp"
+#include "components/speed.hpp"
 
-namespace common::entities
-{
+namespace common::entities {
     entt::entity createAttribute(entt::registry &registry, common::entities::Stat stat, float initialValue)
     {
         auto entity = registry.create();
@@ -48,4 +47,4 @@ namespace common::entities
 
         return modifierEntity;
     }
-}
+}  // namespace common::entities

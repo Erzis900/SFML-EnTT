@@ -2,7 +2,6 @@
 
 #include "pch.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void recalculateStat(entt::registry &registry);
 }

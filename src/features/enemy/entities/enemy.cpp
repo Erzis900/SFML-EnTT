@@ -1,9 +1,9 @@
 #include "enemy.hpp"
-#include "entities/unit.hpp"
 #include "components/collider.hpp"
-#include "components/renderable.hpp"
 #include "components/faction.hpp"
 #include "components/healthRegen.hpp"
+#include "components/renderable.hpp"
+#include "entities/unit.hpp"
 #include "features/enemy/components/aiControlled.hpp"
 
 float randomFloat(float min, float max)
@@ -14,8 +14,7 @@ float randomFloat(float min, float max)
     return dis(gen);
 }
 
-namespace features::enemy::entities
-{
+namespace features::enemy::entities {
     entt::entity createEnemy(entt::registry &registry, Config config)
     {
         auto entity = registry.create();
@@ -40,4 +39,4 @@ namespace features::enemy::entities
 
         return entity;
     }
-}
+}  // namespace features::enemy::entities

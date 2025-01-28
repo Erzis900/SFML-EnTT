@@ -1,11 +1,10 @@
 #include "followPlayer.hpp"
-#include "features/player/components/playerControlled.hpp"
-#include "features/enemy/components/aiControlled.hpp"
-#include "components/position.hpp"
 #include "components/direction.hpp"
+#include "components/position.hpp"
+#include "features/enemy/components/aiControlled.hpp"
+#include "features/player/components/playerControlled.hpp"
 
-namespace features::enemy::systems
-{
+namespace features::enemy::systems {
     void followPlayer(entt::registry &registry)
     {
         auto playerView = registry.view<features::player::components::playerControlled, common::components::position>();
@@ -35,4 +34,4 @@ namespace features::enemy::systems
             // std::cout << dir.x << " " << dir.y << std::endl;
         }
     }
-}
+}  // namespace features::enemy::systems

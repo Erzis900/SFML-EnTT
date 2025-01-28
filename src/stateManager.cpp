@@ -6,10 +6,7 @@ StateManager::StateManager()
     states[State::Settings] = false;
 }
 
-void StateManager::setState(State state, bool active)
-{
-    states[state] = active;
-}
+void StateManager::setState(State state, bool active) { states[state] = active; }
 
 bool StateManager::isActive(State state)
 {
@@ -18,6 +15,6 @@ bool StateManager::isActive(State state)
     {
         return it->second;
     }
-    
+
     return false;
 }

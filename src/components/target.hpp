@@ -2,7 +2,6 @@
 
 #include "pch.hpp"
 
-namespace common::components
-{
+namespace common::components {
     entt::entity target;
 }

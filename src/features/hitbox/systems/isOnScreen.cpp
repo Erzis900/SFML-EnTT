@@ -1,10 +1,9 @@
 #include "isOnScreen.hpp"
-#include "features/hitbox/components/hitbox.hpp"
 #include "components/position.hpp"
 #include "components/remove.hpp"
+#include "features/hitbox/components/hitbox.hpp"
 
-namespace features::hitbox::systems
-{
+namespace features::hitbox::systems {
     void isOnScreen(entt::registry &registry, unsigned int screenWidth, unsigned int screenHeight)
     {
         auto hitboxView = registry.view<features::hitbox::components::hitbox, common::components::position>();
@@ -19,4 +18,4 @@ namespace features::hitbox::systems
             }
         }
     }
-}
+}  // namespace features::hitbox::systems

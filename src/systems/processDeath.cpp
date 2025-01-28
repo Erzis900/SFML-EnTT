@@ -2,8 +2,7 @@
 #include "components/health.hpp"
 #include "components/remove.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void processDeath(entt::registry &registry)
     {
         auto view = registry.view<common::components::health>();
@@ -16,4 +15,4 @@ namespace common::systems
             }
         }
     }
-}
+}  // namespace common::systems

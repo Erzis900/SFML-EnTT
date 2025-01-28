@@ -2,13 +2,12 @@
 
 #include "../components/hitbox.hpp"
 
-#include "entities/attribute.hpp"
 #include "components/attribute.hpp"
-#include "components/source.hpp"
 #include "components/health.hpp"
+#include "components/source.hpp"
+#include "entities/attribute.hpp"
 
-namespace features::hitbox::systems
-{
+namespace features::hitbox::systems {
     void processInteraction(entt::registry &registry)
     {
         auto hitboxView = registry.view<features::hitbox::components::hitbox, common::components::source>();
@@ -26,7 +25,8 @@ namespace features::hitbox::systems
             std::move(hitbox.entities.begin(), it, std::back_inserter(hitbox.doneEntities));
 
             hitbox.entities.erase(hitbox.entities.begin(), it);
-            registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
+            registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount, hitbox.entities,
+                                                                   hitbox.doneEntities);
         }
     }
-}
+}  // namespace features::hitbox::systems

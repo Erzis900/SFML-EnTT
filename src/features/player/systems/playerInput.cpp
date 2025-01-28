@@ -2,8 +2,7 @@
 #include "components/direction.hpp"
 #include "features/player/components/playerControlled.hpp"
 
-namespace features::player::systems
-{
+namespace features::player::systems {
     void playerInput(entt::registry &registry)
     {
         auto view = registry.view<features::player::components::playerControlled>();
@@ -41,4 +40,4 @@ namespace features::player::systems
             registry.replace<common::components::direction>(entity, dir.x, dir.y);
         }
     }
-}
+}  // namespace features::player::systems

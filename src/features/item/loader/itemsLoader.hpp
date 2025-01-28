@@ -2,7 +2,6 @@
 
 #include "pch.hpp"
 
-
 namespace features::item {
     struct Item {
         int id;
@@ -13,15 +12,16 @@ namespace features::item {
         int width;
         int height;
     };
-    class ItemsLoader {
-    public:
+    class ItemsLoader
+    {
+      public:
         ItemsLoader();
         Item getItem(int id);
         sf::Sprite getSprite(int id);
-    private:
+
+      private:
         std::map<int, Item> itemsData = {};
         sf::Texture texture;
     };
 
-
-}
+}  // namespace features::item

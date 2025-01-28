@@ -1,10 +1,9 @@
 #include "regenerateHealth.hpp"
 #include "components/health.hpp"
-#include "components/maxHealth.hpp"
 #include "components/healthRegen.hpp"
+#include "components/maxHealth.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void regenerateHealth(entt::registry &registry, float deltaTime)
     {
         auto view = registry.view<common::components::health, common::components::maxHealth, common::components::healthRegen>();
@@ -17,4 +16,4 @@ namespace common::systems
             }
         }
     }
-}
+}  // namespace common::systems

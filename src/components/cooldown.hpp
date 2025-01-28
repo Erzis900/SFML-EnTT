@@ -1,11 +1,12 @@
 #pragma once
 
-namespace common::components
-{
-    struct cooldown
-    {
+namespace common::components {
+    struct cooldown {
         float time;
 
-        cooldown(float _value) : time(_value) {}
+        cooldown(float _value)
+            : time(_value)
+        {
+        }
     };
-}
+}  // namespace common::components

@@ -1,8 +1,7 @@
 #include "processCooldown.hpp"
 #include "components/cooldown.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void processCooldown(entt::registry &registry, float deltaTime)
     {
         auto view = registry.view<common::components::cooldown>();
@@ -19,4 +18,4 @@ namespace common::systems
             }
         }
     }
-}
+}  // namespace common::systems

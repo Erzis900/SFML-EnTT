@@ -1,17 +1,18 @@
 #pragma once
-#include "pch.hpp"
 #include "config.hpp"
+#include "pch.hpp"
 #include "stateManager.hpp"
 
-class GUI 
+class GUI
 {
-public:
+  public:
     GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager);
     void handleEvent(sf::Event event);
     void draw();
 
     void update(int fps);
-private:
+
+  private:
     tgui::Gui gui;
     tgui::ChildWindow::Ptr settingsWindow;
     tgui::Button::Ptr settingsBtn;

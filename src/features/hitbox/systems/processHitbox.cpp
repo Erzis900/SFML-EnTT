@@ -1,19 +1,19 @@
 #include "processHitbox.hpp"
-#include "../entities/hitbox.hpp"
 #include "../components/hitbox.hpp"
+#include "../entities/hitbox.hpp"
 #include "components/area.hpp"
-#include "components/remove.hpp"
 #include "components/collider.hpp"
-#include "components/position.hpp"
-#include "components/unit.hpp"
 #include "components/faction.hpp"
+#include "components/position.hpp"
 #include "components/relationship.hpp"
+#include "components/remove.hpp"
+#include "components/unit.hpp"
 
-namespace features::hitbox::systems
-{
+namespace features::hitbox::systems {
     void processHitbox(entt::registry &registry)
     {
-        auto hitboxView = registry.view<features::hitbox::components::hitbox, common::components::faction, common::components::position, common::components::area>();
+        auto hitboxView =
+            registry.view<features::hitbox::components::hitbox, common::components::faction, common::components::position, common::components::area>();
         auto unitView = registry.view<common::components::unit, common::components::faction, common::components::position, common::components::collider>();
 
         for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
@@ -42,9 +42,10 @@ namespace features::hitbox::systems
                 if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
                 {
                     hitbox.entities.push_back(unitEntity);
-                    registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f, hitbox.entities, hitbox.doneEntities);
+                    registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f,
+                                                                           hitbox.entities, hitbox.doneEntities);
                 }
             }
         }
     }
-}
+}  // namespace features::hitbox::systems

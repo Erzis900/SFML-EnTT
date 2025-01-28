@@ -1,14 +1,13 @@
 #include "recalculateStat.hpp"
 
 #include "components/attribute.hpp"
-#include "components/relationship.hpp"
-#include "components/recalculate.hpp"
 #include "components/modifiers.hpp"
+#include "components/recalculate.hpp"
+#include "components/relationship.hpp"
 
 #include "entities/attribute.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void recalculateStat(entt::registry &registry)
     {
         auto view = registry.view<common::components::attribute, common::components::recalculate, common::components::relationship>();
@@ -29,8 +28,7 @@ namespace common::systems
                 modifier = registry.get<common::components::relationship>(modifier).next;
             }
 
-            sort(mods.begin(), mods.end(), [](const common::components::modifier &a, const common::components::modifier &b)
-                 { return a.scope < b.scope; });
+            sort(mods.begin(), mods.end(), [](const common::components::modifier &a, const common::components::modifier &b) { return a.scope < b.scope; });
 
             for (const auto &mod : mods)
             {
@@ -53,4 +51,4 @@ namespace common::systems
             registry.remove<common::components::recalculate>(entity);
         }
     }
-}
+}  // namespace common::systems

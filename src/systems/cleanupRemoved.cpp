@@ -1,8 +1,7 @@
 #include "cleanupRemoved.hpp"
 #include "components/remove.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void cleanupRemoved(entt::registry &registry)
     {
         auto view = registry.view<common::components::remove>();
@@ -12,4 +11,4 @@ namespace common::systems
             registry.destroy(entity);
         }
     }
-}
+}  // namespace common::systems

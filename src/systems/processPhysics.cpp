@@ -1,10 +1,9 @@
 #include "processPhysics.hpp"
-#include "components/position.hpp"
 #include "components/collider.hpp"
+#include "components/position.hpp"
 #include "components/speed.hpp"
 
-namespace common::systems
-{
+namespace common::systems {
     void processPhysics(entt::registry &registry, float deltaTime)
     {
         auto view = registry.view<common::components::position, common::components::collider, common::components::speed>();
@@ -26,10 +25,12 @@ namespace common::systems
                         dirVec.x /= magnitude;
                         dirVec.y /= magnitude;
                     }
-                    registry.replace<common::components::position>(entityA, posA.x + dirVec.x * speedA.value * deltaTime, posA.y + dirVec.y * speedA.value * deltaTime);
-                    registry.replace<common::components::position>(entityB, posB.x - dirVec.x * speedB.value * deltaTime, posB.y - dirVec.y * speedB.value * deltaTime);
+                    registry.replace<common::components::position>(entityA, posA.x + dirVec.x * speedA.value * deltaTime,
+                                                                   posA.y + dirVec.y * speedA.value * deltaTime);
+                    registry.replace<common::components::position>(entityB, posB.x - dirVec.x * speedB.value * deltaTime,
+                                                                   posB.y - dirVec.y * speedB.value * deltaTime);
                 }
             }
         }
     }
-}
+}  // namespace common::systems

@@ -1,0 +1,60 @@
+# The version of the clang-format that this file is written for (Clang 12.0.0).
+# You don't need to set this manually, but it's good to keep it in mind.
+BasedOnStyle: LLVM
+
+# Column limit for wrapping lines
+ColumnLimit: 160
+
+# Indentation and spaces
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never  # Always use spaces, never tabs
+
+BraceWrapping:
+  AfterFunction: true
+  AfterClass: true
+  AfterControlStatement: true
+  BeforeElse: true
+  BeforeCatch: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterNamespace: true
+  AfterTemplate: true
+  AfterEnum: true
+
+# Align function parameters and arguments.
+AlignAfterOpenBracket: Align
+# AlignConsecutiveAssignments: true
+# AlignConsecutiveDeclarations: false
+
+# Space around operators
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+
+# Function formatting
+AlwaysBreakAfterDefinitionReturnType: None
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterControlStatement: true
+  AfterClass: true
+  BeforeElse: true
+
+# Language-specific formatting
+Standard: C++11  # Use C++11 standard
+
+# Include sorting
+SortIncludes: true
+
+# Sort and wrap arguments
+AllowShortFunctionsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+
+# Other formatting options
+BreakConstructorInitializers: BeforeComma
+SpaceAfterCStyleCast: true
+SpacesBeforeTrailingComments: 2
+
+NamespaceIndentation: All
