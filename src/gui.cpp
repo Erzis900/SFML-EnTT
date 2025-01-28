@@ -1,4 +1,5 @@
 #include "gui.hpp"
+#include <iostream>
 
 GUI::GUI(sf::RenderWindow &window) : gui(window)
 {
@@ -13,7 +14,7 @@ GUI::GUI(sf::RenderWindow &window) : gui(window)
 
     fpsLabel->setVisible(fpsCheckbox->isChecked());
 
-    handleCallbacks();
+    handleCallbacks(window);
 }
 
 void GUI::handleEvent(sf::Event event)
@@ -33,7 +34,7 @@ void GUI::update(int fps)
     }
 }
 
-void GUI::handleCallbacks()
+void GUI::handleCallbacks(sf::RenderWindow &window)
 {
     settingsBtn->onPress([this] {
         settingsWindow->setVisible(!settingsWindow->isVisible());
@@ -41,5 +42,23 @@ void GUI::handleCallbacks()
 
     fpsCheckbox->onChange([this] {
         fpsLabel->setVisible(fpsCheckbox->isChecked());
+    });
+
+    fpsLimitCombo->onItemSelect([this, &window] {
+        window.setFramerateLimit(fpsLimitCombo->getSelectedItem().toInt());
+    });
+
+    resolutionCombo->onItemSelect([this, &window] {
+        std::stringstream ss(resolutionCombo->getSelectedItem().toStdString());
+        int width, height;
+
+        std::vector<std::string> tokens;
+        std::string token;
+        while(std::getline(ss, token, 'x'))
+        {
+            tokens.push_back(token);
+        }
+
+        window.setSize({static_cast<unsigned int>(std::stoi(tokens[0])), static_cast<unsigned int>(std::stoi(tokens[1]))});
     });
 }

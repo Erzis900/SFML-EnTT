@@ -18,5 +18,5 @@ private:
     tgui::ComboBox::Ptr resolutionCombo;
     tgui::Label::Ptr fpsLabel;
 
-    void handleCallbacks();
+    void handleCallbacks(sf::RenderWindow &window);
 };

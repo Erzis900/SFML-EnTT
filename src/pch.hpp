@@ -18,6 +18,7 @@
 #include <unordered_set>
 #include <cmath>
 #include <fstream>
+#include <sstream>
 
 // #include "components/attribute.hpp"
 // #include "components/children.hpp"
