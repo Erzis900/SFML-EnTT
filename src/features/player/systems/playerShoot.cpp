@@ -8,7 +8,8 @@
 #include "../components/cooldown.hpp"
 #include "../components/playerControlled.hpp"
 
-namespace features::player::systems {
+namespace features::player::systems
+{
     void playerShoot(entt::registry &registry, sf::RenderWindow &window)
     {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))

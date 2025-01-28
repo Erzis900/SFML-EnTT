@@ -10,18 +10,6 @@ IndentWidth: 4
 TabWidth: 4
 UseTab: Never  # Always use spaces, never tabs
 
-BraceWrapping:
-  AfterFunction: true
-  AfterClass: true
-  AfterControlStatement: true
-  BeforeElse: true
-  BeforeCatch: true
-  AfterStruct: true
-  AfterUnion: true
-  AfterNamespace: true
-  AfterTemplate: true
-  AfterEnum: true
-
 # Align function parameters and arguments.
 AlignAfterOpenBracket: Align
 # AlignConsecutiveAssignments: true
@@ -37,9 +25,15 @@ AlwaysBreakAfterDefinitionReturnType: None
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
-  AfterControlStatement: true
   AfterClass: true
+  AfterControlStatement: true
   BeforeElse: true
+  BeforeCatch: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterNamespace: true
+  AfterTemplate: true
+  AfterEnum: true
 
 # Language-specific formatting
 Standard: C++11  # Use C++11 standard
