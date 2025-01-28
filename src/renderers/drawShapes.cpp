@@ -16,7 +16,7 @@ namespace common::renderers {
             sprite.setPosition({ pos.x, pos.y });
             sprite.setRotation(
                 sf::degrees(std::atan2(dir.y, dir.x) * 180 / M_PI) -
-                sf::degrees(dir.y == 0 && dir.x == 0 ? 0 : 90)
+                sf::degrees(dir.y == 0 && dir.x == 0 ? 0 : -90)
             );
             window.draw(sprite);
         }
