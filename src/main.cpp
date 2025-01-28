@@ -9,6 +9,7 @@
 #include "features/player/entities/player.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
+#include "features/item/loader/itemsLoader.hpp"
 #include "gui.hpp"
 #include "pch.hpp"
 #include "renderers/drawHealthbars.hpp"
@@ -23,7 +24,7 @@
 #include "systems/recalculateStat.hpp"
 
 void processEvents(
-    entt::registry &registry, sf::RenderWindow &window, GUI &gui
+    entt::registry& registry, sf::RenderWindow& window, GUI& gui
 ) {
     while (const std::optional event = window.pollEvent()) {
         gui.handleEvent(*event);
@@ -32,10 +33,10 @@ void processEvents(
             window.close();
         }
 
-        if (const auto *resized = event->getIf<sf::Event::Resized>()) {
+        if (const auto* resized = event->getIf<sf::Event::Resized>()) {
             sf::FloatRect visibleArea(
-                {0, 0}, {static_cast<float>(resized->size.x),
-                         static_cast<float>(resized->size.y)}
+                { 0, 0 }, { static_cast<float>(resized->size.x),
+                         static_cast<float>(resized->size.y) }
             );
             window.setView(sf::View(visibleArea));
         }
@@ -43,7 +44,7 @@ void processEvents(
 }
 
 void update(
-    entt::registry &registry, float deltaTime, sf::RenderWindow &window
+    entt::registry& registry, float deltaTime, sf::RenderWindow& window
 ) {
     features::player::systems::playerShoot(registry, window);
     features::player::systems::playerInput(registry);
@@ -66,8 +67,8 @@ void update(
     common::systems::cleanupRemoved(registry); // keep last
 }
 
-void render(entt::registry &registry, sf::RenderWindow &window) {
-    common::renderers::drawShapes(registry, window);
+void render(entt::registry& registry, sf::RenderWindow& window, features::item::ItemsLoader& itemsLoader) {
+    common::renderers::drawShapes(registry, window, itemsLoader);
     common::renderers::drawHealthbars(registry, window);
 }
 
@@ -81,11 +82,11 @@ int main() {
     }
     sf::Sprite crosshairSprite(crosshairTexture);
     crosshairSprite.setOrigin(
-        {crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f}
+        { crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f }
     );
 
     auto window = sf::RenderWindow(
-        sf::VideoMode({config.screen.width, config.screen.height}),
+        sf::VideoMode({ config.screen.width, config.screen.height }),
         "SFML 3.0 RPG"
     );
     window.setFramerateLimit(config.screen.maxFps);
@@ -100,6 +101,8 @@ int main() {
     for (int i = 0; i < 3; i++) {
         features::enemy::entities::createEnemy(registry, config);
     }
+
+    features::item::ItemsLoader itemsLoader;
 
     sf::Clock clock;
     sf::Clock fpsClock;
@@ -139,7 +142,7 @@ int main() {
 
         window.clear();
 
-        render(registry, window);
+        render(registry, window, itemsLoader);
 
         if (stateManager.isActive(State::Game)) {
             window.draw(crosshairSprite);
