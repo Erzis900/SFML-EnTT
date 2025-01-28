@@ -10,6 +10,7 @@
 #include "components/renderable.hpp"
 #include "math.h"
 
-namespace common::renderers {
+namespace common::renderers
+{
     void drawShapes(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader);
 }

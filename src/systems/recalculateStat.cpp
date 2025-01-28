@@ -7,7 +7,8 @@
 
 #include "entities/attribute.hpp"
 
-namespace common::systems {
+namespace common::systems
+{
     void recalculateStat(entt::registry &registry)
     {
         auto view = registry.view<common::components::attribute, common::components::recalculate, common::components::relationship>();

@@ -7,7 +7,8 @@
 #include "components/unit.hpp"
 #include "entities/attribute.hpp"
 
-namespace common::systems {
+namespace common::systems
+{
     void applyUnitStat(entt::registry &registry)
     {
         common::systems::applyUnitSpeed(registry);

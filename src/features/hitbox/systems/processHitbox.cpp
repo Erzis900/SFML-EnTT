@@ -9,7 +9,8 @@
 #include "components/remove.hpp"
 #include "components/unit.hpp"
 
-namespace features::hitbox::systems {
+namespace features::hitbox::systems
+{
     void processHitbox(entt::registry &registry)
     {
         auto hitboxView =

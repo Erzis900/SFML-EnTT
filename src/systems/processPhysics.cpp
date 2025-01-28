@@ -3,7 +3,8 @@
 #include "components/position.hpp"
 #include "components/speed.hpp"
 
-namespace common::systems {
+namespace common::systems
+{
     void processPhysics(entt::registry &registry, float deltaTime)
     {
         auto view = registry.view<common::components::position, common::components::collider, common::components::speed>();

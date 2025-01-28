@@ -1,7 +1,11 @@
 #pragma once
 #include "pch.hpp"
 
-enum class State { Game = true, Settings = false };
+enum class State
+{
+    Game = true,
+    Settings = false
+};
 
 class StateManager
 {

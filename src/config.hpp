@@ -7,12 +7,14 @@ class Config
   public:
     Config(std::string configPath);
 
-    struct screen {
+    struct screen
+    {
         unsigned int width, height;
         unsigned int maxFps;
     } screen;
 
-    struct player {
+    struct player
+    {
         float startX, startY;
         float radius;
         float speed;
@@ -22,7 +24,8 @@ class Config
         float healthRegen;
     } player;
 
-    struct enemy {
+    struct enemy
+    {
         float startX, startY;
         float radius;
         float speed;
@@ -32,7 +35,8 @@ class Config
         float healthRegen;
     } enemy;
 
-    struct hitbox {
+    struct hitbox
+    {
         float radius;
     } hitbox;
 };

@@ -4,7 +4,8 @@
 #include "components/speed.hpp"
 #include "systems/moveEntities.hpp"
 
-namespace common::systems {
+namespace common::systems
+{
     void moveEntities(entt::registry &registry, float deltaTime)
     {
         auto view = registry.view<common::components::position, common::components::speed, common::components::direction>();

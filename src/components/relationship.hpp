@@ -2,8 +2,10 @@
 
 #include "pch.hpp"
 
-namespace common::components {
-    struct relationship {
+namespace common::components
+{
+    struct relationship
+    {
         std::size_t children{};
         entt::entity first_child{entt::null};
         entt::entity prev{entt::null};

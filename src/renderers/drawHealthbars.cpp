@@ -4,7 +4,8 @@
 #include "components/position.hpp"
 #include "components/renderable.hpp"
 
-namespace common::renderers {
+namespace common::renderers
+{
     void drawHealthbars(entt::registry &registry, sf::RenderWindow &window)
     {
         auto view = registry.view<common::components::position, common::components::health, common::components::maxHealth, common::components::renderable>();

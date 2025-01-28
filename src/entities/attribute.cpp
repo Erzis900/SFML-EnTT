@@ -7,7 +7,8 @@
 #include "components/relationship.hpp"
 #include "components/speed.hpp"
 
-namespace common::entities {
+namespace common::entities
+{
     entt::entity createAttribute(entt::registry &registry, common::entities::Stat stat, float initialValue)
     {
         auto entity = registry.create();

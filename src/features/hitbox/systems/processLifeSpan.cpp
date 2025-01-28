@@ -2,7 +2,8 @@
 #include "../components/hitbox.hpp"
 #include "components/remove.hpp"
 
-namespace features::hitbox::systems {
+namespace features::hitbox::systems
+{
     void processLifeSpan(entt::registry &registry, float deltaTime)
     {
         auto view = registry.view<features::hitbox::components::hitbox>();

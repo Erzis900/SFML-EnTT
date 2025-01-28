@@ -14,7 +14,8 @@ float randomFloat(float min, float max)
     return dis(gen);
 }
 
-namespace features::enemy::entities {
+namespace features::enemy::entities
+{
     entt::entity createEnemy(entt::registry &registry, Config config)
     {
         auto entity = registry.create();

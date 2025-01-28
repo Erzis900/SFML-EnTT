@@ -32,7 +32,6 @@ BraceWrapping:
   AfterStruct: true
   AfterUnion: true
   AfterNamespace: true
-  AfterTemplate: true
   AfterEnum: true
 
 # Language-specific formatting

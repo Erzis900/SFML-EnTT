@@ -7,7 +7,8 @@
 #include "features/player/components/cooldown.hpp"
 #include "features/player/components/playerControlled.hpp"
 
-namespace features::player::entities {
+namespace features::player::entities
+{
     entt::entity createPlayer(entt::registry &registry, Config config)
     {
         auto entity = registry.create();

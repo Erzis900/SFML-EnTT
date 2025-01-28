@@ -7,7 +7,8 @@
 #include "components/source.hpp"
 #include "entities/attribute.hpp"
 
-namespace features::hitbox::systems {
+namespace features::hitbox::systems
+{
     void processInteraction(entt::registry &registry)
     {
         auto hitboxView = registry.view<features::hitbox::components::hitbox, common::components::source>();

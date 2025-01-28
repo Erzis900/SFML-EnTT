@@ -1,7 +1,9 @@
 #pragma once
 
-namespace common::components {
-    struct unit {
+namespace common::components
+{
+    struct unit
+    {
         bool active;
 
         unit(bool _active)

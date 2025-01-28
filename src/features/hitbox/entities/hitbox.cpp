@@ -8,7 +8,8 @@
 #include "components/source.hpp"
 #include "components/speed.hpp"
 
-namespace common::entities {
+namespace common::entities
+{
     entt::entity createHitbox(entt::registry &registry, entt::entity source, components::direction &dir)
     {
         const auto hitboxEntity = registry.create();

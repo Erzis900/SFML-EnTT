@@ -1,6 +1,7 @@
 #include "itemsLoader.hpp"
 
-namespace features::item {
+namespace features::item
+{
     ItemsLoader::ItemsLoader()
     {
         std::ifstream itemsFile("../../data/items.json");

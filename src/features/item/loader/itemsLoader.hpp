@@ -2,8 +2,10 @@
 
 #include "pch.hpp"
 
-namespace features::item {
-    struct Item {
+namespace features::item
+{
+    struct Item
+    {
         int id;
         std::string name;
         float damage;
