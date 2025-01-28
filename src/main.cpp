@@ -89,7 +89,7 @@ int main()
     window.setFramerateLimit(config.screen.maxFps);
     // window.setMouseCursorVisible(false);
 
-    GUI gui(window);
+    GUI gui(window, config);
 
     entt::registry registry;
     features::player::entities::createPlayer(registry, config);
