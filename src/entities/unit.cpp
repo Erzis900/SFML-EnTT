@@ -27,6 +27,9 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos,
 	auto modifier2 = common::entities::addModifier(registry, modifier1, common::components::Scope::Flat, 10.f);
 	auto modifier3 = common::entities::addModifier(registry, modifier2, common::components::Scope::Flat, 10.f);
 
+	features::item::entities::equipItem(registry, entity, 1, features::item::components::SlotType::Mainhand, features::item::components::SlotType::Mainhand);
+	features::item::entities::equipItem(registry, entity, 2, features::item::components::SlotType::Offhand, features::item::components::SlotType::Offhand);
+
 	registry.get<common::components::relationship>(attributes[common::entities::Stat::Speed]).first_child = modifier1;
 	registry.emplace<common::components::recalculate>(attributes[common::entities::Stat::Speed], true);
 }

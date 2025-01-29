@@ -7,6 +7,7 @@
 #include "features/hitbox/systems/processInteraction.hpp"
 #include "features/hitbox/systems/processLifeSpan.hpp"
 #include "features/item/loader/itemsLoader.hpp"
+#include "features/item/renderers/renderItems.hpp"
 #include "features/player/entities/player.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
@@ -67,6 +68,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 void render(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
 {
 	common::renderers::drawShapes(registry, window, itemsLoader);
+	features::item::renderers::renderItems(registry, window, itemsLoader);
 	common::renderers::drawHealthbars(registry, window);
 }
 
