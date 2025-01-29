@@ -12,15 +12,15 @@ namespace common::renderers
 
         for (auto [entity, pos, health, maxHealth, render] : view.each())
         {
-            sf::RectangleShape currentHealth;
-            currentHealth.setSize({60 * health.value / maxHealth.value, 5});
-            currentHealth.setFillColor(sf::Color::Green);
-            currentHealth.setPosition({pos.x - currentHealth.getSize().x / 2, pos.y - render.shape.getRadius() - 18});
-
             sf::RectangleShape healthbar;
             healthbar.setSize({60, 5});
             healthbar.setFillColor(sf::Color::Red);
             healthbar.setPosition({pos.x - healthbar.getSize().x / 2, pos.y - render.shape.getRadius() - 18});
+
+            sf::RectangleShape currentHealth;
+            currentHealth.setSize({60 * health.value / maxHealth.value, 5});
+            currentHealth.setFillColor(sf::Color::Green);
+            currentHealth.setPosition({pos.x - healthbar.getSize().x / 2, pos.y - render.shape.getRadius() - 18});
 
             window.draw(healthbar);
             window.draw(currentHealth);

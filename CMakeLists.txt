@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(CMakeSFMLProject LANGUAGES CXX)
 
-# Add the components, entities, and systems directories to the include paths
+# Add include directories
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/external)
 include_directories(${CMAKE_SOURCE_DIR}/src)
@@ -10,9 +10,11 @@ include_directories(${CMAKE_SOURCE_DIR}/src/entities)
 include_directories(${CMAKE_SOURCE_DIR}/src/systems)
 include_directories(${CMAKE_SOURCE_DIR}/src/renderers)
 
+# Set output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
+# Fetch and configure SFML
 include(FetchContent)
 FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
@@ -22,24 +24,28 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
-file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
-
-# Add the features directory
-add_subdirectory(${SRC_DIR}/features)
-
-set(TGUI_BACKEND SFML_GRAPHICS)  # Sets which backend TGUI will use
-
+# Fetch and configure TGUI
+set(TGUI_BACKEND SFML_GRAPHICS)
 FetchContent_Declare(
   TGUI
   GIT_REPOSITORY https://github.com/texus/TGUI
-  GIT_TAG v1.7.0  # Change this to wanted version
+  GIT_TAG v1.7.0
 )
 FetchContent_MakeAvailable(TGUI)
+
+# Add the features directory (this will build the features library)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/features)
+
+# Collect source files for the main executable
+set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
+file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
 
 # Create the main executable
 add_executable(main ${SOURCES})
 
-# Link the features library and SFML to the main executable
+# Enable precompiled headers for the main executable
+target_precompile_headers(main PRIVATE ${CMAKE_SOURCE_DIR}/src/pch.hpp)
+
+# Link dependencies for the main executable
 target_compile_features(main PRIVATE cxx_std_17)
-target_link_libraries(main PRIVATE SFML::Graphics TGUI::TGUI)
+target_link_libraries(main PRIVATE features SFML::Graphics TGUI::TGUI)
