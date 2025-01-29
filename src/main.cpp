@@ -23,6 +23,8 @@
 #include "systems/processPhysics.hpp"
 #include "systems/recalculateStat.hpp"
 
+#include "map.hpp"
+
 void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 {
 	while (const std::optional event = window.pollEvent())
@@ -73,6 +75,7 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::item::
 int main()
 {
 	Config config("../../configs/config.json");
+	Map map("../../assets/map_test.json", "../../assets/tileset.png");
 
 	sf::Texture crosshairTexture;
 	if (!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
@@ -139,6 +142,7 @@ int main()
 
 		window.clear();
 
+		map.drawMap(window);
 		render(registry, window, itemsLoader);
 
 		if (stateManager.isActive(State::Game))
