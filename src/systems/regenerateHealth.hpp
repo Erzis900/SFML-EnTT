@@ -4,5 +4,5 @@
 
 namespace common::systems
 {
-    void regenerateHealth(entt::registry &registry, float deltaTime);
+	void regenerateHealth(entt::registry &registry, float deltaTime);
 }

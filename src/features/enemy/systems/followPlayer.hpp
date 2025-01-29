@@ -2,5 +2,5 @@
 
 namespace features::enemy::systems
 {
-    void followPlayer(entt::registry &registry);
+	void followPlayer(entt::registry &registry);
 }

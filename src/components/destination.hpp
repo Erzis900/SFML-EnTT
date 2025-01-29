@@ -2,8 +2,8 @@
 
 namespace common::components
 {
-    struct destination
-    {
-        float x, y;
-    };
+	struct destination
+	{
+		float x, y;
+	};
 }  // namespace common::components

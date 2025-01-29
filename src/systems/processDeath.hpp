@@ -4,5 +4,5 @@
 
 namespace common::systems
 {
-    void processDeath(entt::registry &registry);
+	void processDeath(entt::registry &registry);
 }

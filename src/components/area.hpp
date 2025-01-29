@@ -2,8 +2,8 @@
 
 namespace common::components
 {
-    struct area
-    {
-        float radius;
-    };
+	struct area
+	{
+		float radius;
+	};
 }  // namespace common::components

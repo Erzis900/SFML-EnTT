@@ -2,5 +2,5 @@
 
 namespace features::player::systems
 {
-    void playerInput(entt::registry &registry);
+	void playerInput(entt::registry &registry);
 }

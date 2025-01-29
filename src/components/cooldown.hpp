@@ -2,13 +2,13 @@
 
 namespace common::components
 {
-    struct cooldown
-    {
-        float time;
+	struct cooldown
+	{
+		float time;
 
-        cooldown(float _value)
-            : time(_value)
-        {
-        }
-    };
+		cooldown(float _value)
+			: time(_value)
+		{
+		}
+	};
 }  // namespace common::components

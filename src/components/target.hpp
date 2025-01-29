@@ -4,5 +4,5 @@
 
 namespace common::components
 {
-    entt::entity target;
+	entt::entity target;
 }

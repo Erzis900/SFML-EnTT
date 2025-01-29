@@ -8,7 +8,7 @@ ColumnLimit: 160
 # Indentation and spaces
 IndentWidth: 4
 TabWidth: 4
-UseTab: Never  # Always use spaces, never tabs
+UseTab: Always  # Always use spaces, never tabs
 
 # Align function parameters and arguments.
 AlignAfterOpenBracket: Align

@@ -4,5 +4,5 @@
 
 namespace common::systems
 {
-    void recalculateStat(entt::registry &registry);
+	void recalculateStat(entt::registry &registry);
 }

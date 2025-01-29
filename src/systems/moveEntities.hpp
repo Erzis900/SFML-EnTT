@@ -4,5 +4,5 @@
 
 namespace common::systems
 {
-    void moveEntities(entt::registry &registry, float deltaTime);
+	void moveEntities(entt::registry &registry, float deltaTime);
 }

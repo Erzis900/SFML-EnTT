@@ -3,5 +3,5 @@
 
 namespace features::hitbox::systems
 {
-    void processInteraction(entt::registry &registry);
+	void processInteraction(entt::registry &registry);
 }

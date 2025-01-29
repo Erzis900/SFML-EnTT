@@ -12,5 +12,5 @@
 
 namespace common::renderers
 {
-    void drawShapes(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader);
+	void drawShapes(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader);
 }

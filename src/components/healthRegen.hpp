@@ -2,8 +2,8 @@
 
 namespace common::components
 {
-    struct healthRegen
-    {
-        float value;
-    };
+	struct healthRegen
+	{
+		float value;
+	};
 }  // namespace common::components

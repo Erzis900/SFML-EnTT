@@ -4,8 +4,8 @@
 
 namespace common::components
 {
-    struct parent
-    {
-        entt::entity entity{entt::null};
-    };
+	struct parent
+	{
+		entt::entity entity{entt::null};
+	};
 }  // namespace common::components

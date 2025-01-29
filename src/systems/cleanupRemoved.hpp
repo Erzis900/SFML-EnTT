@@ -2,5 +2,5 @@
 
 namespace common::systems
 {
-    void cleanupRemoved(entt::registry &registry);
+	void cleanupRemoved(entt::registry &registry);
 }

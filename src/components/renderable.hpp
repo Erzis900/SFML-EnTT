@@ -4,9 +4,9 @@
 
 namespace common::components
 {
-    struct renderable
-    {
-        sf::CircleShape shape;
-        float z = 1;
-    };
+	struct renderable
+	{
+		sf::CircleShape shape;
+		float z = 1;
+	};
 }  // namespace common::components

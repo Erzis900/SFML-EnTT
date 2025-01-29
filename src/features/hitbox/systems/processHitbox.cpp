@@ -11,42 +11,42 @@
 
 namespace features::hitbox::systems
 {
-    void processHitbox(entt::registry &registry)
-    {
-        auto hitboxView =
-            registry.view<features::hitbox::components::hitbox, common::components::faction, common::components::position, common::components::area>();
-        auto unitView = registry.view<common::components::unit, common::components::faction, common::components::position, common::components::collider>();
+	void processHitbox(entt::registry &registry)
+	{
+		auto hitboxView =
+			registry.view<features::hitbox::components::hitbox, common::components::faction, common::components::position, common::components::area>();
+		auto unitView = registry.view<common::components::unit, common::components::faction, common::components::position, common::components::collider>();
 
-        for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
-        {
-            if (hitbox.hitCount < 1)
-            {
-                registry.emplace_or_replace<common::components::remove>(hitboxEntity);
-                continue;
-            }
-            for (auto [unitEntity, unit, unitFaction, enemyPos, coll] : unitView.each())
-            {
+		for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
+		{
+			if (hitbox.hitCount < 1)
+			{
+				registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+				continue;
+			}
+			for (auto [unitEntity, unit, unitFaction, enemyPos, coll] : unitView.each())
+			{
 
-                if (std::find(hitbox.doneEntities.begin(), hitbox.doneEntities.end(), unitEntity) != hitbox.doneEntities.end())
-                {
-                    continue;
-                }
-                if (hitbox.hitCount < 1)
-                {
-                    registry.emplace_or_replace<common::components::remove>(hitboxEntity);
-                    break;
-                }
-                float deltaX = hitboxPos.x - enemyPos.x;
-                float deltaY = hitboxPos.y - enemyPos.y;
-                float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+				if (std::find(hitbox.doneEntities.begin(), hitbox.doneEntities.end(), unitEntity) != hitbox.doneEntities.end())
+				{
+					continue;
+				}
+				if (hitbox.hitCount < 1)
+				{
+					registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+					break;
+				}
+				float deltaX = hitboxPos.x - enemyPos.x;
+				float deltaY = hitboxPos.y - enemyPos.y;
+				float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 
-                if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
-                {
-                    hitbox.entities.push_back(unitEntity);
-                    registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f,
-                                                                           hitbox.entities, hitbox.doneEntities);
-                }
-            }
-        }
-    }
+				if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
+				{
+					hitbox.entities.push_back(unitEntity);
+					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f,
+																		   hitbox.entities, hitbox.doneEntities);
+				}
+			}
+		}
+	}
 }  // namespace features::hitbox::systems

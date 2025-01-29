@@ -4,16 +4,16 @@
 
 namespace common::systems
 {
-    void processDeath(entt::registry &registry)
-    {
-        auto view = registry.view<common::components::health>();
+	void processDeath(entt::registry &registry)
+	{
+		auto view = registry.view<common::components::health>();
 
-        for (auto [entity, health] : view.each())
-        {
-            if (health.value <= 0.f)
-            {
-                registry.emplace<common::components::remove>(entity);
-            }
-        }
-    }
+		for (auto [entity, health] : view.each())
+		{
+			if (health.value <= 0.f)
+			{
+				registry.emplace<common::components::remove>(entity);
+			}
+		}
+	}
 }  // namespace common::systems

@@ -1,6 +1,6 @@
 namespace common::components
 {
-    struct remove
-    {
-    };
+	struct remove
+	{
+	};
 }  // namespace common::components

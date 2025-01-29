@@ -25,129 +25,129 @@
 
 void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 {
-    while (const std::optional event = window.pollEvent())
-    {
-        gui.handleEvent(*event);
-        if (event->is<sf::Event::Closed>() || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
-        {
-            window.close();
-        }
+	while (const std::optional event = window.pollEvent())
+	{
+		gui.handleEvent(*event);
+		if (event->is<sf::Event::Closed>() || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+		{
+			window.close();
+		}
 
-        if (const auto *resized = event->getIf<sf::Event::Resized>())
-        {
-            sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
-            window.setView(sf::View(visibleArea));
-        }
-    }
+		if (const auto *resized = event->getIf<sf::Event::Resized>())
+		{
+			sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
+			window.setView(sf::View(visibleArea));
+		}
+	}
 }
 
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
-    features::player::systems::playerShoot(registry, window);
-    features::player::systems::playerInput(registry);
-    features::enemy::systems::followPlayer(registry);
+	features::player::systems::playerShoot(registry, window);
+	features::player::systems::playerInput(registry);
+	features::enemy::systems::followPlayer(registry);
 
-    // features::hitbox::systems::isOnScreen(registry,
-    // window.getSize().x, window.getSize().y); // replaced
-    // with procesLifespan
-    features::hitbox::systems::processHitbox(registry);
-    features::hitbox::systems::processInteraction(registry);
-    features::hitbox::systems::processLifeSpan(registry, deltaTime);
+	// features::hitbox::systems::isOnScreen(registry,
+	// window.getSize().x, window.getSize().y); // replaced
+	// with procesLifespan
+	features::hitbox::systems::processHitbox(registry);
+	features::hitbox::systems::processInteraction(registry);
+	features::hitbox::systems::processLifeSpan(registry, deltaTime);
 
-    common::systems::recalculateStat(registry);
-    common::systems::applyUnitStat(registry);
-    common::systems::moveEntities(registry, deltaTime);
-    common::systems::processPhysics(registry, deltaTime);
-    common::systems::processCooldown(registry, deltaTime);
-    common::systems::processDeath(registry);
+	common::systems::recalculateStat(registry);
+	common::systems::applyUnitStat(registry);
+	common::systems::moveEntities(registry, deltaTime);
+	common::systems::processPhysics(registry, deltaTime);
+	common::systems::processCooldown(registry, deltaTime);
+	common::systems::processDeath(registry);
 
-    common::systems::cleanupRemoved(registry);  // keep last
+	common::systems::cleanupRemoved(registry);	// keep last
 }
 
 void render(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
 {
-    common::renderers::drawShapes(registry, window, itemsLoader);
-    common::renderers::drawHealthbars(registry, window);
+	common::renderers::drawShapes(registry, window, itemsLoader);
+	common::renderers::drawHealthbars(registry, window);
 }
 
 int main()
 {
-    Config config("../../configs/config.json");
+	Config config("../../configs/config.json");
 
-    sf::Texture crosshairTexture;
-    if (!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
-    {
-        std::cout << "Crosshair asset not found" << std::endl;
-        return 1;
-    }
-    sf::Sprite crosshairSprite(crosshairTexture);
-    crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
+	sf::Texture crosshairTexture;
+	if (!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
+	{
+		std::cout << "Crosshair asset not found" << std::endl;
+		return 1;
+	}
+	sf::Sprite crosshairSprite(crosshairTexture);
+	crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
-    auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
-    window.setFramerateLimit(config.screen.maxFps);
-    window.setMouseCursorVisible(false);
+	auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
+	window.setFramerateLimit(config.screen.maxFps);
+	window.setMouseCursorVisible(false);
 
-    StateManager stateManager;
-    GUI gui(window, config, stateManager);
+	StateManager stateManager;
+	GUI gui(window, config, stateManager);
 
-    entt::registry registry;
-    features::player::entities::createPlayer(registry, config);
+	entt::registry registry;
+	features::player::entities::createPlayer(registry, config);
 
-    for (int i = 0; i < 3; i++)
-    {
-        features::enemy::entities::createEnemy(registry, config);
-    }
+	for (int i = 0; i < 3; i++)
+	{
+		features::enemy::entities::createEnemy(registry, config);
+	}
 
-    features::item::ItemsLoader itemsLoader;
+	features::item::ItemsLoader itemsLoader;
 
-    sf::Clock clock;
-    sf::Clock fpsClock;
-    int frameCount = 0;
-    float lastTime = 0.f;
-    float fpsUpdateInterval = 0.1f;
+	sf::Clock clock;
+	sf::Clock fpsClock;
+	int frameCount = 0;
+	float lastTime = 0.f;
+	float fpsUpdateInterval = 0.1f;
 
-    while (window.isOpen())
-    {
-        // std::cout << "Game: " <<
-        // stateManager.isActive(State::Game) << std::endl;
-        // std::cout << "Settings: " <<
-        // stateManager.isActive(State::Settings) <<
-        // std::endl;
+	while (window.isOpen())
+	{
+		// std::cout << "Game: " <<
+		// stateManager.isActive(State::Game) << std::endl;
+		// std::cout << "Settings: " <<
+		// stateManager.isActive(State::Settings) <<
+		// std::endl;
 
-        float deltaTime = clock.restart().asSeconds();
+		float deltaTime = clock.restart().asSeconds();
 
-        frameCount++;
-        float currentTime = fpsClock.getElapsedTime().asSeconds();
+		frameCount++;
+		float currentTime = fpsClock.getElapsedTime().asSeconds();
 
-        if (currentTime - lastTime >= fpsUpdateInterval)
-        {
-            float fps = frameCount / (currentTime - lastTime);
-            frameCount = 0;
-            lastTime = currentTime;
+		if (currentTime - lastTime >= fpsUpdateInterval)
+		{
+			float fps = frameCount / (currentTime - lastTime);
+			frameCount = 0;
+			lastTime = currentTime;
 
-            gui.update(static_cast<int>(fps));
-        }
+			gui.update(static_cast<int>(fps));
+		}
 
-        processEvents(registry, window, gui);
+		processEvents(registry, window, gui);
 
-        if (stateManager.isActive(State::Game))
-        {
-            update(registry, deltaTime, window);
-        }
+		if (stateManager.isActive(State::Game))
+		{
+			update(registry, deltaTime, window);
+		}
 
-        crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+		crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 
-        window.clear();
+		window.clear();
 
-        render(registry, window, itemsLoader);
+		render(registry, window, itemsLoader);
 
-        if (stateManager.isActive(State::Game))
-        {
-            window.draw(crosshairSprite);
-        }
+		if (stateManager.isActive(State::Game))
+		{
+			window.draw(crosshairSprite);
+		}
 
-        gui.draw();
+		gui.draw();
 
-        window.display();
-    }
+		window.display();
+	}
 }
