@@ -1,4 +1,6 @@
 #include "map.hpp"
+#include "components/position.hpp"
+#include "features/player/components/playerControlled.hpp"
 
 Map::Map(std::string mapPath, std::string tilesetPath)
 {
@@ -26,20 +28,28 @@ Map::Map(std::string mapPath, std::string tilesetPath)
 	tilesetSize = {64, 40};
 
 	scalingFactor = 4.f;
+	bg = sf::RenderTexture({static_cast<unsigned int>(width * tileSize.x * scalingFactor), static_cast<unsigned int>(height * tileSize.y * scalingFactor)});
 }
 
-void Map::drawMap(sf::RenderWindow &window)
+void Map::setupMap()
 {
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			drawTile(window, tilemap[i][j], j, i);
+			setupTile(tilemap[i][j], j, i);
 		}
 	}
+	bg.display();
 }
 
-void Map::drawTile(sf::RenderWindow &window, unsigned int id, int x, int y)
+void Map::drawBackground(sf::RenderWindow &window)
+{
+	sf::Sprite background(bg.getTexture());
+	window.draw(background);
+}
+
+void Map::setupTile(unsigned int id, int x, int y)
 {
 	sf::Sprite sprite(tileset);
 
@@ -52,5 +62,6 @@ void Map::drawTile(sf::RenderWindow &window, unsigned int id, int x, int y)
 	sprite.setScale({scalingFactor, scalingFactor});
 	sprite.setPosition(sf::Vector2f(x * tileSize.x * scalingFactor, y * tileSize.y * scalingFactor));
 
-	window.draw(sprite);
+	bg.draw(sprite);
+	// window.draw(sprite);
 }

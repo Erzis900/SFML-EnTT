@@ -4,6 +4,7 @@
 #include "components/healthRegen.hpp"
 #include "components/renderable.hpp"
 #include "entities/unit.hpp"
+#include "features/player/components/camera.hpp"
 #include "features/player/components/cooldown.hpp"
 #include "features/player/components/playerControlled.hpp"
 
@@ -21,6 +22,7 @@ namespace features::player::entities
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
 		registry.emplace<features::player::components::cooldown>(entity, config.player.cooldown);
+		registry.emplace<features::player::components::camera>(entity, sf::View{});
 
 		registry.emplace<common::components::renderable>(entity, playerShape);
 		registry.emplace<common::components::collider>(entity, config.player.radius);

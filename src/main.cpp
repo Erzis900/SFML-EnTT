@@ -8,6 +8,7 @@
 #include "features/hitbox/systems/processLifeSpan.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "features/player/entities/player.hpp"
+#include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "features/player/systems/playerShoot.hpp"
 #include "gui.hpp"
@@ -47,6 +48,8 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
 	features::player::systems::playerShoot(registry, window);
 	features::player::systems::playerInput(registry);
+	features::player::systems::playerCamera(registry, window);
+
 	features::enemy::systems::followPlayer(registry);
 
 	// features::hitbox::systems::isOnScreen(registry,
@@ -76,6 +79,7 @@ int main()
 {
 	Config config("../../configs/config.json");
 	Map map("../../assets/map_test.json", "../../assets/tileset.png");
+	map.setupMap();
 
 	sf::Texture crosshairTexture;
 	if (!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
@@ -111,12 +115,6 @@ int main()
 
 	while (window.isOpen())
 	{
-		// std::cout << "Game: " <<
-		// stateManager.isActive(State::Game) << std::endl;
-		// std::cout << "Settings: " <<
-		// stateManager.isActive(State::Settings) <<
-		// std::endl;
-
 		float deltaTime = clock.restart().asSeconds();
 
 		frameCount++;
@@ -142,7 +140,9 @@ int main()
 
 		window.clear();
 
-		map.drawMap(window);
+		// static = drawn once
+		map.drawBackground(window);
+
 		render(registry, window, itemsLoader);
 
 		if (stateManager.isActive(State::Game))

@@ -6,7 +6,8 @@ class Map
   public:
 	Map(std::string mapPath, std::string tilesetPath);
 
-	void drawMap(sf::RenderWindow &window);
+	void setupMap();
+	void drawBackground(sf::RenderWindow &window);
 
   private:
 	std::vector<std::vector<unsigned int>> tilemap;
@@ -14,10 +15,13 @@ class Map
 	unsigned int height, width;
 	sf::Texture tileset;
 
+	sf::RenderTexture bg;
+
 	sf::Vector2i tileSize;
 	sf::Vector2i tilesetSize;
 
 	float scalingFactor;
+	sf::View camera;
 
-	void drawTile(sf::RenderWindow &window, unsigned int id, int x, int y);
+	void setupTile(unsigned int id, int x, int y);
 };
