@@ -78,7 +78,7 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::item::
 int main()
 {
 	Config config("../../configs/config.json");
-	Map map("../../assets/map_test.json", "../../assets/tileset.png");
+	Map map("../../assets/map.json", "../../assets/tileset.png");
 	map.setupMap();
 
 	sf::Texture crosshairTexture;

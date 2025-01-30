@@ -5,20 +5,12 @@
 Map::Map(std::string mapPath, std::string tilesetPath)
 {
 	std::ifstream mapFile(mapPath);
-	nlohmann::json data = nlohmann::json::parse(mapFile);
+	data = nlohmann::json::parse(mapFile);
+
+	noLayers = data["layers"].size();
 
 	height = data["layers"][0]["height"];
 	width = data["layers"][0]["width"];
-
-	tilemap.resize(height);
-
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++)
-		{
-			tilemap[i].push_back(data["layers"][0]["data"][i * width + j]);
-		}
-	}
 
 	tileset = sf::Texture(tilesetPath);
 
@@ -33,13 +25,18 @@ Map::Map(std::string mapPath, std::string tilesetPath)
 
 void Map::setupMap()
 {
-	for (int i = 0; i < height; i++)
+	for (int layerNo = 0; layerNo < noLayers; layerNo++)
 	{
-		for (int j = 0; j < width; j++)
+		loadTilemap(data, layerNo);
+		for (int i = 0; i < height; i++)
 		{
-			setupTile(tilemap[i][j], j, i);
+			for (int j = 0; j < width; j++)
+			{
+				setupTile(tilemap[i][j], j, i);
+			}
 		}
 	}
+
 	bg.display();
 }
 
@@ -47,6 +44,23 @@ void Map::drawBackground(sf::RenderWindow &window)
 {
 	sf::Sprite background(bg.getTexture());
 	window.draw(background);
+}
+
+void Map::loadTilemap(nlohmann::json &data, unsigned int layerNo)
+{
+	height = data["layers"][layerNo]["height"];
+	width = data["layers"][layerNo]["width"];
+
+	tilemap.clear();
+	tilemap.resize(height);
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			tilemap[i].push_back(data["layers"][layerNo]["data"][i * width + j]);
+		}
+	}
 }
 
 void Map::setupTile(unsigned int id, int x, int y)

@@ -8,9 +8,11 @@ class Map
 
 	void setupMap();
 	void drawBackground(sf::RenderWindow &window);
+	void loadTilemap(nlohmann::json &data, unsigned int layerNo);
 
   private:
 	std::vector<std::vector<unsigned int>> tilemap;
+	unsigned int noLayers;
 
 	unsigned int height, width;
 	sf::Texture tileset;
@@ -22,6 +24,8 @@ class Map
 
 	float scalingFactor;
 	sf::View camera;
+
+	nlohmann::json data;
 
 	void setupTile(unsigned int id, int x, int y);
 };

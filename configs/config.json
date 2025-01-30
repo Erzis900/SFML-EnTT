@@ -1,31 +1,25 @@
 {
-    "screen":
-    {
+    "screen": {
         "width": 1280,
         "height": 720,
         "maxFps": 144
     },
-    "player":
-    {
-        "startX": 200,
-        "startY": 200,
+    "player": {
         "radius": 50,
-        "speed": 300,
+        "speed": 600,
         "cooldown": 0.1,
         "health": 100,
         "maxHealth": 100,
         "healthRegen": 20
     },
-    "enemy":
-    {
+    "enemy": {
         "radius": 50,
         "speed": 50,
         "health": 100,
         "maxHealth": 100,
         "healthRegen": 10
     },
-    "hitbox":
-    {
+    "hitbox": {
         "radius": 10
     }
 }
