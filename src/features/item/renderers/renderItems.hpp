@@ -2,6 +2,8 @@
 
 #include "components/direction.hpp"
 #include "components/position.hpp"
+#include "components/remove.hpp"
+#include "components/unit.hpp"
 
 #include "../components/equipped.hpp"
 #include "../loader/itemsLoader.hpp"
