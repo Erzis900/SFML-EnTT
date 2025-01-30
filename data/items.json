@@ -43,5 +43,23 @@
         "y": 0,
         "width": 2,
         "height": 2
+    },
+    {
+        "id": 5,
+        "name": "Shield",
+        "damage": 12,
+        "x": 6,
+        "y": 0,
+        "width": 2,
+        "height": 2
+    },
+    {
+        "id": 6,
+        "name": "Cape",
+        "damage": 12,
+        "x": 8,
+        "y": 0,
+        "width": 2,
+        "height": 2
     }
 ]

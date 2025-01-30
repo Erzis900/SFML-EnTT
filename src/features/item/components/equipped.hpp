@@ -7,10 +7,11 @@ namespace features::item::components
 	{
 		Helmet = 0,
 		Chest = 1,
-		Shoulder = 2,
-		Mainhand = 3,
-		Offhand = 4,
-		Cape = 5,
+		MainShoulder = 2,
+		OffShoulder = 3,
+		Mainhand = 4,
+		Offhand = 5,
+		Cape = 6,
 	};
 	struct equipped
 	{

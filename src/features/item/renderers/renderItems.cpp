@@ -19,21 +19,47 @@ namespace features::item::renderers
 			auto sprite = itemsLoader.getSprite(equipped.itemId);
 			auto width = sprite.getTextureRect().size.x;
 			auto height = sprite.getTextureRect().size.y;
-			sprite.setRotation(sf::degrees(std::atan2(dir.y, dir.x) * 180 / M_PI) - sf::degrees(dir.y == 0 && dir.x == 0 ? 0 : -90));
-			if (equipped.slot == features::item::components::SlotType::Mainhand)
+
+			auto rotation = sf::degrees(std::atan2(dir.y, dir.x) * 180 / M_PI) - sf::degrees(dir.y == 0 && dir.x == 0 ? 0 : -90);
+			auto posX = width / 2.f;
+			auto posY = height / 2.f;
+			switch (equipped.slot)
 			{
-				sprite.setOrigin({(-30.f + width / 2.f), (15.f + height / 2.f)});
-				sprite.setPosition({pos.x, pos.y});
+			case features::item::components::SlotType::Helmet:
+				sprite.setOrigin({posX, posY});
+				sprite.setRotation(rotation);
+				break;
+			case features::item::components::SlotType::Chest:
+				sprite.setOrigin({posX, posY});
+				sprite.setRotation(rotation);
+				break;
+			case features::item::components::SlotType::MainShoulder:
+				sprite.setOrigin({posX - 21.f, posY});
+				sprite.setRotation(rotation);
+				break;
+			case features::item::components::SlotType::OffShoulder:
+				sprite.setOrigin({posX - 20.f, posY});
+				sprite.setScale({-sprite.getScale().x, sprite.getScale().y});
+				sprite.setRotation(rotation);
+				break;
+			case features::item::components::SlotType::Mainhand:
+				sprite.setOrigin({posX - 26.f, posY - 5.f});
+				sprite.setRotation(rotation - sf::degrees(60.f));
+				break;
+			case features::item::components::SlotType::Offhand:
+				sprite.setOrigin({posX + 15.f, posY + 25.f});
+				sprite.setRotation(rotation - sf::degrees(30.f));
+				break;
+			case features::item::components::SlotType::Cape:
+				sprite.setOrigin({posX, posY - 15.f});
+				sprite.setRotation(rotation);
+				break;
+			default:
+				sprite.setRotation(rotation);
+				break;
 			}
-			else if (equipped.slot == features::item::components::SlotType::Offhand)
-			{
-				sprite.setOrigin({(30.f + width / 2.f), (15.f + height / 2.f)});
-				sprite.setPosition({pos.x, pos.y});
-			}
-			else
-			{
-				sprite.setPosition({pos.x, pos.y});
-			}
+
+			sprite.setPosition({pos.x, pos.y});
 			window.draw(sprite);
 		}
 	}

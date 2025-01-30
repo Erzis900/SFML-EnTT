@@ -19,7 +19,13 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos,
 	auto modifier3 = common::entities::addModifier(registry, modifier2, common::components::Scope::Flat, 10.f);
 
 	features::item::entities::equipItem(registry, entity, 1, features::item::components::SlotType::Mainhand, features::item::components::SlotType::Mainhand);
-	features::item::entities::equipItem(registry, entity, 2, features::item::components::SlotType::Offhand, features::item::components::SlotType::Offhand);
+	features::item::entities::equipItem(registry, entity, 5, features::item::components::SlotType::Offhand, features::item::components::SlotType::Offhand);
+	features::item::entities::equipItem(registry, entity, 6, features::item::components::SlotType::Cape, features::item::components::SlotType::Cape);
+	features::item::entities::equipItem(registry, entity, 4, features::item::components::SlotType::Helmet, features::item::components::SlotType::Helmet);
+	features::item::entities::equipItem(registry, entity, 3, features::item::components::SlotType::MainShoulder,
+										features::item::components::SlotType::MainShoulder);
+	features::item::entities::equipItem(registry, entity, 3, features::item::components::SlotType::OffShoulder,
+										features::item::components::SlotType::OffShoulder);
 
 	registry.get<common::components::relationship>(attributes[common::entities::Stat::Speed]).first_child = modifier1;
 	registry.emplace<common::components::recalculate>(attributes[common::entities::Stat::Speed], true);
