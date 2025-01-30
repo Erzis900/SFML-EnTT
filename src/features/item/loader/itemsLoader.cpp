@@ -20,7 +20,7 @@ namespace features::item
 		Item item = itemsData[id];
 		sf::Sprite sprite(texture);
 		int gridSize = 16;
-		sprite.setOrigin({float(item.width * gridSize / 2), float(item.height * gridSize / 2)});
+		sprite.setOrigin({static_cast<float>(item.width * gridSize / 2), static_cast<float>(item.height * gridSize / 2)});
 		sprite.setTextureRect(sf::IntRect({item.x * gridSize, item.y * gridSize}, {item.width * gridSize, item.height * gridSize}));
 		sprite.setScale({3.f, 3.f});
 		return sprite;
