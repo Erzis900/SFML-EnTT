@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-#include "components/direction.hpp"
+#include "components/lookDirection.hpp"
 #include "components/position.hpp"
 #include "components/remove.hpp"
 #include "components/unit.hpp"

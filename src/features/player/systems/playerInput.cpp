@@ -1,13 +1,19 @@
 #include "playerInput.hpp"
-#include "components/direction.hpp"
-#include "features/player/components/playerControlled.hpp"
 
 namespace features::player::systems
 {
-	void playerInput(entt::registry &registry)
+	sf::Vector2f normalize(const sf::Vector2f &vec)
 	{
-		auto view = registry.view<features::player::components::playerControlled>();
+		float magnitude = std::sqrt(vec.x * vec.x + vec.y * vec.y);
+		if (magnitude > 0)
+		{
+			return {vec.x / magnitude, vec.y / magnitude};
+		}
+		return vec;
+	}
 
+	void playerInput(entt::registry &registry, sf::RenderWindow &window)
+	{
 		sf::Vector2f dir = {0.f, 0.f};
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
@@ -27,18 +33,18 @@ namespace features::player::systems
 			dir.x = 1.f;
 		}
 
-		// Normalize the components::velocity vector
-		float magnitude = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-		if (magnitude > 0)
-		{
-			dir.x /= magnitude;
-			dir.y /= magnitude;
-		}
+		dir = normalize(dir);
 
-		for (auto [entity, playerControlled] : view.each())
+		sf::Vector2f mousePos = (sf::Vector2f) sf::Mouse::getPosition(window);
+
+		auto view = registry.view<features::player::components::playerControlled, common::components::position>();
+		for (auto [entity, playerControlled, pos] : view.each())
 		{
-			// std::cout << dir.x << " " << dir.y << std::endl;
+			sf::Vector2f dirVec = {mousePos.x - pos.x, mousePos.y - pos.y};
+			dirVec = normalize(dirVec);
+
 			registry.replace<common::components::direction>(entity, dir.x, dir.y);
+			registry.emplace_or_replace<common::components::lookDirection>(entity, dirVec.x, dirVec.y);
 		}
 	}
 }  // namespace features::player::systems

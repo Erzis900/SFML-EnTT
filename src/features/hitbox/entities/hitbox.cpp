@@ -1,22 +1,14 @@
 #include "hitbox.hpp"
-#include "../components/hitbox.hpp"
-#include "components/area.hpp"
-#include "components/damage.hpp"
-#include "components/faction.hpp"
-#include "components/position.hpp"
-#include "components/renderable.hpp"
-#include "components/source.hpp"
-#include "components/speed.hpp"
 
 namespace common::entities
 {
-	entt::entity createHitbox(entt::registry &registry, entt::entity source, components::direction &dir)
+	entt::entity createHitbox(entt::registry &registry, entt::entity source, float &x, float &y)
 	{
 		const auto hitboxEntity = registry.create();
 		registry.emplace<components::source>(hitboxEntity, source);
 		registry.emplace<components::speed>(hitboxEntity, 500.f);
 		auto pos = registry.get<components::position>(source);
-		registry.emplace<components::direction>(hitboxEntity, dir.x, dir.y);
+		registry.emplace<components::direction>(hitboxEntity, x, y);
 		registry.emplace<components::position>(hitboxEntity, pos.x, pos.y);
 		registry.emplace<components::damage>(hitboxEntity, 10.f);
 		auto &hitbox =

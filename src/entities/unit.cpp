@@ -1,20 +1,11 @@
 #include "unit.hpp"
-#include "components/children.hpp"
-#include "components/direction.hpp"
-#include "components/health.hpp"
-#include "components/maxHealth.hpp"
-#include "components/position.hpp"
-#include "components/recalculate.hpp"
-#include "components/relationship.hpp"
-#include "components/speed.hpp"
-#include "components/unit.hpp"
-#include "entities/attribute.hpp"
 
 void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos, sf::Vector2f dir, float speed, float health, float maxHealth)
 {
 	registry.emplace<common::components::unit>(entity, true);
 	registry.emplace<common::components::position>(entity, pos.x, pos.y);
 	registry.emplace<common::components::direction>(entity, dir.x, dir.y);
+	registry.emplace<common::components::lookDirection>(entity, dir.x, dir.y);
 	registry.emplace<common::components::speed>(entity, speed);
 	registry.emplace<common::components::health>(entity, health);
 	registry.emplace<common::components::maxHealth>(entity, maxHealth);

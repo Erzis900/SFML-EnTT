@@ -1,10 +1,12 @@
+#pragma once
+
 namespace features::player::components
 {
-	struct cooldown
+	struct initialCooldown
 	{
-		float value;
-		cooldown(float _value)
-			: value(_value)
+		float time;
+		initialCooldown(float _time)
+			: time(_time)
 		{
 		}
 	};

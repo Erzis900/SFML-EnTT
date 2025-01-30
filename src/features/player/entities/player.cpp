@@ -13,7 +13,7 @@ namespace features::player::entities
 		createUnit(registry, entity, {config.player.startX, config.player.startY}, {0, 0}, config.player.speed, config.player.health, config.player.maxHealth);
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
-		registry.emplace<features::player::components::cooldown>(entity, config.player.cooldown);
+		registry.emplace<features::player::components::initialCooldown>(entity, config.player.cooldown);
 
 		registry.emplace<common::components::renderable>(entity, playerShape);
 		registry.emplace<common::components::collider>(entity, config.player.radius);

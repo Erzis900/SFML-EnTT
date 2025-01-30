@@ -1,8 +1,4 @@
 #include "followPlayer.hpp"
-#include "components/direction.hpp"
-#include "components/position.hpp"
-#include "features/enemy/components/aiControlled.hpp"
-#include "features/player/components/playerControlled.hpp"
 
 namespace features::enemy::systems
 {
@@ -30,8 +26,10 @@ namespace features::enemy::systems
 			}
 
 			common::components::direction dir(dirVec.x, dirVec.y);
+			common::components::lookDirection lookDir(dirVec.x, dirVec.y);
 
 			registry.replace<common::components::direction>(enemyEntity, dir);
+			registry.replace<common::components::lookDirection>(enemyEntity, lookDir);
 			// std::cout << dir.x << " " << dir.y << std::endl;
 		}
 	}

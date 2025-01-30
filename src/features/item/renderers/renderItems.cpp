@@ -15,7 +15,7 @@ namespace features::item::renderers
 				continue;
 			}
 			auto pos = registry.get<common::components::position>(equipped.unit);
-			auto dir = registry.get<common::components::direction>(equipped.unit);
+			auto dir = registry.get<common::components::lookDirection>(equipped.unit);
 			auto sprite = itemsLoader.getSprite(equipped.itemId);
 			auto width = sprite.getTextureRect().size.x;
 			auto height = sprite.getTextureRect().size.y;
