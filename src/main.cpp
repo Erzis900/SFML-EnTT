@@ -98,7 +98,7 @@ int main()
 	GUI gui(window, config, stateManager);
 
 	entt::registry registry;
-	features::player::entities::createPlayer(registry, config);
+	features::player::entities::createPlayer(registry, config, window);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -136,7 +136,7 @@ int main()
 			update(registry, deltaTime, window);
 		}
 
-		crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+		crosshairSprite.setPosition(static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
 
 		window.clear();
 

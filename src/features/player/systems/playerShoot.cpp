@@ -23,7 +23,7 @@ namespace features::player::systems
 				auto &playerPos = view.get<common::components::position>(playerEntity);
 				auto &playerCd = view.get<features::player::components::cooldown>(playerEntity);
 
-				sf::Vector2f mousePos = (sf::Vector2f) sf::Mouse::getPosition(window);
+				sf::Vector2f mousePos = static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 				sf::Vector2f dirVec = {mousePos.x - playerPos.x, mousePos.y - playerPos.y};
 
 				float magnitude = std::sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);

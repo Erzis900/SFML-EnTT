@@ -51,17 +51,20 @@ void Map::drawBackground(sf::RenderWindow &window)
 
 void Map::setupTile(unsigned int id, int x, int y)
 {
-	sf::Sprite sprite(tileset);
+	if (id)
+	{
+		sf::Sprite sprite(tileset);
 
-	int tileRow = id / tilesetSize.x;
-	int tileCol = id % tilesetSize.x - 1;
+		int tileRow = id / tilesetSize.x;
+		int tileCol = id % tilesetSize.x - 1;
 
-	sf::Vector2i tilePos = {tileCol * tileSize.x, tileRow * tileSize.y};
+		sf::Vector2i tilePos = {tileCol * tileSize.x, tileRow * tileSize.y};
 
-	sprite.setTextureRect(sf::IntRect(tilePos, tileSize));
-	sprite.setScale({scalingFactor, scalingFactor});
-	sprite.setPosition(sf::Vector2f(x * tileSize.x * scalingFactor, y * tileSize.y * scalingFactor));
+		sprite.setTextureRect(sf::IntRect(tilePos, tileSize));
+		sprite.setScale({scalingFactor, scalingFactor});
+		sprite.setPosition(sf::Vector2f(x * tileSize.x * scalingFactor, y * tileSize.y * scalingFactor));
 
-	bg.draw(sprite);
+		bg.draw(sprite);
+	}
 	// window.draw(sprite);
 }
