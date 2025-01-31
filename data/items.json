@@ -1,65 +1,64 @@
 [
-    {
-        "id": 0,
-        "name": "Sword",
-        "damage": 20,
-        "x": 0,
-        "y": 0,
-        "width": 1,
-        "height": 4
-    },
-    {
-        "id": 1,
-        "name": "Club",
-        "damage": 15,
-        "x": 1,
-        "y": 0,
-        "width": 1,
-        "height": 2
-    },
-    {
-        "id": 2,
-        "name": "Rod",
-        "damage": 12,
-        "x": 2,
-        "y": 0,
-        "width": 1,
-        "height": 3
-    },
-    {
-        "id": 3,
-        "name": "Shoulder",
-        "damage": 12,
-        "x": 3,
-        "y": 0,
-        "width": 1,
-        "height": 2
-    },
-    {
-        "id": 4,
-        "name": "Helmet",
-        "damage": 12,
-        "x": 4,
-        "y": 0,
-        "width": 2,
-        "height": 2
-    },
-    {
-        "id": 5,
-        "name": "Shield",
-        "damage": 12,
-        "x": 6,
-        "y": 0,
-        "width": 2,
-        "height": 2
-    },
-    {
-        "id": 6,
-        "name": "Cape",
-        "damage": 12,
-        "x": 8,
-        "y": 0,
-        "width": 2,
-        "height": 2
-    }
+  {
+    
+    "id": 0,
+    "name": "Sword",
+    "x": 0,
+    "y": 0,
+    "width": 1,
+    "height": 4,
+    "modifiers": [{
+      "attribute": "Damage",
+      "value": 5.0,
+      "scope": "Flat"
+    }]
+  },
+  {
+    "id": 1,
+    "name": "Club",
+    "x": 1,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  },
+  {
+    "id": 2,
+    "name": "Rod",
+    "x": 2,
+    "y": 0,
+    "width": 1,
+    "height": 3
+  },
+  {
+    "id": 3,
+    "name": "Shoulder",
+    "x": 3,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  },
+  {
+    "id": 4,
+    "name": "Helmet",
+    "x": 4,
+    "y": 0,
+    "width": 2,
+    "height": 2
+  },
+  {
+    "id": 5,
+    "name": "Shield",
+    "x": 6,
+    "y": 0,
+    "width": 2,
+    "height": 2
+  },
+  {
+    "id": 6,
+    "name": "Cape",
+    "x": 8,
+    "y": 0,
+    "width": 2,
+    "height": 2
+  }
 ]

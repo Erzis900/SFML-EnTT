@@ -15,7 +15,9 @@ namespace common::entities
 		Health = 0,
 		MaxHealth = 1,
 		Speed = 2,
-		Damage = 3
+		Damage = 3,
+		MinDamage = 4,
+		MaxDamage = 5,
 	};
 
 	entt::entity createAttribute(entt::registry &registry, Stat stat, float initialValue);

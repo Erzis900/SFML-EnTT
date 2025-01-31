@@ -1,0 +1,70 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "items.schema.json",
+    "title": "Items",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "x": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "y": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attribute": {
+                "type": "string",
+                "oneOf": [
+                  { "const": "Health" },
+                  { "const": "MaxHealth" },
+                  { "const": "Speed" },
+                  { "const": "Damage" },
+                  { "const": "MinDamage" },
+                  { "const": "MaxDamage" }
+                ]
+              },
+              "value": {
+                "type": "number"
+              },
+              "scope": {
+                "type": "string",
+                "oneOf": [
+                  { "const": "Flat" },
+                  { "const": "PercentAdd" },
+                  { "const": "PercentMult" },
+                  { "const": "Set" }
+                ]
+              }
+            },
+            "required": [ "attribute", "value", "scope" ]
+          }
+        }
+      },
+      "required": [ "id", "name", "x", "y", "width", "height" ]
+    }
+  }
+  
+  
