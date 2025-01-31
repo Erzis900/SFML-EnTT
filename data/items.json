@@ -1,6 +1,5 @@
 [
   {
-    
     "id": 0,
     "name": "Sword",
     "x": 0,
@@ -8,8 +7,12 @@
     "width": 1,
     "height": 4,
     "modifiers": [{
-      "attribute": "Damage",
+      "attribute": "MinDamage",
       "value": 5.0,
+      "scope": "Flat"
+    }, {
+      "attribute": "MaxDamage",
+      "value": 10.0,
       "scope": "Flat"
     }]
   },

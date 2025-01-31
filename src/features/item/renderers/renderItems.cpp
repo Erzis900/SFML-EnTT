@@ -4,19 +4,13 @@ namespace features::item::renderers
 {
 	void renderItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
 	{
-		auto view = registry.view<features::item::components::equipped>();
+		auto view_equipped = registry.view<features::item::components::equipped, features::item::components::itemId>();
 
-		for (auto [entity, equipped] : view.each())
+		for (auto [entity, equipped, itemId] : view_equipped.each())
 		{
-			auto try_unit = registry.try_get<common::components::unit>(equipped.unit);
-			if (!try_unit)
-			{
-				registry.emplace<common::components::remove>(entity);
-				continue;
-			}
 			auto pos = registry.get<common::components::position>(equipped.unit);
 			auto dir = registry.get<common::components::lookDirection>(equipped.unit);
-			auto sprite = itemsLoader.getSprite(equipped.itemId);
+			auto sprite = itemsLoader.getSprite(itemId.id);
 			auto width = sprite.getTextureRect().size.x;
 			auto height = sprite.getTextureRect().size.y;
 
@@ -59,6 +53,14 @@ namespace features::item::renderers
 				break;
 			}
 
+			sprite.setPosition({pos.x, pos.y});
+			window.draw(sprite);
+		}
+
+		auto view_ground = registry.view<common::components::position, features::item::components::itemId>();
+		for (auto [entity, pos, itemId] : view_ground.each())
+		{
+			auto sprite = itemsLoader.getSprite(itemId.id);
 			sprite.setPosition({pos.x, pos.y});
 			window.draw(sprite);
 		}

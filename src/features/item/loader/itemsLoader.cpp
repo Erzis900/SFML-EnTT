@@ -10,7 +10,7 @@ namespace features::item
 
 		for (auto &itemJson : data)
 		{
-			Item itemData = {itemJson["id"], itemJson["name"], itemJson["damage"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"]};
+			Item itemData = {itemJson["id"], itemJson["name"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"]};
 			itemsData[itemJson["id"]] = itemData;
 		}
 	}

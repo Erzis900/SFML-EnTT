@@ -1,3 +1,4 @@
+#pragma once
 namespace common::components
 {
 	struct remove

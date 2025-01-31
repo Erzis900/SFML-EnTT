@@ -16,7 +16,6 @@ namespace features::item::components
 	struct equipped
 	{
 		entt::entity unit;
-		int itemId;
 		SlotType slot;
 		int coord;
 	};

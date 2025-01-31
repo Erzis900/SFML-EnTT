@@ -8,7 +8,6 @@ namespace features::item
 	{
 		int id;
 		std::string name;
-		float damage;
 		int x;
 		int y;
 		int width;

@@ -2,6 +2,7 @@
 #include "pch.hpp"
 
 #include "../components/equipped.hpp"
+#include "../components/itemId.hpp"
 
 namespace features::item::entities
 {

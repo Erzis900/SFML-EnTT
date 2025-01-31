@@ -6,6 +6,7 @@
 #include "components/unit.hpp"
 
 #include "../components/equipped.hpp"
+#include "../components/itemId.hpp"
 #include "../loader/itemsLoader.hpp"
 
 namespace features::item::renderers
