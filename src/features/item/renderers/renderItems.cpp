@@ -2,6 +2,7 @@
 
 namespace features::item::renderers
 {
+	constexpr float pi = acos(-1);
 	void renderItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
 	{
 		auto view_equipped = registry.view<features::item::components::equipped, features::item::components::itemId>();
@@ -14,7 +15,7 @@ namespace features::item::renderers
 			auto width = sprite.getTextureRect().size.x;
 			auto height = sprite.getTextureRect().size.y;
 
-			auto rotation = sf::degrees(std::atan2(dir.y, dir.x) * 180 / M_PI) - sf::degrees(dir.y == 0 && dir.x == 0 ? 0 : -90);
+			auto rotation = sf::degrees(std::atan2(dir.y, dir.x) * 180 / pi) - sf::degrees(dir.y == 0 && dir.x == 0 ? 0 : -90);
 			auto posX = width / 2.f;
 			auto posY = height / 2.f;
 			switch (equipped.slot)
