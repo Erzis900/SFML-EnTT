@@ -4,6 +4,12 @@
     "items": {
         "type": "object",
         "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "string"
+            },
             "head": {
                 "type": "integer"
             },
@@ -65,6 +71,6 @@
                 }
             }
         },
-        "required": ["head", "chest", "mainShoulder", "offShoulder", "mainhand", "offhand", "cape", "inventory", "abilities"]
+        "required": ["id", "name", "head", "chest", "mainShoulder", "offShoulder", "mainhand", "offhand", "cape", "inventory", "abilities"]
     }
 }
