@@ -19,7 +19,7 @@ namespace features::item::renderers
 			auto posY = height / 2.f;
 			switch (equipped.slot)
 			{
-			case features::item::components::SlotType::Helmet:
+			case features::item::components::SlotType::Head:
 				sprite.setOrigin({posX, posY});
 				sprite.setRotation(rotation);
 				break;

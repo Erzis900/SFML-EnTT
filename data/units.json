@@ -1,0 +1,17 @@
+[{
+    "head": 0,
+    "chest": 0,
+    "mainShoulder": 0,
+    "offShoulder": 0,
+    "mainhand": 0,
+    "offhand": 0,
+    "cape": 0,
+    "inventory": [0, 0, 0, 0, 0],
+    "abilities": [{
+        "type": "Mainhand",
+        "items": [0, 0, 0, 0, 0]
+    }, {
+        "items": [],
+        "type": "Offhand"
+    }]
+}]

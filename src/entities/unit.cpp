@@ -21,7 +21,7 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos,
 	features::item::entities::equipItem(registry, entity, 1, features::item::components::SlotType::Mainhand, features::item::components::SlotType::Mainhand);
 	features::item::entities::equipItem(registry, entity, 5, features::item::components::SlotType::Offhand, features::item::components::SlotType::Offhand);
 	features::item::entities::equipItem(registry, entity, 6, features::item::components::SlotType::Cape, features::item::components::SlotType::Cape);
-	features::item::entities::equipItem(registry, entity, 4, features::item::components::SlotType::Helmet, features::item::components::SlotType::Helmet);
+	features::item::entities::equipItem(registry, entity, 4, features::item::components::SlotType::Head, features::item::components::SlotType::Head);
 	features::item::entities::equipItem(registry, entity, 3, features::item::components::SlotType::MainShoulder,
 										features::item::components::SlotType::MainShoulder);
 	features::item::entities::equipItem(registry, entity, 3, features::item::components::SlotType::OffShoulder,

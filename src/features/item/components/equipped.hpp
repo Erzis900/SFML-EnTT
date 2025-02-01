@@ -5,7 +5,7 @@ namespace features::item::components
 {
 	enum SlotType
 	{
-		Helmet = 0,
+		Head = 0,
 		Chest = 1,
 		MainShoulder = 2,
 		OffShoulder = 3,
