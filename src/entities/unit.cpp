@@ -1,6 +1,7 @@
 #include "unit.hpp"
 
-void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos, float speed, float health, float maxHealth)
+void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoader, entt::entity entity, sf::Vector2f pos, float speed, float health,
+				float maxHealth)
 {
 	registry.emplace<common::components::unit>(entity, true);
 	registry.emplace<common::components::position>(entity, pos.x, pos.y);
@@ -14,17 +15,13 @@ void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos,
 	attributes[common::entities::Stat::MaxHealth] = common::entities::createAttribute(registry, common::entities::Stat::MaxHealth, maxHealth);
 	attributes[common::entities::Stat::Speed] = common::entities::createAttribute(registry, common::entities::Stat::Speed, speed);
 	attributes[common::entities::Stat::Damage] = common::entities::createAttribute(registry, common::entities::Stat::Damage, 10.f);
-	auto modifier1 = common::entities::createModifier(registry, common::entities::Scope::Flat, 10.f);
-	auto modifier2 = common::entities::addModifier(registry, modifier1, common::entities::Scope::Flat, 10.f);
-	auto modifier3 = common::entities::addModifier(registry, modifier2, common::entities::Scope::Flat, 10.f);
+	attributes[common::entities::Stat::MinDamage] = common::entities::createAttribute(registry, common::entities::Stat::MinDamage, 0.f);
+	attributes[common::entities::Stat::MaxDamage] = common::entities::createAttribute(registry, common::entities::Stat::MaxDamage, 5.f);
 
-	features::item::entities::equipItem(registry, entity, 0, features::item::components::SlotType::Mainhand);
-	features::item::entities::equipItem(registry, entity, 5, features::item::components::SlotType::Offhand);
-	features::item::entities::equipItem(registry, entity, 6, features::item::components::SlotType::Cape);
-	features::item::entities::equipItem(registry, entity, 4, features::item::components::SlotType::Head);
-	features::item::entities::equipItem(registry, entity, 3, features::item::components::SlotType::MainShoulder);
-	features::item::entities::equipItem(registry, entity, 3, features::item::components::SlotType::OffShoulder);
-
-	registry.get<common::components::relationship>(attributes[common::entities::Stat::Speed]).first_child = modifier1;
-	registry.emplace<common::components::recalculate>(attributes[common::entities::Stat::Speed], true);
+	features::item::entities::equipItem(registry, itemsLoader, entity, 0, features::item::components::SlotType::Mainhand);
+	features::item::entities::equipItem(registry, itemsLoader, entity, 5, features::item::components::SlotType::Offhand);
+	features::item::entities::equipItem(registry, itemsLoader, entity, 6, features::item::components::SlotType::Cape);
+	features::item::entities::equipItem(registry, itemsLoader, entity, 4, features::item::components::SlotType::Head);
+	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::MainShoulder);
+	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::OffShoulder);
 }
