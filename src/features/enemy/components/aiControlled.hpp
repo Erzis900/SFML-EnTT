@@ -1,3 +1,5 @@
+#pragma once
+
 namespace features::enemy::components
 {
 	struct aiControlled

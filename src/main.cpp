@@ -93,14 +93,15 @@ int main()
 	GUI gui(window, config, stateManager);
 
 	entt::registry registry;
-	features::player::entities::createPlayer(registry, config);
+
+	features::item::ItemsLoader itemsLoader;
+
+	features::player::entities::createPlayer(registry, config, itemsLoader);
 
 	for (int i = 0; i < 3; i++)
 	{
-		features::enemy::entities::createEnemy(registry, config);
+		features::enemy::entities::createEnemy(registry, config, itemsLoader);
 	}
-
-	features::item::ItemsLoader itemsLoader;
 
 	sf::Clock clock;
 	sf::Clock fpsClock;

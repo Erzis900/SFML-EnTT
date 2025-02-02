@@ -4,11 +4,12 @@
 #include "components/renderable.hpp"
 #include "config.hpp"
 #include "entities/unit.hpp"
+#include "features/item/loader/itemsLoader.hpp"
 #include "features/player/components/initialCooldown.hpp"
 #include "features/player/components/playerControlled.hpp"
 #include "pch.hpp"
 
 namespace features::player::entities
 {
-	entt::entity createPlayer(entt::registry &registry, Config config);
+	entt::entity createPlayer(entt::registry &registry, Config config, features::item::ItemsLoader &itemsLoader);
 }

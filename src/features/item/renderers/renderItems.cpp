@@ -5,9 +5,15 @@ namespace features::item::renderers
 	constexpr float pi = acos(-1);
 	void renderItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
 	{
-		auto view_equipped = registry.view<features::item::components::equipped, features::item::components::itemId>();
+		renderGroundItems(registry, window, itemsLoader);
+		renderEquippedItems(registry, window, itemsLoader);
+	}
 
-		for (auto [entity, equipped, itemId] : view_equipped.each())
+	void renderEquippedItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
+	{
+		auto view = registry.view<features::item::components::equipped, features::item::components::itemId>();
+
+		for (auto [entity, equipped, itemId] : view.each())
 		{
 			auto pos = registry.get<common::components::position>(equipped.unit);
 			auto dir = registry.get<common::components::lookDirection>(equipped.unit);
@@ -57,9 +63,12 @@ namespace features::item::renderers
 			sprite.setPosition({pos.x, pos.y});
 			window.draw(sprite);
 		}
+	}
 
-		auto view_ground = registry.view<common::components::position, features::item::components::itemId>();
-		for (auto [entity, pos, itemId] : view_ground.each())
+	void renderGroundItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
+	{
+		auto view = registry.view<common::components::position, features::item::components::itemId>();
+		for (auto [entity, pos, itemId] : view.each())
 		{
 			auto sprite = itemsLoader.getSprite(itemId.id);
 			sprite.setPosition({pos.x, pos.y});

@@ -17,7 +17,6 @@ namespace features::item::components
 	{
 		entt::entity unit;
 		SlotType slot;
-		int coord;
 	};
 
 }  // namespace features::item::components

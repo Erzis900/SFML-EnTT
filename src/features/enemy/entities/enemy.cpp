@@ -1,10 +1,4 @@
 #include "enemy.hpp"
-#include "components/collider.hpp"
-#include "components/faction.hpp"
-#include "components/healthRegen.hpp"
-#include "components/renderable.hpp"
-#include "entities/unit.hpp"
-#include "features/enemy/components/aiControlled.hpp"
 
 float randomFloat(float min, float max)
 {
@@ -16,7 +10,7 @@ float randomFloat(float min, float max)
 
 namespace features::enemy::entities
 {
-	entt::entity createEnemy(entt::registry &registry, Config config)
+	entt::entity createEnemy(entt::registry &registry, Config config, features::item::ItemsLoader &itemsLoader)
 	{
 		auto entity = registry.create();
 
@@ -29,7 +23,7 @@ namespace features::enemy::entities
 		enemyShape.setFillColor(sf::Color::Red);
 		enemyShape.setOrigin({enemyShape.getRadius(), enemyShape.getRadius()});
 
-		createUnit(registry, entity, {pos.x, pos.y}, {0, 0}, config.enemy.speed, config.enemy.health, config.enemy.maxHealth);
+		createUnit(registry, entity, {pos.x, pos.y}, config.enemy.speed, config.enemy.health, config.enemy.maxHealth);
 
 		registry.emplace<features::enemy::components::aiControlled>(entity, true);
 		registry.emplace<common::components::renderable>(entity, enemyShape);

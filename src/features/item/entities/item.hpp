@@ -6,5 +6,5 @@
 
 namespace features::item::entities
 {
-	entt::entity equipItem(entt::registry &registry, entt::entity unit, int itemId, features::item::components::SlotType slot, int coord);
+	entt::entity equipItem(entt::registry &registry, entt::entity unit, int itemId, features::item::components::SlotType slot);
 }
