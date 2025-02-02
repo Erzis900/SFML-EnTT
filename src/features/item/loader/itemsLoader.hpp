@@ -1,9 +1,17 @@
 #pragma once
 
+#include "components/modifiers.hpp"
+#include "entities/attribute.hpp"
 #include "pch.hpp"
 
 namespace features::item
 {
+	struct Modifier
+	{
+		common::entities::Stat attribute;
+		float value;
+		common::entities::Scope scope;
+	};
 	struct Item
 	{
 		int id;
@@ -12,6 +20,7 @@ namespace features::item
 		int y;
 		int width;
 		int height;
+		std::vector<Modifier> modifiers;
 	};
 	class ItemsLoader
 	{

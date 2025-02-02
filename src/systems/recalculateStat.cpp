@@ -35,13 +35,13 @@ namespace common::systems
 			{
 				switch (mod.scope)
 				{
-				case common::components::Scope::Flat:
+				case common::entities::Scope::Flat:
 					value += mod.value;
 					break;
-				case common::components::Scope::PercentAdd:
+				case common::entities::Scope::PercentAdd:
 					value += attr.baseValue * mod.value;
 					break;
-				case common::components::Scope::PercentMult:
+				case common::entities::Scope::PercentMult:
 					value *= 1 + mod.value;
 					break;
 				default:

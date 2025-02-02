@@ -30,7 +30,7 @@ namespace common::entities
 		}
 		return entity;
 	}
-	entt::entity createModifier(entt::registry &registry, common::components::Scope scope, float value)
+	entt::entity createModifier(entt::registry &registry, common::entities::Scope scope, float value)
 	{
 		auto modifierEntity = registry.create();
 		registry.emplace<common::components::relationship>(modifierEntity);
@@ -38,7 +38,7 @@ namespace common::entities
 
 		return modifierEntity;
 	}
-	entt::entity addModifier(entt::registry &registry, entt::entity prevModifier, common::components::Scope scope, float value)
+	entt::entity addModifier(entt::registry &registry, entt::entity prevModifier, common::entities::Scope scope, float value)
 	{
 		auto modifierEntity = registry.create();
 		registry.emplace<common::components::relationship>(modifierEntity);
@@ -47,5 +47,29 @@ namespace common::entities
 		registry.get<common::components::relationship>(prevModifier).next = modifierEntity;
 
 		return modifierEntity;
+	}
+	Stat getStat(std::string stat)
+	{
+		auto it = mapStat.find(stat);
+		if (it != mapStat.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return Stat::NoneStat;
+		}
+	}
+	Scope getScope(std::string scope)
+	{
+		auto it = mapScope.find(scope);
+		if (it != mapScope.end())
+		{
+			return it->second;
+		}
+		else
+		{
+			return Scope::NoneScope;
+		}
 	}
 }  // namespace common::entities

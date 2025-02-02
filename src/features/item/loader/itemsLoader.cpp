@@ -10,7 +10,14 @@ namespace features::item
 
 		for (auto &itemJson : data)
 		{
-			Item itemData = {itemJson["id"], itemJson["name"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"]};
+			std::vector<Modifier> modifiers = {};
+			for (auto &modifierJson : itemJson["modifiers"])
+			{
+				Modifier modifier = {common::entities::getStat(modifierJson["attribute"]), modifierJson["value"],
+									 common::entities::getScope(modifierJson["scope"])};
+				modifiers.push_back(modifier);
+			}
+			Item itemData = {itemJson["id"], itemJson["name"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"], modifiers};
 			itemsData[itemJson["id"]] = itemData;
 		}
 	}

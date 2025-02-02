@@ -1,18 +1,29 @@
 #pragma once
 
-namespace common::components
+namespace common
 {
-	enum Scope : int
+	namespace entities
 	{
-		Flat = 100,
-		PercentAdd = 200,
-		PercentMult = 300,
-		Set = 400,
-	};
+		enum Scope : int
+		{
+			NoneScope = 0,
+			Flat = 100,
+			PercentAdd = 200,
+			PercentMult = 300,
+			Set = 400,
+		};
 
-	struct modifier
+		static std::unordered_map<std::string, Scope> const mapScope = {
+			{"Flat", Scope::Flat}, {"PercentAdd", Scope::PercentAdd}, {"PercentMult", Scope::PercentMult}, {"Set", Scope::Set}};
+	}  // namespace entities
+
+	namespace components
 	{
-		float value;
-		Scope scope;
-	};
-}  // namespace common::components
+		struct modifier
+		{
+			float value;
+			entities::Scope scope;
+		};
+
+	}  // namespace components
+}  // namespace common

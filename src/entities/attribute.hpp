@@ -7,20 +7,25 @@
 
 namespace common::entities
 {
-	constexpr std::size_t ATTRIBUTES_SIZE = 4;
+	constexpr std::size_t ATTRIBUTES_SIZE = 6;
 	using Attributes = common::components::children<ATTRIBUTES_SIZE>;
 
 	enum Stat : int
 	{
-		Health = 0,
-		MaxHealth = 1,
-		Speed = 2,
-		Damage = 3,
-		MinDamage = 4,
-		MaxDamage = 5,
+		NoneStat = 0,
+		Health = 1,
+		MaxHealth = 2,
+		Speed = 3,
+		Damage = 4,
+		MinDamage = 5,
+		MaxDamage = 6,
 	};
+	static std::unordered_map<std::string, Stat> const mapStat = {{"Health", Stat::Health}, {"MaxHealth", Stat::MaxHealth}, {"Speed", Stat::Speed},
+																  {"Damage", Stat::Damage}, {"MinDamage", Stat::MinDamage}, {"MaxDamage", Stat::MaxDamage}};
 
+	Stat getStat(std::string stat);
+	Scope getScope(std::string scope);
 	entt::entity createAttribute(entt::registry &registry, Stat stat, float initialValue);
-	entt::entity createModifier(entt::registry &registry, common::components::Scope scope, float value);
-	entt::entity addModifier(entt::registry &registry, entt::entity attribute, common::components::Scope scope, float value);
+	entt::entity createModifier(entt::registry &registry, common::entities::Scope scope, float value);
+	entt::entity addModifier(entt::registry &registry, entt::entity attribute, common::entities::Scope scope, float value);
 }  // namespace common::entities
