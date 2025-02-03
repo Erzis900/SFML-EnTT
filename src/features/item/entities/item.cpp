@@ -49,7 +49,7 @@ namespace features::item::entities
 			auto modifierEntity = relationship.first_child;
 			while (modifierEntity != entt::null)
 			{
-				if (registry.get<common::components::relationship>(relationship.first_child).parent == equippedEntity)
+				if (registry.get<common::components::relationship>(modifierEntity).source == equippedEntity)
 				{
 					auto &mod = registry.get<common::components::modifier>(modifierEntity);
 					auto &modifierRelationship = registry.get<common::components::relationship>(modifierEntity);

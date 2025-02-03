@@ -11,5 +11,6 @@ namespace common::components
 		entt::entity prev{entt::null};
 		entt::entity next{entt::null};
 		entt::entity parent{entt::null};
+		entt::entity source{entt::null};
 	};
 }  // namespace common::components

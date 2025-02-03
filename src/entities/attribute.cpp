@@ -34,7 +34,7 @@ namespace common::entities
 	{
 		auto modifierEntity = registry.create();
 		auto &relationship = registry.emplace<common::components::relationship>(modifierEntity);
-		relationship.parent = parent;
+		relationship.source = parent;
 		registry.emplace<common::components::modifier>(modifierEntity, value, scope);
 
 		return modifierEntity;
