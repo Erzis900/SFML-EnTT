@@ -23,7 +23,7 @@ namespace features::enemy::entities
 		enemyShape.setFillColor(sf::Color::Red);
 		enemyShape.setOrigin({enemyShape.getRadius(), enemyShape.getRadius()});
 
-		createUnit(registry, itemsLoader, entity, {pos.x, pos.y}, config.enemy.speed, config.enemy.health, config.enemy.maxHealth);
+		createUnit(registry, itemsLoader, entity, {pos.x, pos.y});
 
 		registry.emplace<features::enemy::components::aiControlled>(entity, true);
 		registry.emplace<common::components::renderable>(entity, enemyShape);

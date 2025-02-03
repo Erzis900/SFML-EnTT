@@ -10,8 +10,7 @@ namespace features::player::entities
 		playerShape.setFillColor(sf::Color::Yellow);
 		playerShape.setOrigin({playerShape.getRadius(), playerShape.getRadius()});
 
-		createUnit(registry, itemsLoader, entity, {config.player.startX, config.player.startY}, config.player.speed, config.player.health,
-				   config.player.maxHealth);
+		createUnit(registry, itemsLoader, entity, {config.player.startX, config.player.startY});
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
 		registry.emplace<features::player::components::initialCooldown>(entity, config.player.cooldown);

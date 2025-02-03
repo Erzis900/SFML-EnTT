@@ -12,9 +12,9 @@
 #include "components/unit.hpp"
 #include "config.hpp"
 #include "entities/attribute.hpp"
+#include "features/ability/entities/ability.hpp"
 #include "features/item/entities/item.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "pch.hpp"
 
-void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoader, entt::entity entity, sf::Vector2f pos, float speed, float health,
-				float maxHealth);
+void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoader, entt::entity entity, sf::Vector2f pos);

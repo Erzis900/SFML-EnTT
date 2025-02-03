@@ -9,7 +9,7 @@
 
 namespace common::entities
 {
-	entt::entity createAttribute(entt::registry &registry, common::entities::Stat stat, float initialValue)
+	entt::entity createAttribute(entt::registry &registry, entt::entity unit, common::entities::Stat stat, float initialValue)
 	{
 		auto entity = registry.create();
 		auto &relationship = registry.emplace<common::components::relationship>(entity);
@@ -17,13 +17,13 @@ namespace common::entities
 		switch (stat)
 		{
 		case common::entities::Stat::Health:
-			registry.emplace<common::components::health>(entity, initialValue);
+			registry.emplace<common::components::health>(unit, initialValue);
 			break;
 		case common::entities::Stat::MaxHealth:
-			registry.emplace<common::components::maxHealth>(entity, initialValue);
+			registry.emplace<common::components::maxHealth>(unit, initialValue);
 			break;
 		case common::entities::Stat::Speed:
-			registry.emplace<common::components::speed>(entity, initialValue);
+			registry.emplace<common::components::speed>(unit, initialValue);
 			break;
 		default:
 			break;

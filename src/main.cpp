@@ -1,5 +1,6 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
+#include "features/ability/systems/processAbility.hpp"
 #include "features/enemy/entities/enemy.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
 #include "features/hitbox/systems/isOnScreen.hpp"
@@ -10,7 +11,6 @@
 #include "features/item/renderers/renderItems.hpp"
 #include "features/player/entities/player.hpp"
 #include "features/player/systems/playerInput.hpp"
-#include "features/player/systems/playerShoot.hpp"
 #include "gui.hpp"
 #include "pch.hpp"
 #include "renderers/drawHealthbars.hpp"
@@ -44,7 +44,6 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 {
-	features::player::systems::playerShoot(registry);
 	features::player::systems::playerInput(registry, window);
 	features::enemy::systems::followPlayer(registry);
 
@@ -59,6 +58,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 	common::systems::applyUnitStat(registry);
 	common::systems::moveEntities(registry, deltaTime);
 	common::systems::processPhysics(registry, deltaTime);
+	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processCooldown(registry, deltaTime);
 	common::systems::processDeath(registry);
 
