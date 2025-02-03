@@ -24,4 +24,5 @@ void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoad
 	features::item::entities::equipItem(registry, itemsLoader, entity, 4, features::item::components::SlotType::Head);
 	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::MainShoulder);
 	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::OffShoulder);
+	// features::item::entities::unequipItem(registry, itemsLoader, mainhand);
 }

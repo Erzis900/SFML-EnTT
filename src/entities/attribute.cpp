@@ -30,21 +30,12 @@ namespace common::entities
 		}
 		return entity;
 	}
-	entt::entity createModifier(entt::registry &registry, common::entities::Scope scope, float value)
+	entt::entity createModifier(entt::registry &registry, entt::entity parent, common::entities::Scope scope, float value)
 	{
 		auto modifierEntity = registry.create();
-		registry.emplace<common::components::relationship>(modifierEntity);
+		auto &relationship = registry.emplace<common::components::relationship>(modifierEntity);
+		relationship.parent = parent;
 		registry.emplace<common::components::modifier>(modifierEntity, value, scope);
-
-		return modifierEntity;
-	}
-	entt::entity addModifier(entt::registry &registry, entt::entity prevModifier, common::entities::Scope scope, float value)
-	{
-		auto modifierEntity = registry.create();
-		registry.emplace<common::components::relationship>(modifierEntity);
-		registry.emplace<common::components::modifier>(modifierEntity, value, scope);
-		registry.get<common::components::relationship>(modifierEntity).prev = prevModifier;
-		registry.get<common::components::relationship>(prevModifier).next = modifierEntity;
 
 		return modifierEntity;
 	}
