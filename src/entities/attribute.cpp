@@ -30,6 +30,20 @@ namespace common::entities
 		}
 		return entity;
 	}
+
+	void initAttributes(entt::registry &registry, entt::entity entity)
+	{
+		registry.emplace<Attributes>(entity, Attributes{});
+
+		auto &attributes = registry.get<Attributes>(entity).entities;
+		attributes[Stat::Health] = createAttribute(registry, entity, Stat::Health, 50.f);
+		attributes[Stat::MaxHealth] = createAttribute(registry, entity, Stat::MaxHealth, 50.f);
+		attributes[Stat::Speed] = createAttribute(registry, entity, Stat::Speed, 180.f);
+		attributes[Stat::Damage] = createAttribute(registry, entity, Stat::Damage, 10.f);
+		attributes[Stat::MinDamage] = createAttribute(registry, entity, Stat::MinDamage, 0.f);
+		attributes[Stat::MaxDamage] = createAttribute(registry, entity, Stat::MaxDamage, 5.f);
+	}
+
 	entt::entity createModifier(entt::registry &registry, entt::entity parent, common::entities::Scope scope, float value)
 	{
 		auto modifierEntity = registry.create();

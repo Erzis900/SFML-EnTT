@@ -30,8 +30,6 @@ namespace features::enemy::entities
 		registry.emplace<common::components::collider>(entity, config.enemy.radius);
 		registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
 
-		registry.emplace<common::components::healthRegen>(entity, config.enemy.healthRegen);
-
 		return entity;
 	}
 }  // namespace features::enemy::entities

@@ -10,6 +10,6 @@ namespace features::ability::components
 		float castTime;
 		float activeTime;
 		float delayTime;
-		float cooldown;
+		float cooldownTime;
 	};
 }  // namespace features::ability::components

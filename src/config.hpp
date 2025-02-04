@@ -17,22 +17,12 @@ class Config
 	{
 		float startX, startY;
 		float radius;
-		float speed;
-		float cooldown;
-		float health;
-		float maxHealth;
-		float healthRegen;
 	} player;
 
 	struct enemy
 	{
 		float startX, startY;
 		float radius;
-		float speed;
-		float cooldown;
-		float health;
-		float maxHealth;
-		float healthRegen;
 	} enemy;
 
 	struct hitbox

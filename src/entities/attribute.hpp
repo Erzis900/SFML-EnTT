@@ -26,5 +26,6 @@ namespace common::entities
 	Stat getStat(std::string stat);
 	Scope getScope(std::string scope);
 	entt::entity createAttribute(entt::registry &registry, entt::entity unit, Stat stat, float initialValue);
+	void initAttributes(entt::registry &registry, entt::entity entity);
 	entt::entity createModifier(entt::registry &registry, entt::entity parent, common::entities::Scope scope, float value);
 }  // namespace common::entities

@@ -1,6 +1,5 @@
 #include "components/collider.hpp"
 #include "components/faction.hpp"
-#include "components/healthRegen.hpp"
 #include "components/renderable.hpp"
 #include "config.hpp"
 #include "entities/unit.hpp"

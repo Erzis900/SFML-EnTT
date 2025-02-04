@@ -6,13 +6,8 @@ void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoad
 	registry.emplace<common::components::position>(entity, pos.x, pos.y);
 	registry.emplace<common::components::direction>(entity, 0.f, 0.f);
 	registry.emplace<common::components::lookDirection>(entity, 0.f, 0.f);
-	auto &attributes = registry.emplace<common::entities::Attributes>(entity, common::entities::Attributes{}).entities;
-	attributes[common::entities::Stat::Health] = common::entities::createAttribute(registry, entity, common::entities::Stat::Health, 50.f);
-	attributes[common::entities::Stat::MaxHealth] = common::entities::createAttribute(registry, entity, common::entities::Stat::MaxHealth, 50.f);
-	attributes[common::entities::Stat::Speed] = common::entities::createAttribute(registry, entity, common::entities::Stat::Speed, 240.f);
-	attributes[common::entities::Stat::Damage] = common::entities::createAttribute(registry, entity, common::entities::Stat::Damage, 10.f);
-	attributes[common::entities::Stat::MinDamage] = common::entities::createAttribute(registry, entity, common::entities::Stat::MinDamage, 0.f);
-	attributes[common::entities::Stat::MaxDamage] = common::entities::createAttribute(registry, entity, common::entities::Stat::MaxDamage, 5.f);
+
+	common::entities::initAttributes(registry, entity);
 
 	features::item::entities::equipItem(registry, itemsLoader, entity, 0, features::item::components::SlotType::Mainhand);
 	features::item::entities::equipItem(registry, itemsLoader, entity, 5, features::item::components::SlotType::Offhand);

@@ -4,9 +4,18 @@ namespace features::ability::systems
 {
 	void processAbility(entt::registry &registry, float deltaTime)
 	{
-		auto view = registry.view<components::ready>();
+		processReady(registry);
+		processCast(registry, deltaTime);
+		processActive(registry, deltaTime);
+		processDelay(registry, deltaTime);
+		processCooldown(registry, deltaTime);
+	}
 
-		for (auto [entity] : view.each())
+	void processReady(entt::registry &registry)
+	{
+		auto view = registry.view<components::ready, components::ability>();
+
+		for (auto [entity, rdy, abi] : view.each())
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
@@ -14,55 +23,76 @@ namespace features::ability::systems
 				registry.emplace<components::cast>(entity, 0.05f);
 			}
 		}
+	}
 
-		registry.view<components::cast>().each([&](auto entity, auto &cast) {
+	void processCast(entt::registry &registry, float deltaTime)
+	{
+		auto view = registry.view<components::cast, components::ability>();
+
+		for (auto [entity, cast, ability] : view.each())
+		{
 			cast.time -= deltaTime;
 
 			if (cast.time <= 0.f)
 			{
-				auto view = registry.view<features::player::components::playerControlled, features::player::components::initialCooldown,
-										  common::components::lookDirection>();
+				auto view = registry.view<features::player::components::playerControlled, common::components::lookDirection>();
 				auto playerEntity = *view.begin();
 
-				if (!registry.all_of<common::components::cooldown>(playerEntity))
-				{
-					auto &lookDir = view.get<common::components::lookDirection>(playerEntity);
-					auto &playerCd = view.get<features::player::components::initialCooldown>(playerEntity);
+				auto &lookDir = view.get<common::components::lookDirection>(playerEntity);
 
-					common::entities::createHitbox(registry, playerEntity, lookDir.x, lookDir.y);
-					registry.emplace<common::components::cooldown>(playerEntity, playerCd.time);
-				}
+				common::entities::createHitbox(registry, playerEntity, lookDir.x, lookDir.y);
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, 0.025f);
 			}
-		});
+		}
+	}
 
-		registry.view<components::active>().each([&](auto entity, auto &active) {
+	void processActive(entt::registry &registry, float deltaTime)
+	{
+		auto view = registry.view<components::active, components::ability>();
+
+		for (auto [entity, active, ability] : view.each())
+		{
 			active.time -= deltaTime;
+
 			if (active.time <= 0.f)
 			{
 				registry.remove<components::active>(entity);
-				registry.emplace<components::delay>(entity, 0.f);
+				registry.emplace<components::delay>(entity, ability.activeTime);
 			}
-		});
+		}
+	}
 
-		registry.view<components::delay>().each([&](auto entity, auto &delay) {
+	void processDelay(entt::registry &registry, float deltaTime)
+	{
+		auto view = registry.view<components::delay, components::ability>();
+
+		for (auto [entity, delay, ability] : view.each())
+		{
 			delay.time -= deltaTime;
+
 			if (delay.time <= 0.f)
 			{
 				registry.remove<components::delay>(entity);
-				registry.emplace<components::cooldown>(entity, 0.05f);
+				registry.emplace<components::cooldown>(entity, ability.cooldownTime);
 			}
-		});
+		}
+	}
 
-		registry.view<components::cooldown>().each([&](auto entity, auto &cooldown) {
+	void processCooldown(entt::registry &registry, float deltaTime)
+	{
+		auto view = registry.view<components::cooldown, components::ability>();
+
+		for (auto [entity, cooldown, ability] : view.each())
+		{
 			cooldown.time -= deltaTime;
+
 			if (cooldown.time <= 0.f)
 			{
 				registry.remove<components::cooldown>(entity);
 				registry.emplace<components::ready>(entity);
 			}
-		});
+		}
 	}
 }  // namespace features::ability::systems

@@ -13,13 +13,9 @@ namespace features::player::entities
 		createUnit(registry, itemsLoader, entity, {config.player.startX, config.player.startY});
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
-		registry.emplace<features::player::components::initialCooldown>(entity, config.player.cooldown);
-
 		registry.emplace<common::components::renderable>(entity, playerShape);
 		registry.emplace<common::components::collider>(entity, config.player.radius);
 		registry.emplace<common::components::faction>(entity, common::components::ALLY_MASK, common::components::ALLY_MASK, common::components::FOES_MASK);
-
-		registry.emplace<common::components::healthRegen>(entity, config.player.healthRegen);
 
 		return entity;
 	}

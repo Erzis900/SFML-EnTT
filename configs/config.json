@@ -9,20 +9,11 @@
     {
         "startX": 200,
         "startY": 200,
-        "radius": 50,
-        "speed": 300,
-        "cooldown": 0.1,
-        "health": 100,
-        "maxHealth": 100,
-        "healthRegen": 20
+        "radius": 50
     },
     "enemy":
     {
-        "radius": 50,
-        "speed": 50,
-        "health": 100,
-        "maxHealth": 100,
-        "healthRegen": 10
+        "radius": 50
     },
     "hitbox":
     {

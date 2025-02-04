@@ -19,7 +19,6 @@
 #include "systems/applyUnitStat.hpp"
 #include "systems/cleanupRemoved.hpp"
 #include "systems/moveEntities.hpp"
-#include "systems/processCooldown.hpp"
 #include "systems/processDeath.hpp"
 #include "systems/processPhysics.hpp"
 #include "systems/recalculateStat.hpp"
@@ -59,7 +58,6 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 	common::systems::moveEntities(registry, deltaTime);
 	common::systems::processPhysics(registry, deltaTime);
 	features::ability::systems::processAbility(registry, deltaTime);
-	common::systems::processCooldown(registry, deltaTime);
 	common::systems::processDeath(registry);
 
 	common::systems::cleanupRemoved(registry);	// keep last
