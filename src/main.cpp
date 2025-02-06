@@ -1,5 +1,6 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
+#include "features/ability/systems/clearEvents.hpp"
 #include "features/ability/systems/processAbility.hpp"
 #include "features/enemy/entities/enemy.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
@@ -10,6 +11,7 @@
 #include "features/item/loader/itemsLoader.hpp"
 #include "features/item/renderers/renderItems.hpp"
 #include "features/player/entities/player.hpp"
+#include "features/player/managers/inputManager.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "gui.hpp"
 #include "pch.hpp"
@@ -41,9 +43,9 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 	}
 }
 
-void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
+void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::player::InputManager &inputManager)
 {
-	features::player::systems::playerInput(registry, window);
+	features::player::systems::playerInput(registry, window, inputManager);
 	features::enemy::systems::followPlayer(registry);
 
 	// features::hitbox::systems::isOnScreen(registry,
@@ -60,7 +62,8 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window)
 	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processDeath(registry);
 
-	common::systems::cleanupRemoved(registry);	// keep last
+	features::ability::systems::clearEvents(registry);	// keep in order -2
+	common::systems::cleanupRemoved(registry);			// keep in order -1
 }
 
 void render(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
@@ -93,6 +96,7 @@ int main()
 	entt::registry registry;
 
 	features::item::ItemsLoader itemsLoader;
+	features::player::InputManager inputManager;
 
 	features::player::entities::createPlayer(registry, config, itemsLoader);
 
@@ -129,11 +133,12 @@ int main()
 			gui.update(static_cast<int>(fps));
 		}
 
+		inputManager.processEvents(window);
 		processEvents(registry, window, gui);
 
 		if (stateManager.isActive(State::Game))
 		{
-			update(registry, deltaTime, window);
+			update(registry, deltaTime, window, inputManager);
 		}
 
 		crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));

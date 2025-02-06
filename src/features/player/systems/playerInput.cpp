@@ -12,7 +12,7 @@ namespace features::player::systems
 		return vec;
 	}
 
-	void playerInput(entt::registry &registry, sf::RenderWindow &window)
+	void playerInput(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager)
 	{
 		sf::Vector2f dir = {0.f, 0.f};
 
@@ -38,13 +38,35 @@ namespace features::player::systems
 		sf::Vector2f mousePos = (sf::Vector2f) sf::Mouse::getPosition(window);
 
 		auto view = registry.view<features::player::components::playerControlled, common::components::position>();
-		for (auto [entity, playerControlled, pos] : view.each())
+		for (auto [entityUnit, playerControlled, pos] : view.each())
 		{
 			sf::Vector2f dirVec = {mousePos.x - pos.x, mousePos.y - pos.y};
 			dirVec = normalize(dirVec);
 
-			registry.replace<common::components::direction>(entity, dir.x, dir.y);
-			registry.emplace_or_replace<common::components::lookDirection>(entity, dirVec.x, dirVec.y);
+			registry.replace<common::components::direction>(entityUnit, dir.x, dir.y);
+			registry.emplace_or_replace<common::components::lookDirection>(entityUnit, dirVec.x, dirVec.y);
+
+			for (auto [key, slotType] : keyToSlotType)
+			{
+				if (inputManager.isKeyPressed(key))
+				{
+					auto entityEvent = registry.create();
+					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
+																			   features::ability::components::castEvent::State::Press);
+				}
+				else if (inputManager.isKeyHeld(key))
+				{
+					auto entityEvent = registry.create();
+					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
+																			   features::ability::components::castEvent::State::Hold);
+				}
+				else if (inputManager.isKeyReleased(key))
+				{
+					auto entityEvent = registry.create();
+					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
+																			   features::ability::components::castEvent::State::Release);
+				}
+			}
 		}
 	}
 }  // namespace features::player::systems

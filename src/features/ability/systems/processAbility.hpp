@@ -3,6 +3,7 @@
 #include "../components/ability.hpp"
 #include "../components/active.hpp"
 #include "../components/cast.hpp"
+#include "../components/castEvent.hpp"
 #include "../components/cooldown.hpp"
 #include "../components/delay.hpp"
 #include "../components/ready.hpp"

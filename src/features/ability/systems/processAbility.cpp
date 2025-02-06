@@ -14,13 +14,19 @@ namespace features::ability::systems
 	void processReady(entt::registry &registry)
 	{
 		auto view = registry.view<components::ready, components::ability>();
-
-		for (auto [entity, rdy, abi] : view.each())
+		auto viewEvents = registry.view<components::castEvent>();
+		for (auto [entityEvent, castEvent] : viewEvents.each())
 		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+			for (auto [entity, rdy, abi] : view.each())
 			{
-				registry.remove<components::ready>(entity);
-				registry.emplace<components::cast>(entity, 0.05f);
+				if (abi.source == castEvent.unit && abi.slot == castEvent.slot)
+				{
+					if (castEvent.state == components::castEvent::State::Press || castEvent.state == components::castEvent::State::Hold)
+					{
+						registry.remove<components::ready>(entity);
+						registry.emplace<components::cast>(entity, 0.05f);
+					}
+				}
 			}
 		}
 	}

@@ -1,17 +1,20 @@
 #pragma once
 
 #include "features/item/components/equipped.hpp"
+
 #include "pch.hpp"
 
 namespace features::ability::components
 {
-	struct ability
+	struct castEvent
 	{
-		entt::entity source;
+		entt::entity unit;
 		features::item::components::SlotType slot;
-		float castTime;
-		float activeTime;
-		float delayTime;
-		float cooldownTime;
+		enum class State
+		{
+			Press,
+			Release,
+			Hold
+		} state;
 	};
 }  // namespace features::ability::components

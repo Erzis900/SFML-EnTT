@@ -16,7 +16,8 @@ void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoad
 	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::MainShoulder);
 	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::OffShoulder);
 
-	features::ability::entities::createAbility(registry, entity, 0.2f, 0.1f, 0.1f, 0.1f);
+	features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.2f, 0.1f, 0.1f, 0.1f);
+	features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Offhand, 0.2f, 0.1f, 0.1f, 0.1f);
 
 	// features::item::entities::unequipItem(registry, itemsLoader, mainhand);
 }

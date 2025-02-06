@@ -13,6 +13,7 @@
 #include "config.hpp"
 #include "entities/attribute.hpp"
 #include "features/ability/entities/ability.hpp"
+#include "features/item/components/equipped.hpp"
 #include "features/item/entities/item.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "pch.hpp"
