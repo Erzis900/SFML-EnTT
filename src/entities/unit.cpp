@@ -1,6 +1,6 @@
 #include "unit.hpp"
 
-void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoader, entt::entity entity, sf::Vector2f pos)
+void createUnit(entt::registry &registry, entt::entity entity, sf::Vector2f pos)
 {
 	registry.emplace<common::components::unit>(entity, true);
 	registry.emplace<common::components::position>(entity, pos.x, pos.y);
@@ -8,16 +8,4 @@ void createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoad
 	registry.emplace<common::components::lookDirection>(entity, 0.f, 0.f);
 
 	common::entities::initAttributes(registry, entity);
-
-	features::item::entities::equipItem(registry, itemsLoader, entity, 0, features::item::components::SlotType::Mainhand);
-	features::item::entities::equipItem(registry, itemsLoader, entity, 5, features::item::components::SlotType::Offhand);
-	features::item::entities::equipItem(registry, itemsLoader, entity, 6, features::item::components::SlotType::Cape);
-	features::item::entities::equipItem(registry, itemsLoader, entity, 4, features::item::components::SlotType::Head);
-	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::MainShoulder);
-	features::item::entities::equipItem(registry, itemsLoader, entity, 3, features::item::components::SlotType::OffShoulder);
-
-	features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.2f, 0.1f, 0.1f, 0.1f);
-	features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Offhand, 0.2f, 0.1f, 0.1f, 0.1f);
-
-	// features::item::entities::unequipItem(registry, itemsLoader, mainhand);
 }

@@ -19,7 +19,7 @@ namespace features::hitbox::systems
 
 		for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
 		{
-			if (hitbox.hitCount < 1)
+			if (hitbox.hitCount < 1.f)
 			{
 				registry.emplace_or_replace<common::components::remove>(hitboxEntity);
 				continue;
@@ -31,7 +31,7 @@ namespace features::hitbox::systems
 				{
 					continue;
 				}
-				if (hitbox.hitCount < 1)
+				if (hitbox.hitCount < 1.f)
 				{
 					registry.emplace_or_replace<common::components::remove>(hitboxEntity);
 					break;

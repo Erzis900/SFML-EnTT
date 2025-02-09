@@ -3,11 +3,15 @@
 namespace features::item::entities
 {
 	entt::entity equipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity unit, int itemId,
-						   features::item::components::SlotType slot)
+						   features::item::components::SlotType slot, bool renderable)
 	{
 		auto entity = registry.create();
 		registry.emplace<features::item::components::equipped>(entity, unit, slot);
 		registry.emplace<features::item::components::itemId>(entity, itemId);
+		if (renderable)
+		{
+			registry.emplace<common::components::renderable>(entity);
+		}
 
 		auto &attributes = registry.get<common::entities::Attributes>(unit).entities;
 		auto item = itemLoader.getItem(itemId);

@@ -1,14 +1,10 @@
 #include "pch.hpp"
-#include <SFML/Graphics.hpp>
-
-#include "external/entt.hpp"
-
-#include "components/position.hpp"
-#include "features/item/loader/itemsLoader.hpp"
 
 #include "components/direction.hpp"
+#include "components/position.hpp"
 #include "components/renderable.hpp"
-#include "math.h"
+#include "components/shape.hpp"
+#include "features/item/loader/itemsLoader.hpp"
 
 namespace common::renderers
 {

@@ -1,10 +1,11 @@
 #pragma once
 
+#include "pch.hpp"
+
 namespace common::components
 {
-	struct lookDirection
+	struct shape
 	{
-		float x;
-		float y;
+		sf::CircleShape shape;
 	};
 }  // namespace common::components

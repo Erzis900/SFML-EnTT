@@ -3,6 +3,7 @@
 #include "components/lookDirection.hpp"
 #include "components/position.hpp"
 #include "components/remove.hpp"
+#include "components/renderable.hpp"
 #include "components/unit.hpp"
 
 #include "../components/equipped.hpp"

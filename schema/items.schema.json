@@ -34,31 +34,55 @@
           "type": "array",
           "items": {
             "type": "object",
-            "properties": {
-              "attribute": {
-                "type": "string",
-                "oneOf": [
-                  { "const": "Health" },
-                  { "const": "MaxHealth" },
-                  { "const": "Speed" },
-                  { "const": "Damage" },
-                  { "const": "MinDamage" },
-                  { "const": "MaxDamage" }
-                ]
-              },
-              "value": {
-                "type": "number"
-              },
-              "scope": {
-                "type": "string",
-                "oneOf": [
-                  { "const": "Flat" },
-                  { "const": "PercentAdd" },
-                  { "const": "PercentMult" },
-                  { "const": "Set" }
-                ]
+            "description": "Value modifier",
+            "oneOf": [{
+              "type": "object",
+              "properties": {
+                "attribute": {
+                  "type": "string",
+                  "enum": [
+                    "Health",
+                    "MaxHealth",
+                    "Speed",
+                    "Damage",
+                    "MinDamage",
+                    "MaxDamage",
+                    "BaseAttackSpeed"
+                  ]
+                },
+                "value": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "string",
+                  "enum": [
+                    "Flat",
+                    "PercentAdd",
+                    "PercentMult",
+                    "Set"
+                  ]
+                }
               }
-            },
+            }, {
+              "type": "object",
+              "description": "Trigger modifier",
+              "properties": {
+                "attribute": {
+                  "const": "Trigger"
+                },
+                "value": {
+                  "type": "string",
+                  "enum": [
+                    "OnAttack",
+                    "OnShot",
+                    "OnCast"
+                  ]
+                },
+                "scope": {
+                  "const": "Set"
+                }
+              }
+            }],
             "required": [ "attribute", "value", "scope" ]
           }
         }

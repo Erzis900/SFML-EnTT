@@ -4,6 +4,7 @@
 #include "components/modifiers.hpp"
 #include "components/recalculate.hpp"
 #include "components/relationship.hpp"
+#include "components/renderable.hpp"
 #include "entities/attribute.hpp"
 
 #include "../components/equipped.hpp"
@@ -13,6 +14,6 @@
 namespace features::item::entities
 {
 	entt::entity equipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity unit, int itemId,
-						   features::item::components::SlotType slot);
+						   features::item::components::SlotType slot, bool renderable);
 	bool unequipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity equippedEntity);
 }  // namespace features::item::entities

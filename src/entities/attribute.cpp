@@ -31,6 +31,9 @@ namespace common::entities
 		return entity;
 	}
 
+	/**
+	 * @brief Check headers for the attributes that are initialized
+	 */
 	void initAttributes(entt::registry &registry, entt::entity entity)
 	{
 		registry.emplace<Attributes>(entity, Attributes{});
@@ -42,6 +45,8 @@ namespace common::entities
 		attributes[Stat::Damage] = createAttribute(registry, entity, Stat::Damage, 10.f);
 		attributes[Stat::MinDamage] = createAttribute(registry, entity, Stat::MinDamage, 0.f);
 		attributes[Stat::MaxDamage] = createAttribute(registry, entity, Stat::MaxDamage, 5.f);
+		attributes[Stat::Trigger] = createAttribute(registry, entity, Stat::Trigger, 0.f);
+		attributes[Stat::BaseAttackSpeed] = createAttribute(registry, entity, Stat::BaseAttackSpeed, 0.f);
 	}
 
 	entt::entity createModifier(entt::registry &registry, entt::entity parent, common::entities::Scope scope, float value)

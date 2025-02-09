@@ -7,9 +7,12 @@
 
 namespace common::entities
 {
-	constexpr std::size_t ATTRIBUTES_SIZE = 6;
+	constexpr std::size_t ATTRIBUTES_SIZE = 8;
 	using Attributes = common::components::children<ATTRIBUTES_SIZE>;
 
+	/**
+	 * @brief Check initAttributes for the default values
+	 */
 	enum Stat : int
 	{
 		NoneStat = 0,
@@ -19,9 +22,12 @@ namespace common::entities
 		Damage = 4,
 		MinDamage = 5,
 		MaxDamage = 6,
+		Trigger = 7,
+		BaseAttackSpeed = 8,
 	};
-	static std::unordered_map<std::string, Stat> const mapStat = {{"Health", Stat::Health}, {"MaxHealth", Stat::MaxHealth}, {"Speed", Stat::Speed},
-																  {"Damage", Stat::Damage}, {"MinDamage", Stat::MinDamage}, {"MaxDamage", Stat::MaxDamage}};
+	static std::unordered_map<std::string, Stat> const mapStat = {
+		{"Health", Stat::Health},		{"MaxHealth", Stat::MaxHealth}, {"Speed", Stat::Speed},		{"Damage", Stat::Damage},
+		{"MinDamage", Stat::MinDamage}, {"MaxDamage", Stat::MaxDamage}, {"Trigger", Stat::Trigger}, {"BaseAttackSpeed", Stat::BaseAttackSpeed}};
 
 	Stat getStat(std::string stat);
 	Scope getScope(std::string scope);

@@ -13,14 +13,37 @@ namespace features::item
 			std::vector<Modifier> modifiers = {};
 			for (auto &modifierJson : itemJson["modifiers"])
 			{
-				Modifier modifier = {common::entities::getStat(modifierJson["attribute"]), modifierJson["value"],
-									 common::entities::getScope(modifierJson["scope"])};
-				modifiers.push_back(modifier);
+				auto stat = common::entities::getStat(modifierJson["attribute"]);
+				auto scope = common::entities::getScope(modifierJson["scope"]);
+				auto val = modifierJson["value"];
+				Modifier modifier;
+				switch (stat)
+				{
+				case common::entities::Stat::Trigger:
+					modifier = {stat, scope, getTrigger(val)};
+					modifiers.push_back(modifier);
+					break;
+				default:
+					modifier = {stat, scope, val};
+					modifiers.push_back(modifier);
+					break;
+				}
 			}
-			Item itemData = {itemJson["id"], itemJson["name"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"], modifiers};
+			Item itemData = {itemJson["name"], modifiers, itemJson["id"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"]};
 			itemsData[itemJson["id"]] = itemData;
 		}
 	}
+
+	float getTrigger(std::string trigger)
+	{
+		auto it = mapTrigger.find(trigger);
+		if (it != mapTrigger.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Trigger::OnNone);
+	}
+
 	Item ItemsLoader::getItem(int id) { return itemsData[id]; }
 	sf::Sprite ItemsLoader::getSprite(int id)
 	{

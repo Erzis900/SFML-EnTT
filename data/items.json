@@ -14,6 +14,10 @@
       "attribute": "MaxDamage",
       "value": 10.0,
       "scope": "Flat"
+    }, {
+      "attribute": "Trigger",
+      "value": "OnAttack",
+      "scope": "Set"
     }]
   },
   {
@@ -22,7 +26,24 @@
     "x": 1,
     "y": 0,
     "width": 1,
-    "height": 2
+    "height": 2,
+    "modifiers": [{
+      "attribute": "MinDamage",
+      "value": 5.0,
+      "scope": "Flat"
+    }, {
+      "attribute": "MaxDamage",
+      "value": 10.0,
+      "scope": "Flat"
+    }, {
+      "attribute": "BaseAttackSpeed",
+      "value": 0.5,
+      "scope": "Flat"
+    }, {
+      "attribute": "Trigger",
+      "value": "OnAttack",
+      "scope": "Set"
+    }]
   },
   {
     "id": 2,
@@ -30,7 +51,20 @@
     "x": 2,
     "y": 0,
     "width": 1,
-    "height": 3
+    "height": 3,
+    "modifiers": [{
+      "attribute": "MinDamage",
+      "value": 5.0,
+      "scope": "Flat"
+    }, {
+      "attribute": "MaxDamage",
+      "value": 10.0,
+      "scope": "Flat"
+    }, {
+      "attribute": "Trigger",
+      "value": "OnCast",
+      "scope": "Set"
+    }]
   },
   {
     "id": 3,
@@ -54,7 +88,22 @@
     "x": 6,
     "y": 0,
     "width": 2,
-    "height": 2
+    "height": 2,
+    "modifiers": [
+      {
+        "attribute": "MinDamage",
+        "value": 5.0,
+        "scope": "Flat"
+      }, {
+        "attribute": "MaxDamage",
+        "value": 10.0,
+        "scope": "Flat"
+      }, {
+        "attribute": "Trigger",
+        "value": "OnAttack",
+        "scope": "Set"
+      }
+    ]
   },
   {
     "id": 6,

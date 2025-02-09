@@ -41,12 +41,7 @@ namespace features::ability::systems
 
 			if (cast.time <= 0.f)
 			{
-				auto view = registry.view<features::player::components::playerControlled, common::components::lookDirection>();
-				auto playerEntity = *view.begin();
-
-				auto &lookDir = view.get<common::components::lookDirection>(playerEntity);
-
-				common::entities::createHitbox(registry, playerEntity, lookDir.x, lookDir.y);
+				features::hitbox::entities::createHitbox(registry, entity);
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, 0.025f);

@@ -11,9 +11,9 @@ namespace features::item::renderers
 
 	void renderEquippedItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
 	{
-		auto view = registry.view<features::item::components::equipped, features::item::components::itemId>();
+		auto view = registry.view<features::item::components::equipped, features::item::components::itemId, common::components::renderable>();
 
-		for (auto [entity, equipped, itemId] : view.each())
+		for (auto [entity, equipped, itemId, renderable] : view.each())
 		{
 			auto pos = registry.get<common::components::position>(equipped.unit);
 			auto dir = registry.get<common::components::lookDirection>(equipped.unit);

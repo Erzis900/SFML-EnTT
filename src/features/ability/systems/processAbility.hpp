@@ -1,4 +1,5 @@
 #pragma once
+#include "pch.hpp"
 
 #include "../components/ability.hpp"
 #include "../components/active.hpp"
@@ -7,11 +8,11 @@
 #include "../components/cooldown.hpp"
 #include "../components/delay.hpp"
 #include "../components/ready.hpp"
-#include "pch.hpp"
 
-#include "components/lookDirection.hpp"
+#include "components/attribute.hpp"
+#include "entities/attribute.hpp"
+
 #include "features/hitbox/entities/hitbox.hpp"
-
 #include "features/player/components/initialCooldown.hpp"
 #include "features/player/components/playerControlled.hpp"
 
