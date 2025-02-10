@@ -18,7 +18,7 @@ namespace features::player::entities
 		playerShape.setFillColor(sf::Color::Yellow);
 		playerShape.setOrigin({playerShape.getRadius(), playerShape.getRadius()});
 
-		sf::Vector2f startPos = {window.getSize().x / 2, window.getSize().y / 2};
+		sf::Vector2f startPos = {static_cast<float>(window.getSize().x / 2), static_cast<float>(window.getSize().y / 2)};
 
 		createUnit(registry, entity, startPos, {0, 0}, config.player.speed, config.player.health, config.player.maxHealth);
 

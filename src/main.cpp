@@ -7,6 +7,7 @@
 #include "features/hitbox/systems/processInteraction.hpp"
 #include "features/hitbox/systems/processLifeSpan.hpp"
 #include "features/item/loader/itemsLoader.hpp"
+#include "features/map/map.hpp"
 #include "features/player/entities/player.hpp"
 #include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
@@ -24,8 +25,6 @@
 #include "systems/processPhysics.hpp"
 #include "systems/recalculateStat.hpp"
 
-#include "map.hpp"
-
 void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 {
 	while (const std::optional event = window.pollEvent())
@@ -36,11 +35,11 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 			window.close();
 		}
 
-		if (const auto *resized = event->getIf<sf::Event::Resized>())
-		{
-			sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
-			window.setView(sf::View(visibleArea));
-		}
+		// if (const auto *resized = event->getIf<sf::Event::Resized>())
+		// {
+		// 	sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
+		// 	window.setView(sf::View(visibleArea));
+		// }
 	}
 }
 
@@ -78,7 +77,7 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::item::
 int main()
 {
 	Config config("../../configs/config.json");
-	Map map("../../assets/map.json", "../../assets/tileset.png");
+	features::map::Map map("../../assets/map.json", "../../assets/tileset.png");
 	map.setupMap();
 
 	sf::Texture crosshairTexture;
@@ -90,7 +89,8 @@ int main()
 	sf::Sprite crosshairSprite(crosshairTexture);
 	crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
-	auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
+	auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG", sf::Style::Titlebar | sf::Style::Close);
+	// auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
 	window.setFramerateLimit(config.screen.maxFps);
 	window.setMouseCursorVisible(false);
 
@@ -100,7 +100,7 @@ int main()
 	entt::registry registry;
 	features::player::entities::createPlayer(registry, config, window);
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		features::enemy::entities::createEnemy(registry, config);
 	}
@@ -145,12 +145,12 @@ int main()
 
 		render(registry, window, itemsLoader);
 
+		gui.draw();
+
 		if (stateManager.isActive(State::Game))
 		{
 			window.draw(crosshairSprite);
 		}
-
-		gui.draw();
 
 		window.display();
 	}

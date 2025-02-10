@@ -1,4 +1,5 @@
 #include "gui.hpp"
+#include "features/player/systems/playerCamera.hpp"
 
 GUI::GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager)
 	: gui(window)
@@ -73,20 +74,27 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 		windowSize = {static_cast<unsigned int>(std::stoi(tokens[0])), static_cast<unsigned int>(std::stoi(tokens[1]))};
 
 		window.setSize(windowSize);
+
+		// TODO fix gui viewport
 		gui.setAbsoluteView({0, 0, static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)});
 	});
 
 	fullscreenCheckbox->onChange([this, &window] {
 		if (fullscreenCheckbox->isChecked())
 		{
+			sf::View view = window.getView();
 			window.create(sf::VideoMode::getFullscreenModes()[0], "SFML 3.0 RPG", sf::State::Fullscreen);
+			window.setView(getLetterboxView(view, window.getSize().x, window.getSize().y));
 			window.setFramerateLimit(fpsLimit);
 		}
 		else
 		{
 			window.create(sf::VideoMode(windowSize), "SFML 3.0 RPG");
+
 			window.setFramerateLimit(fpsLimit);
 		}
+
+		// TODO fix gui viewport
 		gui.setAbsoluteView({0, 0, static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)});
 	});
 }

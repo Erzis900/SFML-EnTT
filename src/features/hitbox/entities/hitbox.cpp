@@ -14,7 +14,7 @@ namespace common::entities
 	{
 		const auto hitboxEntity = registry.create();
 		registry.emplace<components::source>(hitboxEntity, source);
-		registry.emplace<components::speed>(hitboxEntity, 500.f);
+		registry.emplace<components::speed>(hitboxEntity, 800.f);
 		auto pos = registry.get<components::position>(source);
 		registry.emplace<components::direction>(hitboxEntity, dir.x, dir.y);
 		registry.emplace<components::position>(hitboxEntity, pos.x, pos.y);
