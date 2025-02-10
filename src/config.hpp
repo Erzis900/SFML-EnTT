@@ -15,6 +15,7 @@ class Config
 
 	struct player
 	{
+		float startX, startY;
 		float radius;
 	} player;
 

@@ -9,9 +9,11 @@
 #include "features/item/components/equipped.hpp"
 #include "features/item/entities/item.hpp"
 #include "features/item/loader/itemsLoader.hpp"
+#include "features/player/components/camera.hpp"
 #include "features/player/components/initialCooldown.hpp"
 #include "features/player/components/playerControlled.hpp"
 #include "pch.hpp"
+
 
 namespace features::player::entities
 {

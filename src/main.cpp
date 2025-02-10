@@ -47,8 +47,7 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::player::InputManager &inputManager)
 {
-	features::player::systems::playerShoot(registry, window);
-	features::player::systems::playerInput(registry);
+	features::player::systems::playerInput(registry, window, inputManager);
 	features::player::systems::playerCamera(registry, window);
 
 	features::enemy::systems::followPlayer(registry);
@@ -106,7 +105,7 @@ int main()
 	features::item::ItemsLoader itemsLoader;
 	features::player::InputManager inputManager;
 
-	features::player::entities::createPlayer(registry, config, itemsLoader);
+	features::player::entities::createPlayer(registry, config, itemsLoader, window);
 
 	for (int i = 0; i < 0; i++)
 	{

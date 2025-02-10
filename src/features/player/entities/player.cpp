@@ -1,16 +1,8 @@
 #include "player.hpp"
-#include "components/collider.hpp"
-#include "components/faction.hpp"
-#include "components/healthRegen.hpp"
-#include "components/renderable.hpp"
-#include "entities/unit.hpp"
-#include "features/player/components/camera.hpp"
-#include "features/player/components/cooldown.hpp"
-#include "features/player/components/playerControlled.hpp"
 
 namespace features::player::entities
 {
-	entt::entity createPlayer(entt::registry &registry, Config config, features::item::ItemsLoader &itemsLoader)
+	entt::entity createPlayer(entt::registry &registry, Config config, features::item::ItemsLoader &itemsLoader, sf::RenderWindow &window)
 	{
 		auto entity = registry.create();
 
@@ -21,6 +13,8 @@ namespace features::player::entities
 		createUnit(registry, entity, {config.player.startX, config.player.startY});
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
+		registry.emplace<features::player::components::camera>(entity, sf::View{});
+
 		registry.emplace<common::components::renderable>(entity);
 		registry.emplace<common::components::shape>(entity, playerShape);
 		registry.emplace<common::components::collider>(entity, config.player.radius);
