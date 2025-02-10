@@ -35,17 +35,13 @@ namespace features::player::systems
 
 		dir = normalize(dir);
 
-		sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
+		auto mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
 		auto view = registry.view<features::player::components::playerControlled, common::components::position>();
 		for (auto [entityUnit, playerControlled, pos] : view.each())
 		{
 			sf::Vector2f dirVec = {mousePos.x - pos.x, mousePos.y - pos.y};
 			dirVec = normalize(dirVec);
-
-			std::cout << "mousePos: " << mousePos.x << " " << mousePos.y << std::endl;
-			std::cout << "pos: " << pos.x << " " << pos.y << std::endl;
-			std::cout << "dirVec: " << dirVec.x << " " << dirVec.y << std::endl;
 
 			registry.replace<common::components::direction>(entityUnit, dir.x, dir.y);
 			registry.emplace_or_replace<common::components::lookDirection>(entityUnit, dirVec.x, dirVec.y);
