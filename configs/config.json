@@ -1,22 +1,18 @@
 {
-    "screen":
-    {
+    "screen": {
         "width": 1280,
         "height": 720,
         "maxFps": 144
     },
-    "player":
-    {
+    "player": {
         "startX": 200,
         "startY": 200,
         "radius": 50
     },
-    "enemy":
-    {
+    "enemy": {
         "radius": 50
     },
-    "hitbox":
-    {
+    "hitbox": {
         "radius": 10
     }
 }

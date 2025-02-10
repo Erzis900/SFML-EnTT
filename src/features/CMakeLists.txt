@@ -1,26 +1,18 @@
 cmake_minimum_required(VERSION 3.28)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Create a library target for the features directory
 add_library(features STATIC)
 
-# Add source files for the features library
-file(GLOB_RECURSE FEATURES_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
-)
+file(GLOB_RECURSE FEATURES_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 target_sources(features PRIVATE ${FEATURES_SOURCES})
 
-# Include directories for the features library
 target_include_directories(features PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/external
 )
 
-# Set the C++ standard to C++17
-target_compile_features(features PUBLIC cxx_std_17)
-
-# Link dependencies for the features library
-target_link_libraries(features PUBLIC SFML::Graphics TGUI::TGUI)
-
-# Enable precompiled headers for the features library
 target_precompile_headers(features PRIVATE ${CMAKE_SOURCE_DIR}/src/pch.hpp)
+
+target_link_libraries(features PUBLIC SFML::Graphics TGUI::TGUI)

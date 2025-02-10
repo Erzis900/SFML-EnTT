@@ -11,8 +11,6 @@ Config::Config(std::string configPath)
 	screen.maxFps = data["screen"]["maxFps"];
 
 	// player
-	player.startX = data["player"]["startX"];
-	player.startY = data["player"]["startY"];
 	player.radius = data["player"]["radius"];
 
 	// enemy

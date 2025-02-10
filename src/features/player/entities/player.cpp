@@ -1,4 +1,12 @@
 #include "player.hpp"
+#include "components/collider.hpp"
+#include "components/faction.hpp"
+#include "components/healthRegen.hpp"
+#include "components/renderable.hpp"
+#include "entities/unit.hpp"
+#include "features/player/components/camera.hpp"
+#include "features/player/components/cooldown.hpp"
+#include "features/player/components/playerControlled.hpp"
 
 namespace features::player::entities
 {

@@ -10,8 +10,10 @@
 #include "features/hitbox/systems/processLifeSpan.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "features/item/renderers/renderItems.hpp"
+#include "features/map/map.hpp"
 #include "features/player/entities/player.hpp"
 #include "features/player/managers/inputManager.hpp"
+#include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "gui.hpp"
 #include "pch.hpp"
@@ -35,17 +37,20 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 			window.close();
 		}
 
-		if (const auto *resized = event->getIf<sf::Event::Resized>())
-		{
-			sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
-			window.setView(sf::View(visibleArea));
-		}
+		// if (const auto *resized = event->getIf<sf::Event::Resized>())
+		// {
+		// 	sf::FloatRect visibleArea({0, 0}, {static_cast<float>(resized->size.x), static_cast<float>(resized->size.y)});
+		// 	window.setView(sf::View(visibleArea));
+		// }
 	}
 }
 
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::player::InputManager &inputManager)
 {
-	features::player::systems::playerInput(registry, window, inputManager);
+	features::player::systems::playerShoot(registry, window);
+	features::player::systems::playerInput(registry);
+	features::player::systems::playerCamera(registry, window);
+
 	features::enemy::systems::followPlayer(registry);
 
 	// features::hitbox::systems::isOnScreen(registry,
@@ -76,6 +81,8 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::item::
 int main()
 {
 	Config config("../../configs/config.json");
+	features::map::Map map("../../assets/map.json", "../../assets/tileset.png");
+	map.setupMap();
 
 	sf::Texture crosshairTexture;
 	if (!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
@@ -86,7 +93,8 @@ int main()
 	sf::Sprite crosshairSprite(crosshairTexture);
 	crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
-	auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
+	auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG", sf::Style::Titlebar | sf::Style::Close);
+	// auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
 	window.setFramerateLimit(config.screen.maxFps);
 	window.setMouseCursorVisible(false);
 
@@ -100,7 +108,7 @@ int main()
 
 	features::player::entities::createPlayer(registry, config, itemsLoader);
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		features::enemy::entities::createEnemy(registry, config, itemsLoader);
 	}
@@ -113,12 +121,6 @@ int main()
 
 	while (window.isOpen())
 	{
-		// std::cout << "Game: " <<
-		// stateManager.isActive(State::Game) << std::endl;
-		// std::cout << "Settings: " <<
-		// stateManager.isActive(State::Settings) <<
-		// std::endl;
-
 		float deltaTime = clock.restart().asSeconds();
 
 		frameCount++;
@@ -141,18 +143,21 @@ int main()
 			update(registry, deltaTime, window, inputManager);
 		}
 
-		crosshairSprite.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
+		crosshairSprite.setPosition(static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
 
 		window.clear();
 
+		// static = drawn once
+		map.drawBackground(window);
+
 		render(registry, window, itemsLoader);
+
+		gui.draw();
 
 		if (stateManager.isActive(State::Game))
 		{
 			window.draw(crosshairSprite);
 		}
-
-		gui.draw();
 
 		window.display();
 	}
