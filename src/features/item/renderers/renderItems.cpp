@@ -50,6 +50,14 @@ namespace features::item::renderers
 			case features::item::components::SlotType::Offhand:
 				sprite.setOrigin({posX + 15.f, posY + 25.f});
 				sprite.setRotation(rotation - sf::degrees(30.f));
+				/**
+				 * if (quiver)
+					sprite.setOrigin({posX + 25.f, posY - 25.f});
+					sprite.setRotation(rotation - sf::degrees(-60.f));
+				 * else
+					sprite.setOrigin({posX + 15.f, posY + 25.f});
+					sprite.setRotation(rotation - sf::degrees(30.f));
+				 */
 				break;
 			case features::item::components::SlotType::Cape:
 				sprite.setOrigin({posX, posY - 15.f});
