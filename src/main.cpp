@@ -99,7 +99,6 @@ int main()
 	window.setMouseCursorVisible(false);
 
 	StateManager stateManager;
-	GUI gui(window, config, stateManager);
 
 	entt::registry registry;
 
@@ -107,9 +106,11 @@ int main()
 	features::player::InputManager inputManager;
 
 	features::player::entities::createPlayer(registry, config, itemsLoader, window);
+
+	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		features::enemy::entities::createEnemy(registry, config, itemsLoader);
 	}

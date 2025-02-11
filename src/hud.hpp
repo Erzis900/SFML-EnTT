@@ -12,8 +12,6 @@ class HUD
 	void update(entt::registry &registry);
 
   private:
-	void getAttributes(entt::registry &registry);
-
 	tgui::Gui hud;
 	StateManager &stateManager;
 

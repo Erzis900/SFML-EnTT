@@ -148,9 +148,20 @@ ProgressBar.XPbar {
 }
 
 Button.settingsBtn {
+    Position = (0, 680);
     Renderer = &1;
     Text = Settings;
     TextSize = 24;
+    Visible = false;
+}
+
+Picture.settingsPic {
+    Size = (64, 64);
+
+    Renderer {
+        Texture = "settings.png" Smooth;
+        TransparentTexture = false;
+    }
 }
 
 ChildWindow.settingsWindow {
@@ -322,7 +333,7 @@ ChildWindow.settingsWindow {
 
 Label.fpsLabel {
     AutoSize = true;
-    Position = (0, 50);
+    Position = (0, 60);
     Size = (65, 31);
     Text = "FPS: ";
     TextSize = 24;
@@ -351,6 +362,139 @@ Label.fpsLabel {
             ThumbColor = #DCDCDC;
             ThumbColorHover = #E6E6E6;
             TrackColor = #F5F5F5;
+        }
+    }
+}
+
+ChildWindow.charWindow {
+    CloseBehavior = Hide;
+    Position = (880, 420);
+    Size = (400, 300);
+    Title = "Character info";
+    TitleAlignment = Center;
+    TitleButtons = Close;
+    TitleTextSize = 13;
+    Visible = false;
+
+    Renderer {
+        BackgroundColor = #E6E6E6;
+        BorderBelowTitleBar = 1;
+        BorderColor = black;
+        Borders = (1, 1, 1, 1);
+        DistanceToSide = 3;
+        PaddingBetweenButtons = 1;
+        ShowTextOnTitleButtons = true;
+        TextureBackground = None;
+        TextureTitleBar = None;
+        TitleBarColor = white;
+        TitleColor = #3C3C3C;
+
+        CloseButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+
+        MaximizeButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDown = black;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+
+        MinimizeButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDown = black;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    VerticalLayout.VerticalLayout1 {
+        Position = (10, 10);
+        Ratios = [1, 1, 1, 1];
+        Size = (370, 150);
+
+        Renderer {
+        }
+
+        Label.maxHealthLabel {
+            Renderer = &3;
+            ScrollbarPolicy = Automatic;
+            Size = (370, 37.5);
+            Text = Label;
+            TextSize = 13;
+        }
+
+        Label.speedLabel {
+            Position = (0, 37.5);
+            Renderer = &3;
+            ScrollbarPolicy = Automatic;
+            Size = (370, 37.5);
+            Text = Label;
+            TextSize = 13;
+        }
+
+        Label.Label7 {
+            Position = (0, 75);
+            Renderer = &3;
+            ScrollbarPolicy = Automatic;
+            Size = (370, 37.5);
+            Text = Label;
+            TextSize = 13;
+        }
+
+        Label.Label8 {
+            Position = (0, 112.5);
+            Renderer = &3;
+            ScrollbarPolicy = Automatic;
+            Size = (370, 37.5);
+            Text = Label;
+            TextSize = 13;
         }
     }
 }

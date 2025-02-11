@@ -6,16 +6,19 @@
 class GUI
 {
   public:
-	GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager);
+	GUI(sf::RenderWindow &window, Config &config, entt::registry &registry, StateManager &stateManager);
 	void handleEvent(sf::Event event);
 	void draw();
 
 	void update(int fps);
 
   private:
+	void getAttributes(entt::registry &registry);
+
 	tgui::Gui gui;
 	tgui::ChildWindow::Ptr settingsWindow;
-	tgui::Button::Ptr settingsBtn;
+	// tgui::Button::Ptr settingsBtn;
+	tgui::Picture::Ptr settingsPic;
 
 	tgui::Label::Ptr fpsLabel;
 
@@ -24,6 +27,9 @@ class GUI
 
 	tgui::ComboBox::Ptr fpsLimitCombo;
 	tgui::ComboBox::Ptr resolutionCombo;
+
+	tgui::Label::Ptr maxHealthLabel;
+	tgui::Label::Ptr speedLabel;
 
 	tgui::Button::Ptr exitBtn;
 

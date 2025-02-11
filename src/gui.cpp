@@ -1,26 +1,34 @@
 #include "gui.hpp"
+#include "components/maxHealth.hpp"
+#include "components/speed.hpp"
 #include "features/ability/components/cooldown.hpp"
+#include "features/player/components/playerControlled.hpp"
 #include "features/player/systems/playerCamera.hpp"
 
-GUI::GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager)
+GUI::GUI(sf::RenderWindow &window, Config &config, entt::registry &registry, StateManager &stateManager)
 	: gui(window)
 	, stateManager(stateManager)
 {
 	gui.loadWidgetsFromFile("../../forms/gameForm.txt");
 
 	settingsWindow = gui.get<tgui::ChildWindow>("settingsWindow");
-	settingsBtn = gui.get<tgui::Button>("settingsBtn");
+	// settingsBtn = gui.get<tgui::Button>("settingsBtn");
+	settingsPic = gui.get<tgui::Picture>("settingsPic");
 	fpsCheckbox = gui.get<tgui::CheckBox>("fpsCheckbox");
 	fpsLimitCombo = gui.get<tgui::ComboBox>("fpsLimitCombo");
 	resolutionCombo = gui.get<tgui::ComboBox>("resolutionCombo");
 	fpsLabel = gui.get<tgui::Label>("fpsLabel");
 	fullscreenCheckbox = gui.get<tgui::CheckBox>("fullscreenCheckbox");
+	maxHealthLabel = gui.get<tgui::Label>("maxHealthLabel");
+	speedLabel = gui.get<tgui::Label>("speedLabel");
 	exitBtn = gui.get<tgui::Button>("exitBtn");
 
 	fpsLabel->setVisible(fpsCheckbox->isChecked());
 
 	fpsLimit = config.screen.maxFps;
 	windowSize = {config.screen.width, config.screen.height};
+
+	getAttributes(registry);
 
 	handleCallbacks(window, stateManager);
 }
@@ -39,7 +47,7 @@ void GUI::update(int fps)
 
 void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 {
-	settingsBtn->onPress([this, &window, &stateManager] {
+	settingsPic->onMousePress([this, &window, &stateManager] {
 		settingsWindow->setVisible(!settingsWindow->isVisible());
 
 		window.setMouseCursorVisible(settingsWindow->isVisible());
@@ -48,6 +56,16 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 
 		stateManager.setState(State::Game, !stateManager.isActive(State::Game));
 	});
+
+	// settingsBtn->onPress([this, &window, &stateManager] {
+	// 	settingsWindow->setVisible(!settingsWindow->isVisible());
+
+	// 	window.setMouseCursorVisible(settingsWindow->isVisible());
+
+	// 	stateManager.setState(State::Settings, !stateManager.isActive(State::Settings));
+
+	// 	stateManager.setState(State::Game, !stateManager.isActive(State::Game));
+	// });
 
 	settingsWindow->onClose([this, &window, &stateManager] {
 		window.setMouseCursorVisible(false);
@@ -101,4 +119,14 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 	});
 
 	exitBtn->onClick([this, &window] { window.close(); });
+}
+
+void GUI::getAttributes(entt::registry &registry)
+{
+	auto view = registry.view<features::player::components::playerControlled, common::components::maxHealth, common::components::speed>();
+	for (auto [entity, playerControlled, maxHealth, speed] : view.each())
+	{
+		maxHealthLabel->setText("Max Health: " + std::to_string(maxHealth.value));
+		speedLabel->setText("Speed: " + std::to_string(speed.value));
+	}
 }
