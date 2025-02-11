@@ -37,7 +37,7 @@ Picture.qSpellPic {
 
     Renderer {
         Opacity = 1;
-        Texture = "31.png" Smooth;
+        Texture = "../assets/31.png" Smooth;
         TransparentTexture = true;
     }
 }
@@ -47,7 +47,7 @@ Picture.eSpellPic {
     Size = (64, 64);
 
     Renderer {
-        Texture = "6.png" Smooth;
+        Texture = "../assets/6.png" Smooth;
         TransparentTexture = false;
     }
 }

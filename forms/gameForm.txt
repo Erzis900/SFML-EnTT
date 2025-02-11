@@ -159,7 +159,7 @@ Picture.settingsPic {
     Size = (64, 64);
 
     Renderer {
-        Texture = "settings.png" Smooth;
+        Texture = "../assets/settings.png" Smooth;
         TransparentTexture = false;
     }
 }
