@@ -85,13 +85,13 @@ int main()
 	map.setupMap();
 
 	sf::Texture crosshairTexture;
-	if (!crosshairTexture.loadFromFile("../../assets/crosshair012.png"))
+	if (!crosshairTexture.loadFromFile("../../assets/crosshair.png"))
 	{
 		std::cout << "Crosshair asset not found" << std::endl;
 		return 1;
 	}
 	sf::Sprite crosshairSprite(crosshairTexture);
-	crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
+	// crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
 	auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG", sf::Style::Titlebar | sf::Style::Close);
 	// auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");

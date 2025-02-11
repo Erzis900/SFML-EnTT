@@ -17,8 +17,10 @@ class GUI
 
 	tgui::Gui gui;
 	tgui::ChildWindow::Ptr settingsWindow;
+	tgui::ChildWindow::Ptr statsWindow;
 	// tgui::Button::Ptr settingsBtn;
 	tgui::Picture::Ptr settingsPic;
+	tgui::Picture::Ptr statsPic;
 
 	tgui::Label::Ptr fpsLabel;
 
@@ -30,6 +32,7 @@ class GUI
 
 	tgui::Label::Ptr maxHealthLabel;
 	tgui::Label::Ptr speedLabel;
+	tgui::Label::Ptr damageLabel;
 
 	tgui::Button::Ptr exitBtn;
 

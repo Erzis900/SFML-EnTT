@@ -1,4 +1,5 @@
 #include "gui.hpp"
+#include "components/damage.hpp"
 #include "components/maxHealth.hpp"
 #include "components/speed.hpp"
 #include "features/ability/components/cooldown.hpp"
@@ -12,8 +13,10 @@ GUI::GUI(sf::RenderWindow &window, Config &config, entt::registry &registry, Sta
 	gui.loadWidgetsFromFile("../../forms/gameForm.txt");
 
 	settingsWindow = gui.get<tgui::ChildWindow>("settingsWindow");
+	statsWindow = gui.get<tgui::ChildWindow>("statsWindow");
 	// settingsBtn = gui.get<tgui::Button>("settingsBtn");
 	settingsPic = gui.get<tgui::Picture>("settingsPic");
+	statsPic = gui.get<tgui::Picture>("statsPic");
 	fpsCheckbox = gui.get<tgui::CheckBox>("fpsCheckbox");
 	fpsLimitCombo = gui.get<tgui::ComboBox>("fpsLimitCombo");
 	resolutionCombo = gui.get<tgui::ComboBox>("resolutionCombo");
@@ -21,6 +24,7 @@ GUI::GUI(sf::RenderWindow &window, Config &config, entt::registry &registry, Sta
 	fullscreenCheckbox = gui.get<tgui::CheckBox>("fullscreenCheckbox");
 	maxHealthLabel = gui.get<tgui::Label>("maxHealthLabel");
 	speedLabel = gui.get<tgui::Label>("speedLabel");
+	damageLabel = gui.get<tgui::Label>("damageLabel");
 	exitBtn = gui.get<tgui::Button>("exitBtn");
 
 	fpsLabel->setVisible(fpsCheckbox->isChecked());
@@ -56,6 +60,8 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 
 		stateManager.setState(State::Game, !stateManager.isActive(State::Game));
 	});
+
+	statsPic->onMousePress([this, &window, &stateManager] { statsWindow->setVisible(!statsWindow->isVisible()); });
 
 	// settingsBtn->onPress([this, &window, &stateManager] {
 	// 	settingsWindow->setVisible(!settingsWindow->isVisible());
@@ -128,5 +134,6 @@ void GUI::getAttributes(entt::registry &registry)
 	{
 		maxHealthLabel->setText("Max Health: " + std::to_string(maxHealth.value));
 		speedLabel->setText("Speed: " + std::to_string(speed.value));
+		// damageLabel->setText("Damage: " + std::to_string(damage.value));
 	}
 }

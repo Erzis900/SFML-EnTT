@@ -159,7 +159,7 @@ Picture.settingsPic {
     Size = (64, 64);
 
     Renderer {
-        Texture = "../assets/settings.png" Smooth;
+        Texture = "../assets/icons/settings.png" Smooth;
         TransparentTexture = false;
     }
 }
@@ -333,7 +333,7 @@ ChildWindow.settingsWindow {
 
 Label.fpsLabel {
     AutoSize = true;
-    Position = (0, 60);
+    Position = (0, 80);
     Size = (65, 31);
     Text = "FPS: ";
     TextSize = 24;
@@ -366,10 +366,11 @@ Label.fpsLabel {
     }
 }
 
-ChildWindow.charWindow {
+ChildWindow.statsWindow {
     CloseBehavior = Hide;
-    Position = (880, 420);
-    Size = (400, 300);
+    Position = (0, 55%);
+    PositionLocked = true;
+    Size = (20%, 40%);
     Title = "Character info";
     TitleAlignment = Center;
     TitleButtons = Close;
@@ -479,7 +480,7 @@ ChildWindow.charWindow {
             TextSize = 13;
         }
 
-        Label.Label7 {
+        Label.damageLabel {
             Position = (0, 75);
             Renderer = &3;
             ScrollbarPolicy = Automatic;
@@ -496,5 +497,15 @@ ChildWindow.charWindow {
             Text = Label;
             TextSize = 13;
         }
+    }
+}
+
+Picture.statsPic {
+    Position = (70, 0);
+    Size = (64, 64);
+
+    Renderer {
+        Texture = "../assets/icons/stats.png" Smooth;
+        TransparentTexture = false;
     }
 }
