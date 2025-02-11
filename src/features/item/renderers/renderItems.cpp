@@ -18,6 +18,7 @@ namespace features::item::renderers
 			auto pos = registry.get<common::components::position>(equipped.unit);
 			auto dir = registry.get<common::components::lookDirection>(equipped.unit);
 			auto sprite = itemsLoader.getSprite(itemId.id);
+			auto type = itemsLoader.getItem(itemId.id).type;
 			auto width = sprite.getTextureRect().size.x;
 			auto height = sprite.getTextureRect().size.y;
 
@@ -44,20 +45,20 @@ namespace features::item::renderers
 				sprite.setRotation(rotation);
 				break;
 			case features::item::components::SlotType::Mainhand:
-				sprite.setOrigin({posX - 26.f, posY - 5.f});
 				sprite.setRotation(rotation - sf::degrees(60.f));
+				sprite.setOrigin({posX - 26.f, posY - 5.f});
 				break;
 			case features::item::components::SlotType::Offhand:
-				sprite.setOrigin({posX + 15.f, posY + 25.f});
-				sprite.setRotation(rotation - sf::degrees(30.f));
-				/**
-				 * if (quiver)
+				if (type == Type::Quiver)
+				{
 					sprite.setOrigin({posX + 25.f, posY - 25.f});
 					sprite.setRotation(rotation - sf::degrees(-60.f));
-				 * else
+				}
+				else
+				{
 					sprite.setOrigin({posX + 15.f, posY + 25.f});
 					sprite.setRotation(rotation - sf::degrees(30.f));
-				 */
+				}
 				break;
 			case features::item::components::SlotType::Cape:
 				sprite.setOrigin({posX, posY - 15.f});
