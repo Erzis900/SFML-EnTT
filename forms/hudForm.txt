@@ -1,0 +1,21 @@
+ProgressBar.mainAbilityBar {
+    FillDirection = RightToLeft;
+    Maximum = 100;
+    Minimum = 0;
+    Position = (540, 640);
+    Size = (225, 21);
+    Text = "Main CD";
+    TextSize = 13;
+    Value = 0;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BorderColor = black;
+        Borders = (1, 1, 1, 1);
+        FillColor = #006EFF;
+        TextColor = #3C3C3C;
+        TextColorFilled = white;
+        TextureBackground = None;
+        TextureFill = None;
+    }
+}

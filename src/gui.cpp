@@ -1,4 +1,5 @@
 #include "gui.hpp"
+#include "features/ability/components/cooldown.hpp"
 #include "features/player/systems/playerCamera.hpp"
 
 GUI::GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager)
@@ -14,6 +15,7 @@ GUI::GUI(sf::RenderWindow &window, Config &config, StateManager &stateManager)
 	resolutionCombo = gui.get<tgui::ComboBox>("resolutionCombo");
 	fpsLabel = gui.get<tgui::Label>("fpsLabel");
 	fullscreenCheckbox = gui.get<tgui::CheckBox>("fullscreenCheckbox");
+	exitBtn = gui.get<tgui::Button>("exitBtn");
 
 	fpsLabel->setVisible(fpsCheckbox->isChecked());
 
@@ -97,4 +99,6 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 		// TODO fix gui viewport
 		gui.setAbsoluteView({0, 0, static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)});
 	});
+
+	exitBtn->onClick([this, &window] { window.close(); });
 }

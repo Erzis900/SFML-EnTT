@@ -16,6 +16,7 @@
 #include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "gui.hpp"
+#include "hud.hpp"
 #include "pch.hpp"
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
@@ -101,6 +102,7 @@ int main()
 	GUI gui(window, config, stateManager);
 
 	entt::registry registry;
+	HUD hud(registry, window, stateManager);
 
 	features::item::ItemsLoader itemsLoader;
 	features::player::InputManager inputManager;
@@ -140,6 +142,7 @@ int main()
 		if (stateManager.isActive(State::Game))
 		{
 			update(registry, deltaTime, window, inputManager);
+			hud.update(registry);
 		}
 
 		crosshairSprite.setPosition(static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -152,6 +155,7 @@ int main()
 		render(registry, window, itemsLoader);
 
 		gui.draw();
+		hud.draw();
 
 		if (stateManager.isActive(State::Game))
 		{

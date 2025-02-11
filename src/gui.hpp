@@ -25,6 +25,8 @@ class GUI
 	tgui::ComboBox::Ptr fpsLimitCombo;
 	tgui::ComboBox::Ptr resolutionCombo;
 
+	tgui::Button::Ptr exitBtn;
+
 	void handleCallbacks(sf::RenderWindow &window, StateManager &stateManager);
 
 	sf::Vector2u windowSize;
