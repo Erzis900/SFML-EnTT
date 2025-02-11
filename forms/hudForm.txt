@@ -1,10 +1,9 @@
-ProgressBar.mainAbilityBar {
+ProgressBar.qAbilityBar {
     FillDirection = RightToLeft;
     Maximum = 100;
     Minimum = 0;
-    Position = (540, 640);
-    Size = (225, 21);
-    Text = "Main CD";
+    Position = (450, 630);
+    Size = (65, 15);
     TextSize = 13;
     Value = 0;
 
@@ -17,5 +16,248 @@ ProgressBar.mainAbilityBar {
         TextColorFilled = white;
         TextureBackground = None;
         TextureFill = None;
+    }
+}
+
+ProgressBar.eAbilityBar {
+    FillDirection = RightToLeft;
+    Maximum = 100;
+    Minimum = 0;
+    Position = (520, 630);
+    Size = (65, 15);
+    TextSize = 13;
+    Value = 0;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BorderColor = black;
+        Borders = (1, 1, 1, 1);
+        FillColor = #006EFF;
+        TextColor = #3C3C3C;
+        TextColorFilled = white;
+        TextureBackground = None;
+        TextureFill = None;
+    }
+}
+
+ChildWindow.charWindow {
+    CloseBehavior = Hide;
+    Position = (880, 420);
+    Size = (400, 300);
+    Title = "Character info";
+    TitleAlignment = Center;
+    TitleButtons = Close;
+    TitleTextSize = 13;
+    Visible = false;
+
+    Renderer {
+        BackgroundColor = #E6E6E6;
+        BorderBelowTitleBar = 1;
+        BorderColor = black;
+        Borders = (1, 1, 1, 1);
+        DistanceToSide = 3;
+        PaddingBetweenButtons = 1;
+        ShowTextOnTitleButtons = true;
+        TextureBackground = None;
+        TextureTitleBar = None;
+        TitleBarColor = white;
+        TitleColor = #3C3C3C;
+
+        CloseButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+
+        MaximizeButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDown = black;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+
+        MinimizeButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDown = black;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    ListBox.ListBox1 {
+        ItemHeight = 19;
+        Items = ["Max Health: ", "Speed: "];
+        MaximumItems = 0;
+        Position = (10, 10);
+        ScrollbarPolicy = Automatic;
+        Size = (103.846, 135);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorHover = white;
+            BorderColor = black;
+            Borders = (1, 1, 1, 1);
+            Padding = (0, 0, 0, 0);
+            SelectedBackgroundColor = #006EFF;
+            SelectedBackgroundColorHover = #1E96FF;
+            SelectedTextColor = white;
+            TextColor = #3C3C3C;
+            TextColorHover = black;
+            TextureBackground = None;
+
+            Scrollbar {
+                ArrowBackgroundColor = #F5F5F5;
+                ArrowBackgroundColorHover = white;
+                ArrowColor = #3C3C3C;
+                ArrowColorHover = black;
+                TextureArrowDown = None;
+                TextureArrowDownHover = None;
+                TextureArrowUp = None;
+                TextureArrowUpHover = None;
+                TextureThumb = None;
+                TextureThumbHover = None;
+                TextureTrack = None;
+                TextureTrackHover = None;
+                ThumbColor = #DCDCDC;
+                ThumbColorHover = #E6E6E6;
+                TrackColor = #F5F5F5;
+            }
+        }
+    }
+}
+
+Picture.qSpellPic {
+    Position = (450, 650);
+    Size = (64, 64);
+
+    Renderer {
+        Opacity = 1;
+        Texture = "D:/assets/spells/31.png" Smooth;
+        TransparentTexture = true;
+    }
+}
+
+Picture.eSpellPic {
+    Position = (520, 650);
+    Size = (64, 64);
+
+    Renderer {
+        Texture = "D:/assets/spells/6.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Label.Label1 {
+    AutoSize = true;
+    Position = (450, 650);
+    Size = (21, 26);
+    Text = Q;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        TextColor = white;
+        TextOutlineThickness = 1;
+        TextureBackground = None;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
+    }
+}
+
+Label.Label2 {
+    AutoSize = true;
+    Position = (520, 650);
+    Size = (18, 26);
+    Text = E;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        TextColor = white;
+        TextOutlineThickness = 1;
+        TextureBackground = None;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            TextureArrowDown = None;
+            TextureArrowDownHover = None;
+            TextureArrowUp = None;
+            TextureArrowUpHover = None;
+            TextureThumb = None;
+            TextureThumbHover = None;
+            TextureTrack = None;
+            TextureTrackHover = None;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
     }
 }

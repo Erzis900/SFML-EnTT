@@ -12,10 +12,15 @@ class HUD
 	void update(entt::registry &registry);
 
   private:
+	void getAttributes(entt::registry &registry);
+
 	tgui::Gui hud;
 	StateManager &stateManager;
 
-	tgui::ProgressBar::Ptr mainAbilityBar;
+	tgui::ProgressBar::Ptr qAbilityBar;
+	tgui::ProgressBar::Ptr eAbilityBar;
+	tgui::Picture::Ptr qSpellPic;
+	tgui::Picture::Ptr eSpellPic;
 
 	int mainCD;
 };

@@ -102,12 +102,12 @@ int main()
 	GUI gui(window, config, stateManager);
 
 	entt::registry registry;
-	HUD hud(registry, window, stateManager);
 
 	features::item::ItemsLoader itemsLoader;
 	features::player::InputManager inputManager;
 
 	features::player::entities::createPlayer(registry, config, itemsLoader, window);
+	HUD hud(registry, window, stateManager);
 
 	for (int i = 0; i < 0; i++)
 	{
@@ -137,6 +137,7 @@ int main()
 		}
 
 		inputManager.processEvents(window);
+
 		processEvents(registry, window, gui);
 
 		if (stateManager.isActive(State::Game))
