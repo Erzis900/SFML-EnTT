@@ -12,6 +12,29 @@
         "name": {
           "type": "string"
         },
+        "slot": {
+          "enum": [
+            "Head",
+            "Chest",
+            "Shoulder",
+            "Mainhand",
+            "Offhand",
+            "Cape"
+          ]
+        },
+        "type": {
+          "enum": [
+            "Sword",
+            "Club",
+            "Quiver",
+            "Shield",
+            "Scepter",
+            "Shoulder",
+            "Head",
+            "Cape",
+            "Bow"
+          ]
+        },
         "x": {
           "type": "integer",
           "minimum": 0
@@ -87,7 +110,7 @@
           }
         }
       },
-      "required": [ "id", "name", "x", "y", "width", "height" ]
+      "required": [ "id", "name", "slot", "type", "x", "y", "width", "height" ]
     }
   }
   

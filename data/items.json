@@ -2,6 +2,8 @@
   {
     "id": 0,
     "name": "Sword",
+    "slot": "Mainhand",
+    "type": "Sword",
     "x": 0,
     "y": 0,
     "width": 1,
@@ -23,6 +25,8 @@
   {
     "id": 1,
     "name": "Club",
+    "slot": "Mainhand",
+    "type": "Club",
     "x": 1,
     "y": 0,
     "width": 1,
@@ -47,7 +51,9 @@
   },
   {
     "id": 2,
-    "name": "Rod",
+    "name": "Scepter",
+    "slot": "Mainhand",
+    "type": "Scepter",
     "x": 2,
     "y": 0,
     "width": 1,
@@ -69,6 +75,8 @@
   {
     "id": 3,
     "name": "Shoulder",
+    "slot": "Shoulder",
+    "type": "Shoulder",
     "x": 5,
     "y": 0,
     "width": 1,
@@ -77,6 +85,8 @@
   {
     "id": 4,
     "name": "Helmet",
+    "slot": "Head",
+    "type": "Head",
     "x": 6,
     "y": 0,
     "width": 2,
@@ -85,6 +95,8 @@
   {
     "id": 5,
     "name": "Shield",
+    "slot": "Offhand",
+    "type": "Shield",
     "x": 8,
     "y": 0,
     "width": 2,
@@ -108,6 +120,8 @@
   {
     "id": 6,
     "name": "Cape",
+    "slot": "Cape",
+    "type": "Cape",
     "x": 10,
     "y": 0,
     "width": 2,
@@ -116,6 +130,8 @@
   {
     "id": 7,
     "name": "Bow",
+    "slot": "Mainhand",
+    "type": "Bow",
     "x": 3,
     "y": 0,
     "width": 1,
@@ -124,6 +140,8 @@
   {
     "id": 8,
     "name": "Quiver",
+    "slot": "Offhand",
+    "type": "Quiver",
     "x": 4,
     "y": 0,
     "width": 1,

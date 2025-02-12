@@ -29,7 +29,8 @@ namespace features::item
 					break;
 				}
 			}
-			Item itemData = {itemJson["name"], modifiers, itemJson["id"], itemJson["x"], itemJson["y"], itemJson["width"], itemJson["height"]};
+			Item itemData = {itemJson["name"], modifiers,	  getSlot(itemJson["slot"]), getType(itemJson["type"]), itemJson["id"],
+							 itemJson["x"],	   itemJson["y"], itemJson["width"],		 itemJson["height"]};
 			itemsData[itemJson["id"]] = itemData;
 		}
 	}
@@ -42,6 +43,26 @@ namespace features::item
 			return static_cast<float>(it->second);
 		}
 		return static_cast<float>(Trigger::OnNone);
+	}
+
+	Type getType(std::string type)
+	{
+		auto it = mapType.find(type);
+		if (it != mapType.end())
+		{
+			return it->second;
+		}
+		return Type::NoItem;
+	}
+
+	components::SlotType getSlot(std::string slot)
+	{
+		auto it = mapSlot.find(slot);
+		if (it != mapSlot.end())
+		{
+			return it->second;
+		}
+		return components::SlotType::NoSlot;
 	}
 
 	Item ItemsLoader::getItem(int id) { return itemsData[id]; }
