@@ -1,5 +1,6 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
+#include "animationPlayer.hpp"
 #include "features/ability/systems/clearEvents.hpp"
 #include "features/ability/systems/processAbility.hpp"
 #include "features/enemy/entities/enemy.hpp"
@@ -110,7 +111,9 @@ int main()
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
 
-	for (int i = 0; i < 5; i++)
+	AnimationPlayer animationPlayer;
+
+	for (int i = 0; i < 0; i++)
 	{
 		features::enemy::entities::createEnemy(registry, config, itemsLoader);
 	}
@@ -145,6 +148,7 @@ int main()
 		{
 			update(registry, deltaTime, window, inputManager);
 			hud.update(registry);
+			animationPlayer.updateFrame(deltaTime);
 		}
 
 		crosshairSprite.setPosition(static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -158,6 +162,7 @@ int main()
 
 		gui.draw();
 		hud.draw();
+		animationPlayer.draw(window);
 
 		if (stateManager.isActive(State::Game))
 		{

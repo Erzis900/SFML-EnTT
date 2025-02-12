@@ -63,6 +63,12 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 
 	statsPic->onMousePress([this, &window, &stateManager] { statsWindow->setVisible(!statsWindow->isVisible()); });
 
+	settingsPic->onMouseEnter([this] { settingsPic->setInheritedOpacity(0.5); });
+	settingsPic->onMouseLeave([this] { settingsPic->setInheritedOpacity(1); });
+
+	statsPic->onMouseEnter([this] { statsPic->setInheritedOpacity(0.5); });
+	statsPic->onMouseLeave([this] { statsPic->setInheritedOpacity(1); });
+
 	// settingsBtn->onPress([this, &window, &stateManager] {
 	// 	settingsWindow->setVisible(!settingsWindow->isVisible());
 
