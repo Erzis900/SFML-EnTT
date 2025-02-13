@@ -1,8 +1,11 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
-#include "animationPlayer.hpp"
 #include "features/ability/systems/clearEvents.hpp"
 #include "features/ability/systems/processAbility.hpp"
+#include "features/animation/entities/animation.hpp"
+#include "features/animation/loader/animationLoader.hpp"
+#include "features/animation/systems/renderAnimation.hpp"
+#include "features/animation/systems/updateFrame.hpp"
 #include "features/enemy/entities/enemy.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
 #include "features/hitbox/systems/isOnScreen.hpp"
@@ -61,6 +64,8 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	features::hitbox::systems::processInteraction(registry);
 	features::hitbox::systems::processLifeSpan(registry, deltaTime);
 
+	features::animation::systems::updateFrame(registry, deltaTime);
+
 	common::systems::recalculateStat(registry);
 	common::systems::applyUnitStat(registry);
 	common::systems::moveEntities(registry, deltaTime);
@@ -72,11 +77,12 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::cleanupRemoved(registry);			// keep in order -1
 }
 
-void render(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
+void render(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader, features::animation::AnimationLoader &animationLoader)
 {
 	common::renderers::drawShapes(registry, window, itemsLoader);
 	features::item::renderers::renderItems(registry, window, itemsLoader);
 	common::renderers::drawHealthbars(registry, window);
+	features::animation::renderers::renderAnimations(registry, window, animationLoader);
 }
 
 int main()
@@ -88,7 +94,7 @@ int main()
 	sf::Texture crosshairTexture;
 	if (!crosshairTexture.loadFromFile("../../assets/crosshair.png"))
 	{
-		std::cout << "Crosshair asset not found" << std::endl;
+		std::cerr << "Crosshair asset not found" << std::endl;
 		return 1;
 	}
 	sf::Sprite crosshairSprite(crosshairTexture);
@@ -111,7 +117,7 @@ int main()
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
 
-	AnimationPlayer animationPlayer;
+	features::animation::AnimationLoader animationLoader;
 
 	for (int i = 0; i < 0; i++)
 	{
@@ -140,15 +146,14 @@ int main()
 			gui.update(static_cast<int>(fps));
 		}
 
-		inputManager.processEvents(window);
-
 		processEvents(registry, window, gui);
+		inputManager.processEvents(window);
 
 		if (stateManager.isActive(State::Game))
 		{
 			update(registry, deltaTime, window, inputManager);
 			hud.update(registry);
-			animationPlayer.updateFrame(deltaTime);
+			// animationPlayer.updateFrame(deltaTime);
 		}
 
 		crosshairSprite.setPosition(static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -158,16 +163,13 @@ int main()
 		// static = drawn once
 		map.drawBackground(window);
 
-		render(registry, window, itemsLoader);
+		render(registry, window, itemsLoader, animationLoader);
+		// animationPlayer.draw(window);
 
 		gui.draw();
 		hud.draw();
-		animationPlayer.draw(window);
 
-		if (stateManager.isActive(State::Game))
-		{
-			window.draw(crosshairSprite);
-		}
+		window.draw(crosshairSprite);
 
 		window.display();
 	}

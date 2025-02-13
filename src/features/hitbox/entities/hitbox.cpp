@@ -14,7 +14,7 @@ namespace features::hitbox::entities
 		switch (static_cast<int>(trigger.value))
 		{
 		case features::item::Trigger::OnAttack:
-			registry.emplace<components::hitbox>(hitboxEntity, .0f, .0f, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
+			registry.emplace<components::hitbox>(hitboxEntity, .3f, .3f, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
 			radius = 150.f;
 			break;
 		case features::item::Trigger::OnShot:

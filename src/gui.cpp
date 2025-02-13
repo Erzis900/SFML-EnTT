@@ -54,7 +54,7 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 	settingsPic->onMousePress([this, &window, &stateManager] {
 		settingsWindow->setVisible(!settingsWindow->isVisible());
 
-		window.setMouseCursorVisible(settingsWindow->isVisible());
+		// window.setMouseCursorVisible(settingsWindow->isVisible());
 
 		stateManager.setState(State::Settings, !stateManager.isActive(State::Settings));
 
@@ -80,7 +80,7 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 	// });
 
 	settingsWindow->onClose([this, &window, &stateManager] {
-		window.setMouseCursorVisible(false);
+		// window.setMouseCursorVisible(false);
 
 		stateManager.setState(State::Settings, false);
 		stateManager.setState(State::Game, true);
