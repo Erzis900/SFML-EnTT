@@ -18,14 +18,14 @@ namespace features::ability::systems
 		auto viewEvents = registry.view<components::castEvent>();
 		for (auto [entityEvent, castEvent] : viewEvents.each())
 		{
-			for (auto [entity, rdy, abi] : view.each())
+			for (auto [entity, rdy, ability] : view.each())
 			{
-				if (abi.source == castEvent.unit && abi.slot == castEvent.slot)
+				if (ability.source == castEvent.unit && ability.slot == castEvent.slot)
 				{
 					if (castEvent.state == components::castEvent::State::Press || castEvent.state == components::castEvent::State::Hold)
 					{
 						registry.remove<components::ready>(entity);
-						registry.emplace<components::cast>(entity, 0.05f);
+						registry.emplace<components::cast>(entity, ability.castTime);
 					}
 				}
 			}
@@ -46,7 +46,7 @@ namespace features::ability::systems
 				features::animation::entities::createAnimation(registry, ability.source);
 
 				registry.remove<components::cast>(entity);
-				registry.emplace<components::active>(entity, 0.025f);
+				registry.emplace<components::active>(entity, ability.activeTime);
 			}
 		}
 	}
@@ -62,7 +62,7 @@ namespace features::ability::systems
 			if (active.time <= 0.f)
 			{
 				registry.remove<components::active>(entity);
-				registry.emplace<components::delay>(entity, ability.activeTime);
+				registry.emplace<components::delay>(entity, ability.delayTime);
 			}
 		}
 	}
