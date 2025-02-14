@@ -25,6 +25,12 @@ namespace features::enemy::systems
 				dirVec.y /= magnitude;
 			}
 
+			if (magnitude < 200)
+			{
+				auto entityEvent = registry.create();
+				registry.emplace<features::ability::components::castEvent>(entityEvent, enemyEntity, features::item::components::SlotType::Mainhand,
+																		   features::ability::components::castEvent::State::Press);
+			}
 			registry.replace<common::components::direction>(enemyEntity, dirVec.x, dirVec.y);
 			registry.replace<common::components::lookDirection>(enemyEntity, dirVec.x, dirVec.y);
 			// std::cout << dir.x << " " << dir.y << std::endl;
