@@ -1,5 +1,10 @@
 #define SFML_DEFINE_DISCRETE_GPU_PREFERENCE
 
+#include "gui.hpp"
+#include "hud.hpp"
+#include "pch.hpp"
+#include "stateManager.hpp"
+
 #include "features/ability/systems/clearEvents.hpp"
 #include "features/ability/systems/processAbility.hpp"
 #include "features/animation/entities/animation.hpp"
@@ -20,13 +25,11 @@
 #include "features/player/managers/inputManager.hpp"
 #include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
-#include "gui.hpp"
-#include "hud.hpp"
-#include "pch.hpp"
+
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
-#include "stateManager.hpp"
 #include "systems/applyUnitStat.hpp"
+#include "systems/attachEntities.hpp"
 #include "systems/cleanupRemoved.hpp"
 #include "systems/moveEntities.hpp"
 #include "systems/processDeath.hpp"
@@ -71,6 +74,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::recalculateStat(registry);
 	common::systems::applyUnitStat(registry);
 	common::systems::moveEntities(registry, deltaTime);
+	common::systems::attachEntities(registry);
 	common::systems::processPhysics(registry, deltaTime);
 	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processDeath(registry);

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../components/hitbox.hpp"
 #include "components/area.hpp"
+#include "components/attach.hpp"
 #include "components/attribute.hpp"
 #include "components/damage.hpp"
 #include "components/direction.hpp"
@@ -17,6 +17,8 @@
 
 #include "features/ability/components/ability.hpp"
 #include "features/item/loader/itemsLoader.hpp"
+
+#include "../components/hitbox.hpp"
 
 #include "pch.hpp"
 
