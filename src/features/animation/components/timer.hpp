@@ -4,6 +4,6 @@ namespace features::animation::components
 {
 	struct timer
 	{
-		int value;
+		float value;
 	};
 }  // namespace features::animation::components

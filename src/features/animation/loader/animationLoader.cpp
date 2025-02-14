@@ -4,15 +4,24 @@ namespace features::animation
 {
 	AnimationLoader::AnimationLoader()
 	{
-		noFrames = 11;
 		frameSize = 64;
 		scalingFactor = 5.f;
+		frameTime = 0.05f;
 
-		texture = sf::Texture("../../assets/effects/effect1.png", false, sf::IntRect({0, 0}, {noFrames * frameSize, frameSize}));
+		if (!texture.loadFromFile("../../assets/effects/effect1.png"))
+		{
+			std::cerr << "Failed to load effect1.png";
+			return;
+		}
+
+		noFrames = texture.getSize().x / frameSize;
+		totalTime = frameTime * noFrames;
 	}
 
-	sf::Sprite AnimationLoader::getFrame(int index)
+	sf::Sprite AnimationLoader::getSprite(float time)
 	{
+		int index = time * noFrames;
+
 		sf::Sprite sprite(texture);
 		sprite.setTextureRect(sf::IntRect({index * frameSize, 0}, {frameSize, frameSize}));
 		sprite.setScale({scalingFactor, scalingFactor});

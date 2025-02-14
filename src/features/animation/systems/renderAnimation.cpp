@@ -1,5 +1,4 @@
 #include "renderAnimation.hpp"
-#include "../components/frame.hpp"
 #include "../components/timer.hpp"
 #include "components/position.hpp"
 #include "components/source.hpp"
@@ -8,11 +7,12 @@ namespace features::animation::renderers
 {
 	void renderAnimations(entt::registry &registry, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader)
 	{
-		auto view = registry.view<features::animation::components::timer, common::components::position, common::components::source,
-								  features::animation::components::frame>();
-		for (auto [entity, timer, position, source, frame] : view.each())
+		auto view = registry.view<features::animation::components::timer, common::components::position, common::components::source>();
+		for (auto [entity, timer, position, source] : view.each())
 		{
-			sf::Sprite sprite = animationLoader.getFrame(frame.value);
+			float time = timer.value / animationLoader.getTotalTime();
+			sf::Sprite sprite = animationLoader.getSprite(time);
+
 			auto pos = registry.get<common::components::position>(source.entity);
 			sprite.setPosition({pos.x, pos.y});
 
