@@ -4,6 +4,7 @@
 #include "features/ability/systems/processAbility.hpp"
 #include "features/animation/entities/animation.hpp"
 #include "features/animation/loader/animationLoader.hpp"
+#include "features/animation/systems/removeAnimation.hpp"
 #include "features/animation/systems/renderAnimation.hpp"
 #include "features/animation/systems/updateFrame.hpp"
 #include "features/enemy/entities/enemy.hpp"
@@ -50,7 +51,8 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 	}
 }
 
-void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::player::InputManager &inputManager)
+void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader,
+			features::player::InputManager &inputManager)
 {
 	features::player::systems::playerInput(registry, window, inputManager);
 	features::player::systems::playerCamera(registry, window);
@@ -72,6 +74,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::processPhysics(registry, deltaTime);
 	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processDeath(registry);
+	features::animation::systems::removeAnimation(registry, animationLoader);
 
 	features::ability::systems::clearEvents(registry);	// keep in order -2
 	common::systems::cleanupRemoved(registry);			// keep in order -1
@@ -151,7 +154,7 @@ int main()
 
 		if (stateManager.isActive(State::Game))
 		{
-			update(registry, deltaTime, window, inputManager);
+			update(registry, deltaTime, window, animationLoader, inputManager);
 			hud.update(registry);
 			// animationPlayer.updateFrame(deltaTime);
 		}
