@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../components/color.hpp"
 #include "pch.hpp"
 
 namespace features::animation
@@ -9,8 +10,7 @@ namespace features::animation
 	  public:
 		AnimationLoader();
 
-		sf::Sprite getFrame(int index);
-		sf::Sprite getSprite(float time);
+		sf::Sprite getSprite(float time, features::animation::components::Color color);
 
 		float getTotalTime() { return totalTime; }
 

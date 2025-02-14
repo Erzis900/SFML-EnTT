@@ -18,12 +18,12 @@ namespace features::animation
 		totalTime = frameTime * noFrames;
 	}
 
-	sf::Sprite AnimationLoader::getSprite(float time)
+	sf::Sprite AnimationLoader::getSprite(float time, features::animation::components::Color color)
 	{
 		int index = time * noFrames;
 
 		sf::Sprite sprite(texture);
-		sprite.setTextureRect(sf::IntRect({index * frameSize, 0}, {frameSize, frameSize}));
+		sprite.setTextureRect(sf::IntRect({index * frameSize, color * frameSize}, {frameSize, frameSize}));
 		sprite.setScale({scalingFactor, scalingFactor});
 		return sprite;
 	}
