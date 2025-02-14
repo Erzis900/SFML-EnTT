@@ -7,6 +7,7 @@ namespace features::animation
 		frameSize = 64;
 		scalingFactor = 5.f;
 		frameTime = 0.05f;
+		noEffects = 8;
 
 		if (!texture.loadFromFile("../../assets/effects/effect1.png"))
 		{
@@ -23,7 +24,17 @@ namespace features::animation
 		int index = time * noFrames;
 
 		sf::Sprite sprite(texture);
-		sprite.setTextureRect(sf::IntRect({index * frameSize, color * frameSize}, {frameSize, frameSize}));
+
+		if (color == features::animation::components::Color::Rainbow)
+		{
+			int yIndex = index > noEffects ? (index - noEffects - 1) % noEffects : index;
+			sprite.setTextureRect(sf::IntRect({index * frameSize, yIndex * frameSize}, {frameSize, frameSize}));
+		}
+		else
+		{
+			sprite.setTextureRect(sf::IntRect({index * frameSize, color * frameSize}, {frameSize, frameSize}));
+		}
+
 		sprite.setScale({scalingFactor, scalingFactor});
 		return sprite;
 	}

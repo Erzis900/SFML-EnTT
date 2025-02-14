@@ -12,6 +12,7 @@ namespace features::animation::components
 		White = 5,
 		Desert = 6,
 		Red = 7,
-		Purple = 8
+		Purple = 8,
+		Rainbow = 9
 	};
 }  // namespace features::animation::components

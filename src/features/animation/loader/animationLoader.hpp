@@ -19,6 +19,7 @@ namespace features::animation
 		int noFrames;
 		int frameSize;
 		float scalingFactor;
+		int noEffects;
 
 		float totalTime;
 		float frameTime;
