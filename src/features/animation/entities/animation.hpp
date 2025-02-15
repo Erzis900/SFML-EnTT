@@ -4,5 +4,5 @@
 
 namespace features::animation::entities
 {
-	entt::entity createAnimation(entt::registry &registry, entt::entity &source);
+	entt::entity createAnimation(entt::registry &registry, entt::entity &source, float radius);
 }

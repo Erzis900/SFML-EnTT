@@ -5,7 +5,6 @@ namespace features::animation
 	AnimationLoader::AnimationLoader()
 	{
 		frameSize = 64;
-		scalingFactor = 5.f;
 		frameTime = 0.05f;
 		noEffects = 8;
 
@@ -35,9 +34,8 @@ namespace features::animation
 			sprite.setTextureRect(sf::IntRect({index * frameSize, color * frameSize}, {frameSize, frameSize}));
 		}
 
-		sprite.setOrigin({frameSize / 2, frameSize / 2});
+		sprite.setOrigin({static_cast<float>(frameSize / 2), static_cast<float>(frameSize / 2)});
 
-		sprite.setScale({scalingFactor, scalingFactor});
 		return sprite;
 	}
 }  // namespace features::animation

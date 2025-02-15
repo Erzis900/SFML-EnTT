@@ -1,5 +1,4 @@
 #include "processAbility.hpp"
-#include "features/animation/entities/animation.hpp"
 
 namespace features::ability::systems
 {
@@ -42,8 +41,7 @@ namespace features::ability::systems
 
 			if (cast.time <= 0.f)
 			{
-				entt::entity hitbox = features::hitbox::entities::createHitbox(registry, entity);
-				features::animation::entities::createAnimation(registry, hitbox);
+				features::hitbox::entities::createHitbox(registry, entity);
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, ability.activeTime);

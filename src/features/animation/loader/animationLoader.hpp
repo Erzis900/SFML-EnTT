@@ -13,12 +13,12 @@ namespace features::animation
 		sf::Sprite getSprite(float time, features::animation::components::Color color);
 
 		float getTotalTime() { return totalTime; }
+		int getFrameSize() { return frameSize; }
 
 	  private:
 		sf::Texture texture;
 		int noFrames;
 		int frameSize;
-		float scalingFactor;
 		int noEffects;
 
 		float totalTime;

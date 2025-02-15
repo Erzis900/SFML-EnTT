@@ -1,10 +1,11 @@
 #include "hitbox.hpp"
+#include "features/animation/entities/animation.hpp"
 
 namespace features::hitbox::entities
 {
 	entt::entity createHitbox(entt::registry &registry, entt::entity source)
 	{
-		const auto hitboxEntity = registry.create();
+		auto hitboxEntity = registry.create();
 		auto ability = registry.get<features::ability::components::ability>(source);
 		auto attributes = registry.get<common::entities::Attributes>(source);
 
@@ -43,6 +44,8 @@ namespace features::hitbox::entities
 		registry.emplace<common::components::renderable>(hitboxEntity);
 		registry.emplace<common::components::shape>(hitboxEntity, hitboxShape);
 		registry.emplace<common::components::area>(hitboxEntity, radius);
+
+		features::animation::entities::createAnimation(registry, hitboxEntity, radius);
 
 		return hitboxEntity;
 	}
