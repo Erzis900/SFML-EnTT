@@ -9,21 +9,24 @@
 
 namespace common::entities
 {
-	entt::entity createAttribute(entt::registry &registry, entt::entity unit, common::entities::Stat stat, float initialValue)
+	entt::entity createAttribute(entt::registry &registry, entt::entity unit, Stat stat, float initialValue)
 	{
 		auto entity = registry.create();
-		auto &relationship = registry.emplace<common::components::relationship>(entity);
-		registry.emplace<common::components::attribute>(entity, initialValue, initialValue);
+		auto &relationship = registry.emplace<components::relationship>(entity);
+		registry.emplace<components::attribute>(entity, initialValue, initialValue);
 		switch (stat)
 		{
-		case common::entities::Stat::Health:
-			registry.emplace<common::components::health>(unit, initialValue);
+		case Stat::Health:
+			registry.emplace<components::health>(unit, initialValue);
 			break;
-		case common::entities::Stat::MaxHealth:
-			registry.emplace<common::components::maxHealth>(unit, initialValue);
+		case Stat::MaxHealth:
+			registry.emplace<components::maxHealth>(unit, initialValue);
 			break;
-		case common::entities::Stat::Speed:
-			registry.emplace<common::components::speed>(unit, initialValue);
+		case Stat::Speed:
+			registry.emplace<components::speed>(unit, initialValue);
+			break;
+		case Stat::Radius:
+			registry.emplace<components::collider>(unit, initialValue);
 			break;
 		default:
 			break;
@@ -47,14 +50,15 @@ namespace common::entities
 		attributes[Stat::MaxDamage] = createAttribute(registry, entity, Stat::MaxDamage, 5.f);
 		attributes[Stat::Trigger] = createAttribute(registry, entity, Stat::Trigger, 0.f);
 		attributes[Stat::BaseAttackSpeed] = createAttribute(registry, entity, Stat::BaseAttackSpeed, 0.f);
+		attributes[Stat::Radius] = createAttribute(registry, entity, Stat::Radius, 50.f);
 	}
 
-	entt::entity createModifier(entt::registry &registry, entt::entity parent, common::entities::Scope scope, float value)
+	entt::entity createModifier(entt::registry &registry, entt::entity parent, entities::Scope scope, float value)
 	{
 		auto modifierEntity = registry.create();
-		auto &relationship = registry.emplace<common::components::relationship>(modifierEntity);
+		auto &relationship = registry.emplace<components::relationship>(modifierEntity);
 		relationship.source = parent;
-		registry.emplace<common::components::modifier>(modifierEntity, value, scope);
+		registry.emplace<components::modifier>(modifierEntity, value, scope);
 
 		return modifierEntity;
 	}

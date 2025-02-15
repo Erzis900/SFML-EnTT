@@ -1,19 +1,96 @@
-[{
-    "id": 0,
-    "name": "Warrior",
-    "head": 0,
-    "chest": 0,
-    "mainShoulder": 0,
-    "offShoulder": 0,
-    "mainhand": 0,
-    "offhand": 0,
-    "cape": 0,
-    "inventory": [0, 0, 0, 0, 0],
-    "abilities": [{
-        "type": "Mainhand",
-        "items": [0, 0, 0, 0, 0]
-    }, {
-        "items": [],
-        "type": "Offhand"
-    }]
-}]
+[
+    {
+        "id": 0,
+        "x": 0,
+        "y": 0,
+        "name": "Player",
+        "head": 4,
+        "chest": 0,
+        "mainShoulder": 0,
+        "offShoulder": 0,
+        "mainhand": 0,
+        "offhand": 0,
+        "cape": 0,
+        "inventory": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "abilities": [
+            {
+                "type": "Mainhand",
+                "items": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            {
+                "items": [],
+                "type": "Offhand"
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "x": 0,
+        "y": 0,
+        "name": "Warrior",
+        "head": 4,
+        "chest": 0,
+        "mainShoulder": 3,
+        "offShoulder": 3,
+        "mainhand": 9,
+        "offhand": 5,
+        "cape": 6,
+        "inventory": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "abilities": [
+            {
+                "type": "Mainhand",
+                "items": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            {
+                "items": [],
+                "type": "Offhand"
+            }
+        ]
+    }
+]

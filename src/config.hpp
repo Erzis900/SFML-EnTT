@@ -13,18 +13,6 @@ class Config
 		unsigned int maxFps;
 	} screen;
 
-	struct player
-	{
-		float startX, startY;
-		float radius;
-	} player;
-
-	struct enemy
-	{
-		float startX, startY;
-		float radius;
-	} enemy;
-
 	struct hitbox
 	{
 		float radius;

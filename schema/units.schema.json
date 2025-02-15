@@ -13,6 +13,12 @@
             "head": {
                 "type": "integer"
             },
+            "x": {
+                "type": "integer"
+            },
+            "y": {
+                "type": "integer"
+            },
             "chest": {
                 "type": "integer"
             },
@@ -71,6 +77,6 @@
                 }
             }
         },
-        "required": ["id", "name", "head", "chest", "mainShoulder", "offShoulder", "mainhand", "offhand", "cape", "inventory", "abilities"]
+        "required": ["id", "x", "y", "name", "head", "chest", "mainShoulder", "offShoulder", "mainhand", "offhand", "cape", "inventory", "abilities"]
     }
 }

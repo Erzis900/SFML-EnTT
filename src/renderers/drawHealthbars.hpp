@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.hpp"
 
+#include "components/collider.hpp"
 #include "components/health.hpp"
 #include "components/maxHealth.hpp"
 #include "components/position.hpp"

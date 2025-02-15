@@ -4,14 +4,6 @@
         "height": 720,
         "maxFps": 144
     },
-    "player": {
-        "startX": 200,
-        "startY": 200,
-        "radius": 50
-    },
-    "enemy": {
-        "radius": 50
-    },
     "hitbox": {
         "radius": 10
     }
