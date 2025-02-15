@@ -25,6 +25,8 @@
 #include "features/player/managers/inputManager.hpp"
 #include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
+#include "features/unit/loader/unitsLoader.hpp"
+#include "features/unit/renderers/renderUnits.hpp"
 
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
@@ -84,12 +86,14 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::cleanupRemoved(registry);			// keep in order -1
 }
 
-void render(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader, features::animation::AnimationLoader &animationLoader)
+void render(entt::registry &registry, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader, features::item::ItemsLoader &itemsLoader,
+			features::animation::AnimationLoader &animationLoader)
 {
 	common::renderers::drawShapes(registry, window, itemsLoader);
+	features::unit::renderers::renderUnits(registry, window, unitsLoader);
 	features::item::renderers::renderItems(registry, window, itemsLoader);
-	common::renderers::drawHealthbars(registry, window);
 	features::animation::renderers::renderAnimations(registry, window, animationLoader);
+	common::renderers::drawHealthbars(registry, window);
 }
 
 int main()
@@ -117,9 +121,10 @@ int main()
 	entt::registry registry;
 
 	features::item::ItemsLoader itemsLoader;
+	features::unit::UnitsLoader unitsLoader;
 	features::player::InputManager inputManager;
 
-	features::player::entities::createPlayer(registry, config, itemsLoader, window);
+	features::player::entities::createPlayer(registry, itemsLoader, unitsLoader);
 
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
@@ -128,7 +133,7 @@ int main()
 
 	for (int i = 0; i < 0; i++)
 	{
-		features::enemy::entities::createEnemy(registry, config, itemsLoader);
+		features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 	}
 
 	sf::Clock clock;
@@ -170,7 +175,7 @@ int main()
 		// static = drawn once
 		map.drawBackground(window);
 
-		render(registry, window, itemsLoader, animationLoader);
+		render(registry, window, unitsLoader, itemsLoader, animationLoader);
 		// animationPlayer.draw(window);
 
 		gui.draw();
