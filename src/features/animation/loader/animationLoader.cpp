@@ -35,6 +35,8 @@ namespace features::animation
 			sprite.setTextureRect(sf::IntRect({index * frameSize, color * frameSize}, {frameSize, frameSize}));
 		}
 
+		sprite.setOrigin({frameSize / 2, frameSize / 2});
+
 		sprite.setScale({scalingFactor, scalingFactor});
 		return sprite;
 	}

@@ -9,7 +9,6 @@
 #include "features/ability/systems/processAbility.hpp"
 #include "features/animation/entities/animation.hpp"
 #include "features/animation/loader/animationLoader.hpp"
-#include "features/animation/systems/removeAnimation.hpp"
 #include "features/animation/systems/renderAnimation.hpp"
 #include "features/animation/systems/updateFrame.hpp"
 #include "features/enemy/entities/enemy.hpp"
@@ -71,7 +70,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	features::hitbox::systems::processInteraction(registry);
 	features::hitbox::systems::processLifeSpan(registry, deltaTime);
 
-	features::animation::systems::updateFrame(registry, deltaTime);
+	features::animation::systems::updateFrame(registry, deltaTime, animationLoader);
 
 	common::systems::recalculateStat(registry);
 	common::systems::applyUnitStat(registry);
@@ -80,7 +79,6 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::processPhysics(registry, deltaTime);
 	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processDeath(registry);
-	features::animation::systems::removeAnimation(registry, animationLoader);
 
 	features::ability::systems::clearEvents(registry);	// keep in order -2
 	common::systems::cleanupRemoved(registry);			// keep in order -1

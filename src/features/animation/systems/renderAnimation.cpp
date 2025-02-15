@@ -2,23 +2,19 @@
 #include "../components/color.hpp"
 #include "../components/timer.hpp"
 #include "components/position.hpp"
-#include "components/source.hpp"
+#include "features/hitbox/components/hitbox.hpp"
 
 namespace features::animation::renderers
 {
 	void renderAnimations(entt::registry &registry, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader)
 	{
-		auto view = registry.view<features::animation::components::timer, common::components::position, common::components::source,
-								  features::animation::components::Color>();
-		for (auto [entity, timer, position, source, color] : view.each())
+		auto view = registry.view<features::animation::components::timer, common::components::position, features::animation::components::Color>();
+		for (auto [entity, timer, position, color] : view.each())
 		{
 			float time = timer.value / animationLoader.getTotalTime();
 			sf::Sprite sprite = animationLoader.getSprite(time, color);
 
-			auto pos = registry.get<common::components::position>(source.entity);
-			sprite.setPosition({pos.x, pos.y});
-
-			// std::cout << pos.x << std::endl;
+			sprite.setPosition({position.x, position.y});
 
 			window.draw(sprite);
 		}

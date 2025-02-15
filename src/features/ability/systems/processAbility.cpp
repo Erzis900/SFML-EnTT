@@ -42,8 +42,8 @@ namespace features::ability::systems
 
 			if (cast.time <= 0.f)
 			{
-				features::hitbox::entities::createHitbox(registry, entity);
-				features::animation::entities::createAnimation(registry, ability.source);
+				entt::entity hitbox = features::hitbox::entities::createHitbox(registry, entity);
+				features::animation::entities::createAnimation(registry, hitbox);
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, ability.activeTime);
