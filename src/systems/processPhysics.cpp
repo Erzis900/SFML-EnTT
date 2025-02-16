@@ -9,14 +9,25 @@ namespace common::systems
 	{
 		auto view = registry.view<common::components::position, common::components::collider, common::components::speed>();
 
-		for (auto [entityA, posA, collA, speedA] : view.each())
+		for (auto itA = view.begin(); itA != view.end(); ++itA)
 		{
-			for (auto [entityB, posB, collB, speedB] : view.each())
+			auto entityA = *itA;
+			auto &posA = view.get<common::components::position>(entityA);
+			auto &collA = view.get<common::components::collider>(entityA);
+			auto &speedA = view.get<common::components::speed>(entityA);
+
+			for (auto itB = std::next(itA); itB != view.end(); ++itB)
 			{
+				auto entityB = *itB;
+				auto &posB = view.get<common::components::position>(entityB);
+				auto &collB = view.get<common::components::collider>(entityB);
+				auto &speedB = view.get<common::components::speed>(entityB);
+
 				float deltaX = posB.x - posA.x;
 				float deltaY = posB.y - posA.y;
 				float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
-				if (distance < (collA.radius + collB.radius) && entityA != entityB)
+
+				if (distance < (collA.radius + collB.radius))
 				{
 					sf::Vector2f dirVec = {posA.x - posB.x, posA.y - posB.y};
 

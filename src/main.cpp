@@ -131,7 +131,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 	}

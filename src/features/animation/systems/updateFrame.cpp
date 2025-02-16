@@ -1,6 +1,8 @@
 #include "updateFrame.hpp"
+#include "components/attach.hpp"
 #include "components/remove.hpp"
 #include "features/animation/components/timer.hpp"
+#include "features/hitbox/components/hitbox.hpp"
 
 namespace features::animation::systems
 {
@@ -11,9 +13,14 @@ namespace features::animation::systems
 		{
 			timer.value += deltaTime;
 
-			if (timer.value > animationLoader.getTotalTime())
+			auto hitboxView = registry.view<features::hitbox::components::hitbox>();
+			for (auto [hitboxEntity, hitbox] : hitboxView.each())
 			{
-				registry.emplace<common::components::remove>(entity);
+				if (timer.value > animationLoader.getTotalTime() || hitbox.lifeSpan <= 0.f || hitbox.hitCount <= 0.f)
+				{
+					registry.remove<common::components::attach>(entity);
+					registry.emplace<common::components::remove>(entity);
+				}
 			}
 		}
 	}
