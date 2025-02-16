@@ -2,6 +2,7 @@
 #include "components/collider.hpp"
 #include "components/position.hpp"
 #include "components/speed.hpp"
+#include "features/player/components/playerControlled.hpp"
 
 namespace common::systems
 {
@@ -15,6 +16,19 @@ namespace common::systems
 			auto &posA = view.get<common::components::position>(entityA);
 			auto &collA = view.get<common::components::collider>(entityA);
 			auto &speedA = view.get<common::components::speed>(entityA);
+
+			if (registry.all_of<features::player::components::playerControlled>(entityA))
+			{
+				if (posA.x < 0) posA.x = 0;
+				if (posA.y < 0) posA.y = 0;
+				// TODO upper bounds
+				// 100 * 16 * 4
+				// 60 * 16 * 4
+				// if (posA.x > screenBounds.x) posA.x = screenBounds.x;
+				// if (posA.y > screenBounds.y) posA.y = screenBounds.y;
+
+				registry.replace<common::components::position>(entityA, posA.x, posA.y);
+			}
 
 			for (auto itB = std::next(itA); itB != view.end(); ++itB)
 			{

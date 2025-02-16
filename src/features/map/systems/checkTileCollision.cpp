@@ -32,7 +32,9 @@ namespace features::map::systems
 				if (magnitude > 0)
 				{
 					dirVec /= magnitude;
-					registry.replace<common::components::position>(entityA, posA.x + dirVec.x * 200.f * deltaTime, posA.y + dirVec.y * 200.f * deltaTime);
+
+					// TODO figure out how to get speed
+					registry.replace<common::components::position>(entityA, posA.x + dirVec.x * 180.f * deltaTime, posA.y + dirVec.y * 180.f * deltaTime);
 				}
 			}
 		}

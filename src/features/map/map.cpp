@@ -20,6 +20,7 @@ namespace features::map
 
 		tileSize = {16, 16};
 
+		// map is 100x60
 		// whole tileset is 1024x640
 		tilesetSize = {64, 40};
 
