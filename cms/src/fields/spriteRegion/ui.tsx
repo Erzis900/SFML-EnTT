@@ -35,12 +35,12 @@ export function SpriteRegionFieldInput<
       </Text>
       <Flex gap="xxlarge">
 
-        <div>
+        <Grid rowGap="xlarge">
           {Object.values(fields).map((field) => {
             const Input = field.schema.Input;
             return <Input {...field.schema} onChange={field.onChange} value={field.value} />
           })}
-        </div>
+        </Grid>
         
         <div
           style={{
@@ -49,7 +49,7 @@ export function SpriteRegionFieldInput<
             transform:'scale(4)',
             transformOrigin: '0 0',
             backgroundSize: '16px 16px',
-            backgroundImage: 'url(/public/grid.png)',
+            backgroundImage: 'url(/grid.png)',
             imageRendering: 'pixelated',
           }}
         >
@@ -57,7 +57,7 @@ export function SpriteRegionFieldInput<
             style={{
               width: cellSize * fields.width.value,
               height: cellSize * fields.height.value,
-              background: `url(/public/items.png) ${-fields.x.value * cellSize}px ${fields.y.value * cellSize}px`,
+              background: `url(/items.png) ${-fields.x.value * cellSize}px ${fields.y.value * cellSize}px`,
             }}
           />
         </div>

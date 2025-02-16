@@ -11,13 +11,18 @@ const itemsMap = Object.fromEntries(items.map(item => [item.id, item]))
 
 const cellSize = 16;
 
-const RenderItem = ({sprite, transform}) => (
+const RenderItem = ({sprite, transform}: {sprite: {
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+}, transform: string}) => (
   <div
     style={{
       position: 'absolute',
       width: cellSize * sprite.width,
       height: cellSize * sprite.height,
-      background: `url(/public/items.png) ${-sprite.x * cellSize}px ${sprite.y * cellSize}px`,
+      background: `url(/items.png) ${-sprite.x * cellSize}px ${sprite.y * cellSize}px`,
       transform,
     }}
   />
@@ -50,13 +55,12 @@ export function UnitFieldInput<
         {schema.label}
       </Text>
       <Flex gap="xxlarge">
-
-        <div>
+        <Grid rowGap="xlarge">
           {Object.values(fields).map((field) => {
             const Input = field.schema.Input;
             return <Input {...field.schema} onChange={field.onChange} value={field.value} />
           })}
-        </div>
+        </Grid>
         
         <div style={{padding: 50}}>
           <div style={{
@@ -70,7 +74,7 @@ export function UnitFieldInput<
                 position: 'absolute',
                 width: cellSize * 3,
                 height: cellSize * 2,
-                background: `url(/public/units.png) ${-fields.x.value * cellSize * 3}px ${fields.y.value * cellSize * 2}px`,
+                background: `url(/units.png) ${-fields.x.value * cellSize * 3}px ${fields.y.value * cellSize * 2}px`,
               }}
             />
             <RenderItem sprite={itemsMap[fields.head.value].data.sprite} transform={`translate(${cellSize / 2}px, 0px)`} />
