@@ -1,0 +1,11 @@
+{
+  "name": "Shield",
+  "slot": "offhand",
+  "modifiers": [],
+  "sprite": {
+    "x": 8,
+    "y": 0,
+    "width": 2,
+    "height": 2
+  }
+}

@@ -110,7 +110,7 @@ export default config({
             trigger: fields.object({
               attribute: fields.text({
                 label: 'Attribute',
-                defaultValue: 'Trigger',
+                defaultValue: 'trigger',
                 validation: {
                   isRequired: true,
                 }
@@ -124,7 +124,7 @@ export default config({
               }),
               scope: fields.text({
                 label: 'Scope',
-                defaultValue: 'Set',
+                defaultValue: 'set',
                 validation: {
                   isRequired: true,
                 }
@@ -183,39 +183,41 @@ export default config({
             isRequired: true,
           }
         }),
-        x: fields.number({
-          label: 'Position X',
-          validation: {
-            isRequired: true,
-          }
-        }),
-        y: fields.number({
-          label: 'Position Y',
-          validation: {
-            isRequired: true,
-          }
-        }),
-        head: selectItems({
-          label: 'Head',
-        }),
-        chest: selectItems({
-          label: 'Chest',
-        }),
-        cape: selectItems({
-          label: 'Cape',
-        }),
-        mainShoulder: selectItems({
-          label: 'Main Shoulder',
-        }),
-        offShoulder: selectItems({
-          label: 'Off Shoulder',
-        }),
-        mainhand: selectItems({
-          label: 'Mainhand',
-        }),
-        offhand: selectItems({
-          label: 'Offhand',
-        }),
+        unit: ANfields.unit({
+          x: fields.number({
+            label: 'Position X',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          y: fields.number({
+            label: 'Position Y',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          head: selectItems({
+            label: 'Head',
+          }),
+          chest: selectItems({
+            label: 'Chest',
+          }),
+          cape: selectItems({
+            label: 'Cape',
+          }),
+          mainShoulder: selectItems({
+            label: 'Main Shoulder',
+          }),
+          offShoulder: selectItems({
+            label: 'Off Shoulder',
+          }),
+          mainhand: selectItems({
+            label: 'Mainhand',
+          }),
+          offhand: selectItems({
+            label: 'Offhand',
+          }),
+        })
       }
     })
   },

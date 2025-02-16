@@ -5,9 +5,9 @@
     {
       "discriminant": "trigger",
       "value": {
-        "attribute": "Trigger",
+        "attribute": "trigger",
         "value": "on-attack",
-        "scope": "Set"
+        "scope": "set"
       }
     },
     {
