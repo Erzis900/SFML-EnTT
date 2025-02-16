@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "123",
+      "name": "Sword",
+      "slot": "head",
+      "modifiers": [
+        {
+          "attribute": "max-damage",
+          "value": 23,
+          "scope": "flat"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Club",
+      "slot": "mainhand",
+      "modifiers": [
+        {
+          "attribute": "max-damage",
+          "value": 9,
+          "scope": "percent-add"
+        },
+        {
+          "attribute": "min-damage",
+          "value": 6,
+          "scope": "percent-mult"
+        }
+      ]
+    }
+  ]
+}

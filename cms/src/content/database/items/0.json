@@ -1,0 +1,18 @@
+{
+  "name": "Test",
+  "slot": "mainhand",
+  "modifiers": [
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "max-damage",
+        "value": "max-damage",
+        "scope": "flat"
+      }
+    }
+  ],
+  "x": 0,
+  "y": 0,
+  "width": 2,
+  "height": 4
+}
