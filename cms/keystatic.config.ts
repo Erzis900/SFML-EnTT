@@ -1,4 +1,15 @@
-import { config, fields, collection, singleton } from '@keystatic/core';
+import { config, fields, collection } from '@keystatic/core';
+import { getCollection } from 'astro:content';
+import * as ANfields from './src/fields';
+
+const items = await getCollection('items')
+const itemsOptions = items.map(item => ({label: item.id === '0' ? 'None' : `${item.data.name}@${item.data.slot}`, value: item.id}))
+
+const selectItems = ({label}: {label: string}) => fields.select({
+  label,
+  options: itemsOptions,
+  defaultValue: '0'
+})
 
 export default config({
   storage: {
@@ -41,7 +52,7 @@ export default config({
       label: "Items",
       slugField: 'id',
       columns: ["name", "slot"],
-      path: "src/content/database/items/*",
+      path: "src/content/items/*",
       format: "json",
       schema: {
         id: fields.text({
@@ -66,8 +77,7 @@ export default config({
         modifiers: fields.array({
           kind: 'conditional',
           discriminant: fields.select({
-              label: 'Featured media',
-              description: 'Optional image/video options for an optional hero media.',
+              label: 'Modifiers',
               options: [
                 { label: 'Value', value: 'value' },
                 { label: 'Trigger', value: 'trigger' },
@@ -83,9 +93,8 @@ export default config({
                     isRequired: true,
                   }
                 }),
-                value: fields.relationship({
+                value: fields.number({
                   label: 'Value',
-                  collection: 'attribute',
                   validation: {
                     isRequired: true,
                   }
@@ -127,36 +136,39 @@ export default config({
           label: 'Modifiers',
           itemLabel: props => `${props.value.fields.attribute.value}#${props.value.fields.scope.value} - ${props.value.fields.value.value}`
         }),
-        x: fields.number({
-          label: 'Position X',
-          validation: {
-            isRequired: true,
-          }
-        }),
-        y: fields.number({
-          label: 'Position Y',
-          validation: {
-            isRequired: true,
-          }
-        }),
-        width: fields.number({
-          label: 'Width',
-          validation: {
-            isRequired: true,
-          }
-        }),
-        height: fields.number({
-          label: 'Height',
-          validation: {
-            isRequired: true,
-          }
+        sprite: ANfields.spriteRegion({
+          x: fields.number({
+            label: 'Position X',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          y: fields.number({
+            label: 'Position Y',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          width: fields.number({
+            label: 'Width',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          height: fields.number({
+            label: 'Height',
+            validation: {
+              isRequired: true,
+            }
+          }),
         }),
       },
     }),
     units: collection({
       label: "Units",
       slugField: 'id',
-      path: "src/content/database/units/*",
+      columns: ["name"],
+      path: "src/content/units/*",
       format: "json",
       schema: {
         id: fields.text({
@@ -183,57 +195,28 @@ export default config({
             isRequired: true,
           }
         }),
-        head: fields.relationship({
+        head: selectItems({
           label: 'Head',
-          collection: 'items',
         }),
-        chest: fields.relationship({
-          label: 'Head',
-          collection: 'items',
+        chest: selectItems({
+          label: 'Chest',
         }),
-        cape: fields.relationship({
-          label: 'Head',
-          collection: 'items',
+        cape: selectItems({
+          label: 'Cape',
         }),
-        mainShoulder: fields.relationship({
-          label: 'Head',
-          collection: 'items',
+        mainShoulder: selectItems({
+          label: 'Main Shoulder',
         }),
-        offShoulder: fields.relationship({
-          label: 'Head',
-          collection: 'items',
+        offShoulder: selectItems({
+          label: 'Off Shoulder',
         }),
-        mainhand: fields.relationship({
-          label: 'Head',
-          collection: 'items',
+        mainhand: selectItems({
+          label: 'Mainhand',
         }),
-        offhand: fields.relationship({
-          label: 'Head',
-          collection: 'items',
+        offhand: selectItems({
+          label: 'Offhand',
         }),
       }
     })
-  },
-  singletons: {
-    settings: singleton({
-      label: "Settings",
-      path: "src/content/settings/settings",
-      schema: {
-        attribute: fields.array(
-          fields.text({ label: "Attribute" }),
-          {
-            label: "Attribute",
-            itemLabel: (props) => props.value,
-          },
-        ),
-        scope: fields.array(
-          fields.text({ label: "Scope" }),
-          {
-            label: "Scope",
-            itemLabel: (props) => props.value,
-          },
-        ),
-      },
-    }),
   },
 });

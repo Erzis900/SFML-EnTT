@@ -2,11 +2,11 @@
   "name": "Player",
   "x": 1,
   "y": 1,
-  "head": "0",
+  "head": "1",
   "chest": "0",
   "cape": "0",
   "mainShoulder": "0",
   "offShoulder": "0",
-  "mainhand": "0",
+  "mainhand": "1",
   "offhand": "0"
 }

@@ -1,18 +1,20 @@
 {
-  "name": "Test",
+  "name": "Club",
   "slot": "mainhand",
   "modifiers": [
     {
       "discriminant": "value",
       "value": {
         "attribute": "max-damage",
-        "value": "max-damage",
+        "value": 2,
         "scope": "flat"
       }
     }
   ],
-  "x": 0,
-  "y": 0,
-  "width": 2,
-  "height": 4
+  "sprite": {
+    "x": 1,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  }
 }
