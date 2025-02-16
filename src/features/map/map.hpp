@@ -8,9 +8,8 @@ namespace features::map
 	  public:
 		Map(std::string mapPath, std::string tilesetPath);
 
-		void setupMap();
+		void setupMap(entt::registry &registry);
 		void drawBackground(sf::RenderWindow &window);
-		void loadTilemap(nlohmann::json &data, unsigned int layerNo);
 
 	  private:
 		std::vector<std::vector<unsigned int>> tilemap;
@@ -29,6 +28,9 @@ namespace features::map
 
 		nlohmann::json data;
 
+		void loadTilemap(nlohmann::json &data, unsigned int layerNo);
 		void setupTile(unsigned int id, int x, int y);
+
+		int noColliders;
 	};
 }  // namespace features::map

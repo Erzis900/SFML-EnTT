@@ -308,7 +308,7 @@ ChildWindow.settingsWindow {
         MaximumItems = 0;
         Position = (10, 40);
         Renderer = &4;
-        SelectedItemIndex = 3;
+        SelectedItemIndex = 0;
         Size = (100, 21);
         TextSize = 13;
     }

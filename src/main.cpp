@@ -27,6 +27,7 @@
 #include "features/unit/loader/unitsLoader.hpp"
 #include "features/unit/renderers/renderUnits.hpp"
 
+#include "features/map/systems/checkTileCollision.hpp"
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
 #include "systems/applyUnitStat.hpp"
@@ -77,6 +78,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::moveEntities(registry, deltaTime);
 	common::systems::attachEntities(registry);
 	common::systems::processPhysics(registry, deltaTime);
+	features::map::systems::checkTileCollision(registry, deltaTime);
 	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processDeath(registry);
 
@@ -98,7 +100,6 @@ int main()
 {
 	Config config("../../configs/config.json");
 	features::map::Map map("../../assets/map.json", "../../assets/tileset.png");
-	map.setupMap();
 
 	sf::Texture crosshairTexture;
 	if (!crosshairTexture.loadFromFile("../../assets/crosshair.png"))
@@ -117,6 +118,7 @@ int main()
 	StateManager stateManager;
 
 	entt::registry registry;
+	map.setupMap(registry);
 
 	features::item::ItemsLoader itemsLoader;
 	features::unit::UnitsLoader unitsLoader;

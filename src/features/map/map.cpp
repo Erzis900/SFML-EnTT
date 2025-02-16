@@ -1,4 +1,8 @@
 #include "map.hpp"
+#include "components/collider.hpp"
+#include "components/position.hpp"
+#include "components/speed.hpp"
+#include "entities/tileCollider.hpp"
 
 namespace features::map
 {
@@ -21,9 +25,10 @@ namespace features::map
 
 		scalingFactor = 4.f;
 		bg = sf::RenderTexture({static_cast<unsigned int>(width * tileSize.x * scalingFactor), static_cast<unsigned int>(height * tileSize.y * scalingFactor)});
+		noColliders = 0;
 	}
 
-	void Map::setupMap()
+	void Map::setupMap(entt::registry &registry)
 	{
 		for (int layerNo = 0; layerNo < noLayers; layerNo++)
 		{
@@ -33,6 +38,12 @@ namespace features::map
 				for (int j = 0; j < width; j++)
 				{
 					setupTile(tilemap[i][j], j, i);
+
+					if (tilemap[i][j] == 2591)
+					{
+						features::map::entities::createColliderTile(tilemap[i][j], j, i, tileSize.x, scalingFactor, registry);
+						noColliders++;
+					}
 				}
 			}
 		}
@@ -65,21 +76,18 @@ namespace features::map
 
 	void Map::setupTile(unsigned int id, int x, int y)
 	{
-		if (id)
-		{
-			sf::Sprite sprite(tileset);
+		sf::Sprite sprite(tileset);
 
-			int tileRow = id / tilesetSize.x;
-			int tileCol = id % tilesetSize.x - 1;
+		int tileRow = id / tilesetSize.x;
+		int tileCol = id % tilesetSize.x - 1;
 
-			sf::Vector2i tilePos = {tileCol * tileSize.x, tileRow * tileSize.y};
+		sf::Vector2i tilePos = {tileCol * tileSize.x, tileRow * tileSize.y};
 
-			sprite.setTextureRect(sf::IntRect(tilePos, tileSize));
-			sprite.setScale({scalingFactor, scalingFactor});
-			sprite.setPosition(sf::Vector2f(x * tileSize.x * scalingFactor, y * tileSize.y * scalingFactor));
+		sprite.setTextureRect(sf::IntRect(tilePos, tileSize));
+		sprite.setScale({scalingFactor, scalingFactor});
+		sprite.setPosition(sf::Vector2f(x * tileSize.x * scalingFactor, y * tileSize.y * scalingFactor));
 
-			bg.draw(sprite);
-		}
+		bg.draw(sprite);
 		// window.draw(sprite);
 	}
 }  // namespace features::map

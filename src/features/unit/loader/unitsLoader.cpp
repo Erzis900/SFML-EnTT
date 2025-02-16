@@ -57,6 +57,8 @@ namespace features::unit
 		auto entity = createUnit(registry, id);
 		registry.emplace<common::components::renderable>(entity);
 		registry.emplace<common::components::position>(entity, x, y);
+		registry.emplace<features::map::components::rectCollider>(entity, 100.f, 100.f);
+
 		return entity;
 	}
 

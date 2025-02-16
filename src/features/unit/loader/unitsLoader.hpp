@@ -11,6 +11,7 @@
 
 #include "features/item/entities/item.hpp"
 #include "features/item/loader/itemsLoader.hpp"
+#include "features/map/components/rectCollider.hpp"
 
 namespace features::unit
 {
