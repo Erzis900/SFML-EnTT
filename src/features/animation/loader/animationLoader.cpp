@@ -8,7 +8,7 @@ namespace features::animation
 		frameTime = 0.05f;
 		noEffects = 8;
 
-		if (!texture.loadFromFile("../../assets/effects/effect1.png"))
+		if (!texture.loadFromFile("../../public/effects/effect1.png"))
 		{
 			std::cerr << "Failed to load effect1.png";
 			return;

@@ -1,0 +1,12 @@
+{
+  "name": "Helmet",
+  "slot": "head",
+  "type": "head",
+  "modifiers": [],
+  "sprite": {
+    "x": 6,
+    "y": 0,
+    "width": 2,
+    "height": 2
+  }
+}

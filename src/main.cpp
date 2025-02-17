@@ -99,10 +99,10 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::unit::
 int main()
 {
 	Config config("../../configs/config.json");
-	features::map::Map map("../../assets/map.json", "../../assets/tileset.png");
+	features::map::Map map("../../public/map.json", "../../public/tileset.png");
 
 	sf::Texture crosshairTexture;
-	if (!crosshairTexture.loadFromFile("../../assets/crosshair.png"))
+	if (!crosshairTexture.loadFromFile("../../public/crosshair.png"))
 	{
 		std::cerr << "Crosshair asset not found" << std::endl;
 		return 1;

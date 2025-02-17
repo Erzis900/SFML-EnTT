@@ -4,28 +4,34 @@ namespace features::unit
 {
 	UnitsLoader::UnitsLoader()
 	{
-		std::ifstream unitsFile("../../data/units.json");
-		nlohmann::json data = nlohmann::json::parse(unitsFile);
-		texture = sf::Texture("../../assets/units.png", false, sf::IntRect({0, 0}, {16 * 3, 16 * 2}));
-
-		for (auto &unitJson : data)
+		for (const auto &entry : std::filesystem::directory_iterator("../../src/content/units"))
 		{
-			Unit unitData = {unitJson["name"],
-							 unitJson["id"],
-							 unitJson["x"],
-							 unitJson["y"],
-							 unitJson["head"],
-							 unitJson["chest"],
-							 unitJson["mainShoulder"],
-							 unitJson["offShoulder"],
-							 unitJson["mainhand"],
-							 unitJson["offhand"],
-							 unitJson["cape"],
-							 3,
-							 2,
-							 unitJson["inventory"]};
-			unitsData[unitJson["id"]] = unitData;
+			auto id = std::stoi(entry.path().filename().replace_extension().string());
+			if (entry.path().extension() == ".json")
+			{
+				std::ifstream unitsFile(entry.path());
+				nlohmann::json unitJson = nlohmann::json::parse(unitsFile);
+				auto unit = unitJson["unit"];
+				Unit unitData = {
+					unitJson["name"],
+					id,
+					unit["x"],
+					unit["y"],
+					unit["head"],
+					unit["chest"],
+					unit["cape"],
+					unit["mainShoulder"],
+					unit["offShoulder"],
+					unit["mainhand"],
+					unit["offhand"],
+					3,
+					2,
+					//  unitJson["inventory"],
+				};
+				unitsData[id] = unitData;
+			}
 		}
+		texture = sf::Texture("../../public/units.png", false, sf::IntRect({0, 0}, {16 * 3, 16 * 2}));
 	}
 
 	Unit UnitsLoader::getUnit(int id) { return unitsData[id]; }

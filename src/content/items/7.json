@@ -1,0 +1,21 @@
+{
+  "name": "Sword",
+  "slot": "mainhand",
+  "type": "sword",
+  "modifiers": [
+    {
+      "discriminant": "trigger",
+      "value": {
+        "attribute": "trigger",
+        "value": "on-attack",
+        "scope": "set"
+      }
+    }
+  ],
+  "sprite": {
+    "x": 0,
+    "y": 0,
+    "width": 1,
+    "height": 4
+  }
+}
