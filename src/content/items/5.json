@@ -1,0 +1,12 @@
+{
+  "name": "Cape",
+  "slot": "cape",
+  "type": "cape",
+  "modifiers": [],
+  "sprite": {
+    "x": 10,
+    "y": 0,
+    "width": 2,
+    "height": 2
+  }
+}

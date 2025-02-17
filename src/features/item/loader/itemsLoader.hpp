@@ -50,22 +50,22 @@ namespace features::item
 		OnCast = 3
 	};
 	static std::unordered_map<std::string, Trigger> const mapTrigger = {
-		{"OnAttack", Trigger::OnAttack}, {"OnShot", Trigger::OnShot}, {"OnCast", Trigger::OnCast}};
+		{"on-attack", Trigger::OnAttack}, {"on-shot", Trigger::OnShot}, {"on-cast", Trigger::OnCast}};
 
 	float getTrigger(std::string trigger);
 
-	static std::unordered_map<std::string, Type> const mapType = {{"Sword", Type::Sword},	{"Club", Type::Club},		{"Quiver", Type::Quiver},
-																  {"Shield", Type::Shield}, {"Scepter", Type::Scepter}, {"Shoulder", Type::Shoulder},
-																  {"Head", Type::Head},		{"Cape", Type::Cape},		{"Bow", Type::Bow}};
+	static std::unordered_map<std::string, Type> const mapType = {{"sword", Type::Sword},	{"club", Type::Club},		{"quiver", Type::Quiver},
+																  {"shield", Type::Shield}, {"scepter", Type::Scepter}, {"shoulder", Type::Shoulder},
+																  {"head", Type::Head},		{"cape", Type::Cape},		{"bow", Type::Bow}};
 
 	static std::unordered_map<std::string, components::SlotType> const mapSlot = {
-		{"Head", components::SlotType::Head},
-		{"Chest", components::SlotType::Chest},
-		{"MainShoulder", components::SlotType::MainShoulder},
-		{"OffShoulder", components::SlotType::OffShoulder},
-		{"Mainhand", components::SlotType::Mainhand},
-		{"Offhand", components::SlotType::Offhand},
-		{"Cape", components::SlotType::Cape},
+		{"head", components::SlotType::Head},
+		{"chest", components::SlotType::Chest},
+		{"main-shoulder", components::SlotType::MainShoulder},
+		{"off-shoulder", components::SlotType::OffShoulder},
+		{"mainhand", components::SlotType::Mainhand},
+		{"offhand", components::SlotType::Offhand},
+		{"cape", components::SlotType::Cape},
 	};
 
 	Type getType(std::string type);

@@ -1,0 +1,14 @@
+{
+  "name": "Player",
+  "unit": {
+    "x": 0,
+    "y": 0,
+    "head": 3,
+    "chest": 0,
+    "cape": 5,
+    "mainShoulder": 4,
+    "offShoulder": 4,
+    "mainhand": 7,
+    "offhand": 6
+  }
+}

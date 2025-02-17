@@ -4,35 +4,47 @@ namespace features::item
 {
 	ItemsLoader::ItemsLoader()
 	{
-		std::ifstream itemsFile("../../data/items.json");
-		nlohmann::json data = nlohmann::json::parse(itemsFile);
-		texture = sf::Texture("../../assets/items.png", false, sf::IntRect({0, 0}, {512, 512}));
-
-		for (auto &itemJson : data)
+		for (const auto &entry : std::filesystem::directory_iterator("../../src/content/items"))
 		{
-			std::vector<Modifier> modifiers = {};
-			for (auto &modifierJson : itemJson["modifiers"])
+			auto id = std::stoi(entry.path().filename().replace_extension().string());
+			if (entry.path().extension() == ".json")
 			{
-				auto stat = common::entities::getStat(modifierJson["attribute"]);
-				auto scope = common::entities::getScope(modifierJson["scope"]);
-				auto val = modifierJson["value"];
-				Modifier modifier;
-				switch (stat)
+				std::ifstream itemsFile(entry.path());
+				nlohmann::json itemJson = nlohmann::json::parse(itemsFile);
+
+				std::vector<Modifier> modifiers = {};
+				for (auto &modifierJson : itemJson["modifiers"])
 				{
-				case common::entities::Stat::Trigger:
-					modifier = {stat, scope, getTrigger(val)};
-					modifiers.push_back(modifier);
-					break;
-				default:
-					modifier = {stat, scope, val};
-					modifiers.push_back(modifier);
-					break;
+					auto attribute = modifierJson["value"];
+					auto stat = common::entities::getStat(attribute["attribute"]);
+					auto scope = common::entities::getScope(attribute["scope"]);
+					auto val = attribute["value"];
+					Modifier modifier;
+					switch (stat)
+					{
+					case common::entities::Stat::Trigger:
+						modifier = {stat, scope, getTrigger(val)};
+						modifiers.push_back(modifier);
+						break;
+					default:
+						modifier = {stat, scope, val};
+						modifiers.push_back(modifier);
+						break;
+					}
 				}
+				Item itemData = {itemJson["name"],
+								 modifiers,
+								 getSlot(itemJson["slot"]),
+								 getType(itemJson["type"]),
+								 id,
+								 itemJson["sprite"]["x"],
+								 itemJson["sprite"]["y"],
+								 itemJson["sprite"]["width"],
+								 itemJson["sprite"]["height"]};
+				itemsData[id] = itemData;
 			}
-			Item itemData = {itemJson["name"], modifiers,	  getSlot(itemJson["slot"]), getType(itemJson["type"]), itemJson["id"],
-							 itemJson["x"],	   itemJson["y"], itemJson["width"],		 itemJson["height"]};
-			itemsData[itemJson["id"]] = itemData;
 		}
+		texture = sf::Texture("../../public/items.png", false, sf::IntRect({0, 0}, {512, 512}));
 	}
 
 	float getTrigger(std::string trigger)

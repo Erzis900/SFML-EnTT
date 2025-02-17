@@ -29,9 +29,9 @@ namespace common::entities
 	using Attributes = components::children<ATTRIBUTES_SIZE>;
 
 	static std::unordered_map<std::string, Stat> const mapStat = {
-		{"Health", Stat::Health},		{"MaxHealth", Stat::MaxHealth}, {"Speed", Stat::Speed},		{"Damage", Stat::Damage},
-		{"MinDamage", Stat::MinDamage}, {"MaxDamage", Stat::MaxDamage}, {"Trigger", Stat::Trigger}, {"BaseAttackSpeed", Stat::BaseAttackSpeed},
-		{"Radius", Stat::Radius}};
+		{"health", Stat::Health},		 {"max-health", Stat::MaxHealth}, {"speed", Stat::Speed},	  {"damage", Stat::Damage},
+		{"min-damage", Stat::MinDamage}, {"max-damage", Stat::MaxDamage}, {"trigger", Stat::Trigger}, {"base-attack-speed", Stat::BaseAttackSpeed},
+		{"radius", Stat::Radius}};
 
 	Stat getStat(std::string stat);
 	Scope getScope(std::string scope);

@@ -159,7 +159,7 @@ Picture.settingsPic {
     Size = (64, 64);
 
     Renderer {
-        Texture = "../assets/icons/settings.png" Smooth;
+        Texture = "../public/icons/settings.png" Smooth;
         TransparentTexture = false;
     }
 }
@@ -505,7 +505,7 @@ Picture.statsPic {
     Size = (64, 64);
 
     Renderer {
-        Texture = "../assets/icons/stats.png" Smooth;
+        Texture = "../public/icons/stats.png" Smooth;
         TransparentTexture = false;
     }
 }
