@@ -19,10 +19,7 @@ namespace features::animation::systems
 				if (timer.value > animationLoader.getTotalTime() || hitbox.lifeSpan <= 0.f || hitbox.hitCount <= 0.f)
 				{
 					registry.remove<common::components::attach>(entity);
-					if (registry.valid(entity))
-					{
-						registry.emplace_or_replace<common::components::remove>(entity);
-					}
+					registry.emplace_or_replace<common::components::remove>(entity);
 				}
 			}
 		}
