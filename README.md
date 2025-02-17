@@ -117,4 +117,4 @@ Here are some useful resources if you want to learn more about CMake:
 
 ## License
 
-NO LICENSE
+UNLICENSED
