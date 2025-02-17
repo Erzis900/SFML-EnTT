@@ -12,12 +12,14 @@ namespace features::player::entities
 
 		registry.emplace<common::components::faction>(entity, common::components::ALLY_MASK, common::components::ALLY_MASK, common::components::FOES_MASK);
 
+		auto unit = registry.get<common::components::unit>(entity);
+		auto unitBase = unitsLoader.getUnit(unit.id);
 		auto mainhandEntity =
 			features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.02f, 0.01f, 0.01f, 0.5f);
 		auto offhandEntity = features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Offhand, 0.2f, 0.1f, 0.1f, 3.f);
 
-		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, 2, features::item::components::SlotType::Mainhand, false);
-		features::item::entities::equipItem(registry, itemsLoader, offhandEntity, 5, features::item::components::SlotType::Offhand, false);
+		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, features::item::components::SlotType::Mainhand, false);
+		features::item::entities::equipItem(registry, itemsLoader, offhandEntity, unitBase.offhand, features::item::components::SlotType::Offhand, false);
 
 		return entity;
 	}

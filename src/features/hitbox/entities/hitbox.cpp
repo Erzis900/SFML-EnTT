@@ -11,7 +11,7 @@ namespace features::hitbox::entities
 
 		float radius = 0.f;
 		auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
-		auto &rel = registry.get<common::components::relationship>(attributes.entities[common::entities::Stat::Trigger]);
+
 		switch (static_cast<int>(trigger.value))
 		{
 		case features::item::Trigger::OnAttack:

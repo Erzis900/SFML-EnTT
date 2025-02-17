@@ -5,6 +5,7 @@
 #include "components/faction.hpp"
 #include "components/healthRegen.hpp"
 #include "components/renderable.hpp"
+#include "components/unit.hpp"
 #include "features/ability/entities/ability.hpp"
 #include "features/item/components/equipped.hpp"
 #include "features/item/entities/item.hpp"
