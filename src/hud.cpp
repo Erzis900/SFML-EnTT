@@ -23,7 +23,7 @@ void HUD::update(entt::registry &registry)
 	auto view = registry.view<features::ability::components::cooldown, features::ability::components::ability>();
 	for (auto [entity, cooldown, ability] : view.each())
 	{
-		mainCD = static_cast<int>(cooldown.time * 100);
+		mainCD = static_cast<int>((cooldown.time / ability.cooldownTime) * 100);
 
 		if (ability.slot == features::item::components::SlotType::Mainhand)
 		{
