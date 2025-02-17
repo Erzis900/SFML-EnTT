@@ -22,14 +22,14 @@ namespace features::unit
 		int y;
 		int head;
 		int chest;
+		int cape;
 		int mainShoulder;
 		int offShoulder;
 		int mainhand;
 		int offhand;
-		int cape;
 		int width;
 		int height;
-		std::array<int, 16> inventory;
+		// std::array<int, 16> inventory;
 	};
 
 	class UnitsLoader

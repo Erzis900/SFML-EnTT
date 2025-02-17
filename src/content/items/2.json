@@ -1,0 +1,29 @@
+{
+  "name": "Bow",
+  "slot": "mainhand",
+  "type": "bow",
+  "modifiers": [
+    {
+      "discriminant": "trigger",
+      "value": {
+        "attribute": "trigger",
+        "value": "on-attack",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "max-damage",
+        "value": 4,
+        "scope": "flat"
+      }
+    }
+  ],
+  "sprite": {
+    "x": 3,
+    "y": 0,
+    "width": 1,
+    "height": 4
+  }
+}

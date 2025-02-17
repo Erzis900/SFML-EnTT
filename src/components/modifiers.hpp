@@ -14,7 +14,7 @@ namespace common
 		};
 
 		static std::unordered_map<std::string, Scope> const mapScope = {
-			{"Flat", Scope::Flat}, {"PercentAdd", Scope::PercentAdd}, {"PercentMult", Scope::PercentMult}, {"Set", Scope::Set}};
+			{"flat", Scope::Flat}, {"percent-add", Scope::PercentAdd}, {"percent-mult", Scope::PercentMult}, {"set", Scope::Set}};
 	}  // namespace entities
 
 	namespace components

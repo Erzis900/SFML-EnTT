@@ -1,0 +1,29 @@
+{
+  "name": "Club",
+  "slot": "mainhand",
+  "type": "club",
+  "modifiers": [
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "max-damage",
+        "value": 2,
+        "scope": "flat"
+      }
+    },
+    {
+      "discriminant": "trigger",
+      "value": {
+        "attribute": "trigger",
+        "value": "on-attack",
+        "scope": "set"
+      }
+    }
+  ],
+  "sprite": {
+    "x": 1,
+    "y": 0,
+    "width": 1,
+    "height": 2
+  }
+}
