@@ -20,7 +20,7 @@ namespace features::animation
 
 	sf::Sprite AnimationLoader::getSprite(float time, features::animation::components::Color color)
 	{
-		int index = time * noFrames;
+		int index = (1 - time) * noFrames;
 
 		sf::Sprite sprite(texture);
 

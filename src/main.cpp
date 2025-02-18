@@ -71,7 +71,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	features::hitbox::systems::processInteraction(registry);
 	features::hitbox::systems::processLifeSpan(registry, deltaTime);
 
-	features::animation::systems::updateFrame(registry, deltaTime, animationLoader);
+	features::animation::systems::updateFrame(registry, deltaTime);
 
 	common::systems::recalculateStat(registry);
 	common::systems::applyUnitStat(registry);
@@ -141,7 +141,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));

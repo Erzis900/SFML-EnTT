@@ -15,7 +15,7 @@ namespace features::animation::renderers
 
 		for (auto [entity, timer, position, color, area] : view.each())
 		{
-			float time = timer.value / animationLoader.getTotalTime();
+			float time = timer.value / timer.totalTime;
 			sf::Sprite sprite = animationLoader.getSprite(time, color);
 
 			sprite.setPosition({position.x, position.y});

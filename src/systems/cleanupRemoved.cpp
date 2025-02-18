@@ -10,6 +10,7 @@ namespace common::systems
 		for (auto [entity] : view.each())
 		{
 			registry.destroy(entity);
+			spdlog::debug("Destroyed {}", static_cast<int>(entity));
 		}
 	}
 }  // namespace common::systems

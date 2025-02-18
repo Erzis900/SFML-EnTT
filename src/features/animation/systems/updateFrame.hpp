@@ -5,5 +5,5 @@
 
 namespace features::animation::systems
 {
-	void updateFrame(entt::registry &registry, float deltaTime, features::animation::AnimationLoader &animationLoader);
+	void updateFrame(entt::registry &registry, float deltaTime);
 }

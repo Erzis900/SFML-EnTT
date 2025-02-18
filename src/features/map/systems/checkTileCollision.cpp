@@ -35,7 +35,6 @@ namespace features::map::systems
 				{
 					dirVec /= magnitude;
 
-					// TODO figure out how to get speed
 					registry.replace<common::components::position>(entityA, posA.x + dirVec.x * speedA.value * deltaTime,
 																   posA.y + dirVec.y * speedA.value * deltaTime);
 				}

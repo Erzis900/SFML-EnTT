@@ -12,18 +12,24 @@ namespace features::hitbox::entities
 		float radius = 0.f;
 		auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
 
+		float lifeSpan = 0.f;
+
 		switch (static_cast<int>(trigger.value))
 		{
 		case features::item::Trigger::OnAttack:
 			registry.emplace<common::components::attach>(hitboxEntity, ability.source);
-			registry.emplace<components::hitbox>(hitboxEntity, .3f, .3f, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
+			lifeSpan = 0.3f;
+
+			registry.emplace<components::hitbox>(hitboxEntity, lifeSpan, lifeSpan, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
 			radius = 150.f;
 			break;
 		case features::item::Trigger::OnShot:
 		case features::item::Trigger::OnCast:
 			registry.emplace<common::components::speed>(hitboxEntity, 500.f);
-			registry.emplace<components::hitbox>(hitboxEntity, .7f, .7f, 2.f, std::vector<entt::entity>(), std::vector<entt::entity>());
-			radius = 10.f;
+
+			lifeSpan = 0.7f;
+			registry.emplace<components::hitbox>(hitboxEntity, lifeSpan, lifeSpan, 2.f, std::vector<entt::entity>(), std::vector<entt::entity>());
+			radius = 50.f;
 			break;
 		default:
 			break;
@@ -45,7 +51,7 @@ namespace features::hitbox::entities
 		registry.emplace<common::components::shape>(hitboxEntity, hitboxShape);
 		registry.emplace<common::components::area>(hitboxEntity, radius);
 
-		features::animation::entities::createAnimation(registry, hitboxEntity, radius);
+		features::animation::entities::createAnimation(registry, hitboxEntity, radius, lifeSpan);
 
 		return hitboxEntity;
 	}

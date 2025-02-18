@@ -7,10 +7,10 @@
 
 namespace features::animation::entities
 {
-	entt::entity createAnimation(entt::registry &registry, entt::entity &source, float radius)
+	entt::entity createAnimation(entt::registry &registry, entt::entity &source, float radius, float totalTime)
 	{
 		auto entity = registry.create();
-		registry.emplace<features::animation::components::timer>(entity, 0.f);
+		registry.emplace<features::animation::components::timer>(entity, totalTime, totalTime);
 		registry.emplace<features::animation::components::Color>(entity, features::animation::components::Color::Blue);
 
 		registry.emplace<common::components::position>(entity, 0.f, 0.f);
