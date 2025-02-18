@@ -17,4 +17,7 @@ class Config
 	{
 		float radius;
 	} hitbox;
+
+  private:
+	nlohmann::json data;
 };

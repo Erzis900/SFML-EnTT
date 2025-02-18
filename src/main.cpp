@@ -98,16 +98,22 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::unit::
 
 int main()
 {
-	spdlog::info("init");
+	spdlog::set_level(spdlog::level::debug);
+	spdlog::info("Start");
+
 	Config config("../../configs/config.json");
+
 	features::map::Map map("../../public/map.json", "../../public/tileset.png");
 
 	sf::Texture crosshairTexture;
-	if (!crosshairTexture.loadFromFile("../../public/crosshair.png"))
+	std::string crosshairPath = "../../public/crosshair.png";
+	if (!crosshairTexture.loadFromFile(crosshairPath))
 	{
-		std::cerr << "Crosshair asset not found" << std::endl;
-		return 1;
+		spdlog::error("Failed to load {}", crosshairPath);
+		return EXIT_FAILURE;
 	}
+	spdlog::info("Loaded {}", crosshairPath);
+
 	sf::Sprite crosshairSprite(crosshairTexture);
 	// crosshairSprite.setOrigin({crosshairTexture.getSize().x / 2.f, crosshairTexture.getSize().y / 2.f});
 
@@ -115,17 +121,20 @@ int main()
 	// auto window = sf::RenderWindow(sf::VideoMode({config.screen.width, config.screen.height}), "SFML 3.0 RPG");
 	window.setFramerateLimit(config.screen.maxFps);
 	window.setMouseCursorVisible(false);
+	spdlog::info("Window created");
 
 	StateManager stateManager;
 
 	entt::registry registry;
+	spdlog::info("Registry created");
 	map.setupMap(registry);
 
 	features::item::ItemsLoader itemsLoader;
 	features::unit::UnitsLoader unitsLoader;
 	features::player::InputManager inputManager;
 
-	features::player::entities::createPlayer(registry, itemsLoader, unitsLoader);
+	entt::entity player = features::player::entities::createPlayer(registry, itemsLoader, unitsLoader);
+	spdlog::debug("Player entity created, ID {}", static_cast<int>(player));
 
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
@@ -134,7 +143,8 @@ int main()
 
 	for (int i = 0; i < 3; i++)
 	{
-		features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
+		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
+		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));
 	}
 
 	sf::Clock clock;

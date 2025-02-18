@@ -9,7 +9,23 @@ namespace features::map
 	Map::Map(std::string mapPath, std::string tilesetPath)
 	{
 		std::ifstream mapFile(mapPath);
-		data = nlohmann::json::parse(mapFile);
+		if (!mapFile.is_open())
+		{
+			spdlog::error("Failed to load {}", mapPath);
+			std::exit(EXIT_FAILURE);
+		}
+		spdlog::info("Loaded {}", mapPath);
+
+		try
+		{
+			data = nlohmann::json::parse(mapFile);
+			spdlog::info("Parsed {}", mapPath);
+		}
+		catch (const nlohmann::json::parse_error &e)
+		{
+			spdlog::error("Failed to parse {}. Error: {}", mapPath, e.what());
+			std::exit(EXIT_FAILURE);
+		}
 
 		noLayers = data["layers"].size();
 
@@ -17,6 +33,7 @@ namespace features::map
 		width = data["layers"][0]["width"];
 
 		tileset = sf::Texture(tilesetPath);
+		spdlog::info("Loaded {}", tilesetPath);
 
 		tileSize = {16, 16};
 
