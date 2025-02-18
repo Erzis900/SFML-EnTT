@@ -98,6 +98,23 @@ Here are some useful resources if you want to learn more about CMake:
 - [How to Use CMake Without the Agonizing Pain - Part 2](https://alexreinking.com/blog/how-to-use-cmake-without-the-agonizing-pain-part-2.html)
 - [Better CMake YouTube series by Jefferon Amstutz](https://www.youtube.com/playlist?list=PL8i3OhJb4FNV10aIZ8oF0AA46HgA2ed8g)
 
+## Resource editor
+
+### Setup 
+
+1. Install nvm
+   - [Unix](https://github.com/nvm-sh/nvm)
+   - [Windows](https://github.com/coreybutler/nvm-windows)
+2. Install and select version v18+(check .nvmrc for exact version)
+   - `nvm install v18`
+   - `nvm use v18`
+3. Go to project root directory
+   - `npm install`
+   - `npm start`
+4. Open browser with url
+   - http://127.0.0.1:4321/keystatic
+   - http://localhost:4321/keystatic
+
 ## License
 
-The source code is dual licensed under Public Domain and MIT -- choose whichever you prefer.
+UNLICENSED
