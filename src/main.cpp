@@ -56,34 +56,75 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 	}
 }
 
+std::unordered_map<std::string, std::vector<double>> executionTimes;
+
+auto measureExecutionTime = [](const std::string &funcName, auto &&func, bool log, auto &&...args) {
+	std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
+	if (log)
+	{
+		start = std::chrono::high_resolution_clock::now();
+	}
+	std::invoke(std::forward<decltype(func)>(func), std::forward<decltype(args)>(args)...);
+	if (log)
+	{
+		end = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> elapsed = end - start;
+		executionTimes[funcName].push_back(elapsed.count());
+
+		double minTime = *std::min_element(executionTimes[funcName].begin(), executionTimes[funcName].end());
+		double maxTime = *std::max_element(executionTimes[funcName].begin(), executionTimes[funcName].end());
+		double avgTime = std::accumulate(executionTimes[funcName].begin(), executionTimes[funcName].end(), 0.0) / executionTimes[funcName].size();
+
+		spdlog::debug("{:<22} Elapsed: {:.5f}s | Min: {:.5f}s | Max: {:.5f}s | Avg: {:.5f}s", funcName, elapsed.count(), minTime, maxTime, avgTime);
+	}
+};
+
+static float timer = .5f;
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader,
 			features::player::InputManager &inputManager, sf::Vector2i mapDim)
 {
-	features::player::systems::playerInput(registry, window, inputManager);
-	features::player::systems::playerCamera(registry, window);
+	timer -= deltaTime;
+	bool didTimerReset = false;
+	if (timer <= 0.0f)
+	{
+		timer = 5.f;
+		didTimerReset = true;
+	}
 
-	features::enemy::systems::followPlayer(registry);
+	if (didTimerReset)
+	{
+		spdlog::debug("====================================================================================");
+		spdlog::debug("Measure systems execution times gathered every {}s", static_cast<int>(timer));
+		spdlog::debug("====================================================================================");
+	}
+	std::tuple<std::string, std::function<void()>> systems[] = {
+		{"playerInput", [&] { features::player::systems::playerInput(registry, window, inputManager); }},
+		{"followPlayer", [&] { features::enemy::systems::followPlayer(registry); }},
+		{"processHitbox", [&] { features::hitbox::systems::processHitbox(registry); }},
+		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry); }},
+		{"processLifeSpan", [&] { features::hitbox::systems::processLifeSpan(registry, deltaTime); }},
+		{"updateFrame", [&] { features::animation::systems::updateFrame(registry, deltaTime); }},
+		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},						   // keep -9
+		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},							   // keep -8
+		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},					   // keep -7
+		{"attachEntities", [&] { common::systems::attachEntities(registry); }},							   // keep -6
+		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim); }},		   // keep -5
+		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},  // keep -4
+		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},	   // decide where to place it
+		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},			   // keep -3
+		{"processDeath", [&] { common::systems::processDeath(registry); }},								   // keep -2
+		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},					   // keep -2
+		{"cleanupRemoved", [&] { common::systems::cleanupRemoved(registry); }},							   // keep -1
+	};
 
-	// features::hitbox::systems::isOnScreen(registry,
-	// window.getSize().x, window.getSize().y); // replaced
-	// with procesLifespan
-	features::hitbox::systems::processHitbox(registry);
-	features::hitbox::systems::processInteraction(registry);
-	features::hitbox::systems::processLifeSpan(registry, deltaTime);
-
-	features::animation::systems::updateFrame(registry, deltaTime);
-
-	common::systems::recalculateStat(registry);
-	common::systems::applyUnitStat(registry);
-	common::systems::moveEntities(registry, deltaTime);
-	common::systems::attachEntities(registry);
-	common::systems::processPhysics(registry, deltaTime, mapDim);
-	features::map::systems::checkTileCollision(registry, deltaTime);
-	features::ability::systems::processAbility(registry, deltaTime);
-	common::systems::processDeath(registry);
-
-	features::ability::systems::clearEvents(registry);	// keep in order -2
-	common::systems::cleanupRemoved(registry);			// keep in order -1
+	for (const auto &[name, func] : systems)
+	{
+		measureExecutionTime(name, func, didTimerReset);
+	}
+	if (didTimerReset)
+	{
+		spdlog::debug("====================================================================================");
+	}
 }
 
 void render(entt::registry &registry, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader, features::item::ItemsLoader &itemsLoader,
