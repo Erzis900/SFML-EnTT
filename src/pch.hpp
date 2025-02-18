@@ -9,6 +9,7 @@
 
 #include "external/entt.hpp"
 #include "external/json.hpp"
+#include "external/spdlog/spdlog.h"
 
 #include <array>
 #include <bitset>

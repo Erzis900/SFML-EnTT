@@ -98,6 +98,7 @@ void render(entt::registry &registry, sf::RenderWindow &window, features::unit::
 
 int main()
 {
+	spdlog::info("init");
 	Config config("../../configs/config.json");
 	features::map::Map map("../../public/map.json", "../../public/tileset.png");
 
@@ -131,7 +132,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 	}
