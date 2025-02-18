@@ -32,7 +32,7 @@ namespace features::hitbox::entities
 			radius = 50.f;
 			break;
 		default:
-			spdlog::info("Incorrect state for entity {}, probably item has incorrect trigger or wrong item assigned", static_cast<int>(source));
+			spdlog::warn("Incorrect state for entity {}, probably item has incorrect trigger or wrong item assigned", static_cast<int>(source));
 			break;
 		}
 		registry.emplace<common::components::source>(hitboxEntity, ability.source);
@@ -52,7 +52,8 @@ namespace features::hitbox::entities
 		registry.emplace<common::components::shape>(hitboxEntity, hitboxShape);
 		registry.emplace<common::components::area>(hitboxEntity, radius);
 
-		features::animation::entities::createAnimation(registry, hitboxEntity, radius, lifeSpan);
+		entt::entity animation = features::animation::entities::createAnimation(registry, hitboxEntity, radius, lifeSpan);
+		spdlog::debug("Animation entity created, ID {}", static_cast<int>(animation));
 
 		return hitboxEntity;
 	}

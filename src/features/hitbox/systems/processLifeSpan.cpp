@@ -10,7 +10,7 @@ namespace features::hitbox::systems
 
 		for (auto [entity, hitbox] : view.each())
 		{
-			registry.replace<features::hitbox::components::hitbox>(entity, hitbox.initialLifeSpan, hitbox.lifeSpan - deltaTime, hitbox.hitCount,
+			registry.replace<features::hitbox::components::hitbox>(entity, hitbox.lifeSpan - deltaTime, hitbox.initialLifeSpan, hitbox.hitCount,
 																   hitbox.entities, hitbox.doneEntities);
 
 			if (hitbox.lifeSpan - deltaTime <= 0.f)

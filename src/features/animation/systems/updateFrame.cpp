@@ -9,18 +9,15 @@ namespace features::animation::systems
 	void updateFrame(entt::registry &registry, float deltaTime)
 	{
 		auto view = registry.view<features::animation::components::timer>();
+
 		for (auto [entity, timer] : view.each())
 		{
-			timer.value -= deltaTime;
+			registry.replace<features::animation::components::timer>(entity, timer.value - deltaTime, timer.totalTime);
 
-			auto hitboxView = registry.view<features::hitbox::components::hitbox>();
-			for (auto [hitboxEntity, hitbox] : hitboxView.each())
+			if (timer.value - deltaTime <= 0.f)
 			{
-				if (timer.value <= 0.f || hitbox.lifeSpan <= 0.f || hitbox.hitCount <= 0.f)
-				{
-					registry.remove<common::components::attach>(entity);
-					registry.emplace_or_replace<common::components::remove>(entity);
-				}
+				spdlog::debug("Animation {} lifeSpan removed", static_cast<int>(entity));
+				registry.emplace<common::components::remove>(entity);
 			}
 		}
 	}
