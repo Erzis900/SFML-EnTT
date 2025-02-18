@@ -5,8 +5,11 @@ namespace features::enemy::systems
 	void followPlayer(entt::registry &registry)
 	{
 		auto playerView = registry.view<features::player::components::playerControlled, common::components::position>();
+		if (playerView.begin() == playerView.end())
+		{
+			return;
+		}
 		auto playerEntity = *playerView.begin();
-
 		auto &playerPos = playerView.get<common::components::position>(playerEntity);
 
 		auto enemyView = registry.view<features::enemy::components::aiControlled, common::components::position>();

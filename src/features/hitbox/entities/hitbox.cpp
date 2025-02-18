@@ -32,6 +32,7 @@ namespace features::hitbox::entities
 			radius = 50.f;
 			break;
 		default:
+			spdlog::info("Incorrect state for entity {}, probably item has incorrect trigger or wrong item assigned", static_cast<int>(source));
 			break;
 		}
 		registry.emplace<common::components::source>(hitboxEntity, ability.source);

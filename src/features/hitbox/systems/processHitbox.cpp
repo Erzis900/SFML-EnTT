@@ -22,9 +22,10 @@ namespace features::hitbox::systems
 			if (hitbox.hitCount < 1.f)
 			{
 				registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+				spdlog::info("Hitbox {} removed", static_cast<int>(hitboxEntity));
 				continue;
 			}
-			for (auto [unitEntity, unit, unitFaction, enemyPos, coll] : unitView.each())
+			for (auto [unitEntity, unit, unitFaction, unitPos, coll] : unitView.each())
 			{
 
 				if (std::find(hitbox.doneEntities.begin(), hitbox.doneEntities.end(), unitEntity) != hitbox.doneEntities.end())
@@ -33,19 +34,26 @@ namespace features::hitbox::systems
 				}
 				if (hitbox.hitCount < 1.f)
 				{
+					spdlog::debug("Hitbox {} removed", static_cast<int>(hitboxEntity));
 					registry.emplace_or_replace<common::components::remove>(hitboxEntity);
 					break;
 				}
-				float deltaX = hitboxPos.x - enemyPos.x;
-				float deltaY = hitboxPos.y - enemyPos.y;
+				float deltaX = hitboxPos.x - unitPos.x;
+				float deltaY = hitboxPos.y - unitPos.y;
 				float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 
 				if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
 				{
+					hitbox.hitCount -= 1;
 					spdlog::debug("Hitbox {} collided with unit {}", static_cast<int>(hitboxEntity), static_cast<int>(unitEntity));
 					hitbox.entities.push_back(unitEntity);
-					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f,
+					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount,
 																		   hitbox.entities, hitbox.doneEntities);
+					if (hitbox.hitCount < 1.f)
+					{
+						spdlog::debug("Hitbox {} removed", static_cast<int>(hitboxEntity));
+						registry.emplace_or_replace<common::components::remove>(hitboxEntity);
+					}
 				}
 			}
 		}

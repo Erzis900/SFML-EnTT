@@ -18,12 +18,15 @@ namespace features::enemy::entities
 
 		auto entity = unitsLoader.createUnit(registry, itemsLoader, 1, pos.x, pos.y);
 
+		auto unit = registry.get<common::components::unit>(entity);
+		auto unitBase = unitsLoader.getUnit(unit.id);
+
 		registry.emplace<features::enemy::components::aiControlled>(entity, true);
 		registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
 
 		auto mainhandEntity =
 			features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.2f, 0.1f, 0.1f, 0.1f);
-		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, 0, features::item::components::SlotType::Mainhand, false);
+		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, features::item::components::SlotType::Mainhand, false);
 
 		return entity;
 	}

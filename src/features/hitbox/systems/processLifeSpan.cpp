@@ -12,8 +12,10 @@ namespace features::hitbox::systems
 		{
 			registry.replace<features::hitbox::components::hitbox>(entity, hitbox.initialLifeSpan, hitbox.lifeSpan - deltaTime, hitbox.hitCount,
 																   hitbox.entities, hitbox.doneEntities);
-			if (hitbox.lifeSpan <= 0.f)
+
+			if (hitbox.lifeSpan - deltaTime <= 0.f)
 			{
+				spdlog::debug("Hitbox {} lifeSpan removed", static_cast<int>(entity));
 				registry.emplace<common::components::remove>(entity);
 			}
 		}
