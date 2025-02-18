@@ -1,6 +1,7 @@
 #include "checkTileCollision.hpp"
 #include "../components/rectCollider.hpp"
 #include "components/position.hpp"
+#include "components/speed.hpp"
 #include "features/player/components/playerControlled.hpp"
 
 namespace features::map::systems
@@ -14,6 +15,7 @@ namespace features::map::systems
 
 		auto &posA = registry.get<common::components::position>(entityA);
 		auto &collA = registry.get<features::map::components::rectCollider>(entityA);
+		auto &speedA = registry.get<common::components::speed>(entityA);
 
 		sf::FloatRect rectA({posA.x - collA.width / 2, posA.y - collA.height / 2}, {collA.width, collA.height});
 
@@ -34,7 +36,8 @@ namespace features::map::systems
 					dirVec /= magnitude;
 
 					// TODO figure out how to get speed
-					registry.replace<common::components::position>(entityA, posA.x + dirVec.x * 180.f * deltaTime, posA.y + dirVec.y * 180.f * deltaTime);
+					registry.replace<common::components::position>(entityA, posA.x + dirVec.x * speedA.value * deltaTime,
+																   posA.y + dirVec.y * speedA.value * deltaTime);
 				}
 			}
 		}

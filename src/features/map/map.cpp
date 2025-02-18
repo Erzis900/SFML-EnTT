@@ -38,8 +38,8 @@ namespace features::map
 		tileSize = {16, 16};
 
 		// map is 100x60
-		// whole tileset is 1024x640
-		tilesetSize = {64, 40};
+
+		tilesetSize = {static_cast<int>(tileset.getSize().x) / tileSize.x, static_cast<int>(tileset.getSize().y) / tileSize.y};
 
 		scalingFactor = 4.f;
 		bg = sf::RenderTexture({static_cast<unsigned int>(width * tileSize.x * scalingFactor), static_cast<unsigned int>(height * tileSize.y * scalingFactor)});

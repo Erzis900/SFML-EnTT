@@ -42,6 +42,7 @@ namespace features::hitbox::systems
 
 				if (distance < (area.radius + coll.radius) && (unitFaction.affiliation & hitboxFaction.foes).any())
 				{
+					spdlog::debug("Hitbox {} collided with unit {}", static_cast<int>(hitboxEntity), static_cast<int>(unitEntity));
 					hitbox.entities.push_back(unitEntity);
 					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount - 1.f,
 																		   hitbox.entities, hitbox.doneEntities);

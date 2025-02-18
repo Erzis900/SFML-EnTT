@@ -6,7 +6,7 @@
 
 namespace common::systems
 {
-	void processPhysics(entt::registry &registry, float deltaTime)
+	void processPhysics(entt::registry &registry, float deltaTime, sf::Vector2i mapDim)
 	{
 		auto view = registry.view<common::components::position, common::components::collider, common::components::speed>();
 
@@ -21,11 +21,8 @@ namespace common::systems
 			{
 				if (posA.x < 0) posA.x = 0;
 				if (posA.y < 0) posA.y = 0;
-				// TODO upper bounds
-				// 100 * 16 * 4
-				// 60 * 16 * 4
-				// if (posA.x > screenBounds.x) posA.x = screenBounds.x;
-				// if (posA.y > screenBounds.y) posA.y = screenBounds.y;
+				if (posA.x > mapDim.x) posA.x = mapDim.x;
+				if (posA.y > mapDim.y) posA.y = mapDim.y;
 
 				registry.replace<common::components::position>(entityA, posA.x, posA.y);
 			}

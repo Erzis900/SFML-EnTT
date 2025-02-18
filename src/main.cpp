@@ -57,7 +57,7 @@ void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 }
 
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader,
-			features::player::InputManager &inputManager)
+			features::player::InputManager &inputManager, sf::Vector2i mapDim)
 {
 	features::player::systems::playerInput(registry, window, inputManager);
 	features::player::systems::playerCamera(registry, window);
@@ -77,7 +77,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	common::systems::applyUnitStat(registry);
 	common::systems::moveEntities(registry, deltaTime);
 	common::systems::attachEntities(registry);
-	common::systems::processPhysics(registry, deltaTime);
+	common::systems::processPhysics(registry, deltaTime, mapDim);
 	features::map::systems::checkTileCollision(registry, deltaTime);
 	features::ability::systems::processAbility(registry, deltaTime);
 	common::systems::processDeath(registry);
@@ -141,7 +141,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));
@@ -174,7 +174,7 @@ int main()
 
 		if (stateManager.isActive(State::Game))
 		{
-			update(registry, deltaTime, window, animationLoader, inputManager);
+			update(registry, deltaTime, window, animationLoader, inputManager, map.getMapDim());
 			hud.update(registry);
 			// animationPlayer.updateFrame(deltaTime);
 		}

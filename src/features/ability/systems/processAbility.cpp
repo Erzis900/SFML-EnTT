@@ -41,7 +41,8 @@ namespace features::ability::systems
 
 			if (cast.time <= 0.f)
 			{
-				features::hitbox::entities::createHitbox(registry, entity);
+				entt::entity hitbox = features::hitbox::entities::createHitbox(registry, entity);
+				spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, ability.activeTime);
