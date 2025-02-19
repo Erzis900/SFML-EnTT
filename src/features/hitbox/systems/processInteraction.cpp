@@ -16,7 +16,7 @@ namespace features::hitbox::systems
 		{
 			for (auto entity : hitbox.entities)
 			{
-				if (registry.valid(entity))
+				if (registry.valid(source.entity))
 				{
 					auto &children = registry.get<common::entities::Attributes>(source.entity);
 					auto &damage = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Damage]);
