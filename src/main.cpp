@@ -127,14 +127,40 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	}
 }
 
-void render(entt::registry &registry, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader, features::item::ItemsLoader &itemsLoader,
-			features::animation::AnimationLoader &animationLoader)
+static float renderTimer = .5f;
+void render(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader,
+			features::item::ItemsLoader &itemsLoader, features::animation::AnimationLoader &animationLoader)
 {
-	common::renderers::drawShapes(registry, window, itemsLoader);
-	features::unit::renderers::renderUnits(registry, window, unitsLoader);
-	features::item::renderers::renderItems(registry, window, itemsLoader);
-	features::animation::renderers::renderAnimations(registry, window, animationLoader);
-	common::renderers::drawHealthbars(registry, window);
+	renderTimer -= deltaTime;
+	bool didTimerReset = false;
+	if (renderTimer <= 0.0f)
+	{
+		renderTimer = 5.f;
+		didTimerReset = true;
+	}
+
+	if (didTimerReset)
+	{
+		spdlog::debug("====================================================================================");
+		spdlog::debug("Measure renderers draw times gathered every {}s", static_cast<int>(renderTimer));
+		spdlog::debug("====================================================================================");
+	}
+	std::tuple<std::string, std::function<void()>> renderers[] = {
+		{"drawShapes", [&] { common::renderers::drawShapes(registry, window, itemsLoader); }},
+		{"renderUnits", [&] { features::unit::renderers::renderUnits(registry, window, unitsLoader); }},
+		{"renderItems", [&] { features::item::renderers::renderItems(registry, window, itemsLoader); }},
+		{"renderAnimations", [&] { features::animation::renderers::renderAnimations(registry, window, animationLoader); }},
+		{"drawHealthbars", [&] { common::renderers::drawHealthbars(registry, window); }},
+	};
+
+	for (const auto &[name, func] : renderers)
+	{
+		measureExecutionTime(name, func, didTimerReset);
+	}
+	if (didTimerReset)
+	{
+		spdlog::debug("====================================================================================");
+	}
 }
 
 int main()
@@ -234,7 +260,7 @@ int main()
 		// static = drawn once
 		map.drawBackground(window);
 
-		render(registry, window, unitsLoader, itemsLoader, animationLoader);
+		render(registry, deltaTime, window, unitsLoader, itemsLoader, animationLoader);
 
 		gui.draw();
 		hud.draw();
