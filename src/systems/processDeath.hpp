@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../stateManager.hpp"
 #include "components/health.hpp"
 #include "components/position.hpp"
 #include "components/remove.hpp"
@@ -10,5 +11,5 @@
 
 namespace common::systems
 {
-	void processDeath(entt::registry &registry);
+	void processDeath(entt::registry &registry, StateManager &stateManager);
 }

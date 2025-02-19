@@ -4,6 +4,7 @@ StateManager::StateManager()
 {
 	states[State::Game] = true;
 	states[State::Settings] = false;
+	states[State::GameOver] = false;
 }
 
 void StateManager::setState(State state, bool active) { states[state] = active; }

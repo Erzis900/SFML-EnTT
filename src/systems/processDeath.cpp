@@ -1,8 +1,9 @@
 #include "processDeath.hpp"
+#include "features/player/components/playerControlled.hpp"
 
 namespace common::systems
 {
-	void processDeath(entt::registry &registry)
+	void processDeath(entt::registry &registry, StateManager &stateManager)
 	{
 		auto view = registry.view<common::components::health>();
 
@@ -11,6 +12,13 @@ namespace common::systems
 			if (health.value <= 0.f)
 			{
 				registry.emplace<common::components::remove>(entity);
+
+				if (registry.all_of<features::player::components::playerControlled>(entity))
+				{
+					spdlog::info("Player died");
+					stateManager.setState(State::Game, false);
+					stateManager.setState(State::GameOver, true);
+				}
 			}
 		}
 

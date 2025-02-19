@@ -81,7 +81,7 @@ auto measureExecutionTime = [](const std::string &funcName, auto &&func, bool lo
 
 static float timer = .5f;
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader,
-			features::player::InputManager &inputManager, sf::Vector2i mapDim)
+			features::player::InputManager &inputManager, sf::Vector2i mapDim, StateManager &stateManager)
 {
 	timer -= deltaTime;
 	bool didTimerReset = false;
@@ -112,7 +112,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},  // keep -4
 		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},	   // decide where to place it
 		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},			   // keep -3
-		{"processDeath", [&] { common::systems::processDeath(registry); }},								   // keep -2
+		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},				   // keep -2
 		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},					   // keep -2
 		{"cleanupRemoved", [&] { common::systems::cleanupRemoved(registry); }},							   // keep -1
 	};
@@ -182,7 +182,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));
@@ -215,9 +215,16 @@ int main()
 
 		if (stateManager.isActive(State::Game))
 		{
-			update(registry, deltaTime, window, animationLoader, inputManager, map.getMapDim());
+			update(registry, deltaTime, window, animationLoader, inputManager, map.getMapDim(), stateManager);
 			hud.update(registry);
-			// animationPlayer.updateFrame(deltaTime);
+		}
+		else if (stateManager.isActive(State::GameOver))
+		{
+			spdlog::info("Reached game over state");
+
+			// for now we'll go back to game state
+			stateManager.setState(State::GameOver, false);
+			stateManager.setState(State::Game, true);
 		}
 
 		crosshairSprite.setPosition(static_cast<sf::Vector2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -228,7 +235,6 @@ int main()
 		map.drawBackground(window);
 
 		render(registry, window, unitsLoader, itemsLoader, animationLoader);
-		// animationPlayer.draw(window);
 
 		gui.draw();
 		hud.draw();

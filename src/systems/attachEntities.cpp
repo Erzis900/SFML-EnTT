@@ -14,8 +14,11 @@ namespace common::systems
 
 		for (auto [entity, attach, position] : view.each())
 		{
-			auto targetPosition = registry.get<components::position>(attach.target);
-			registry.replace<components::position>(entity, targetPosition.x, targetPosition.y);
+			if (registry.valid(attach.target))
+			{
+				auto targetPosition = registry.get<components::position>(attach.target);
+				registry.replace<components::position>(entity, targetPosition.x, targetPosition.y);
+			}
 		}
 	}
 
@@ -25,8 +28,11 @@ namespace common::systems
 
 		for (auto [entity, attach, direction] : view.each())
 		{
-			auto targetDirection = registry.get<components::direction>(attach.target);
-			registry.replace<components::direction>(entity, targetDirection.x, targetDirection.y);
+			if (registry.valid(attach.target))
+			{
+				auto targetDirection = registry.get<components::direction>(attach.target);
+				registry.replace<components::direction>(entity, targetDirection.x, targetDirection.y);
+			}
 		}
 	}
 }  // namespace common::systems
