@@ -182,7 +182,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));

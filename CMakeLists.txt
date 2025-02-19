@@ -4,6 +4,11 @@ project(SFML_RPG)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
+endif()
+
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/external)
 include_directories(${CMAKE_SOURCE_DIR}/src)
@@ -13,7 +18,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/systems)
 include_directories(${CMAKE_SOURCE_DIR}/src/renderers)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 include(FetchContent)
 

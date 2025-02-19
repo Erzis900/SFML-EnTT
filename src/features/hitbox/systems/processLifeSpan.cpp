@@ -10,13 +10,16 @@ namespace features::hitbox::systems
 
 		for (auto [entity, hitbox] : view.each())
 		{
-			registry.replace<features::hitbox::components::hitbox>(entity, hitbox.lifeSpan - deltaTime, hitbox.initialLifeSpan, hitbox.hitCount,
-																   hitbox.entities, hitbox.doneEntities);
-
-			if (hitbox.lifeSpan - deltaTime <= 0.f)
+			if (registry.valid(entity))
 			{
-				spdlog::debug("Hitbox {} lifeSpan removed", static_cast<int>(entity));
-				registry.emplace<common::components::remove>(entity);
+				registry.replace<features::hitbox::components::hitbox>(entity, hitbox.lifeSpan - deltaTime, hitbox.initialLifeSpan, hitbox.hitCount,
+																	   hitbox.entities, hitbox.doneEntities);
+
+				if (hitbox.lifeSpan - deltaTime <= 0.f)
+				{
+					spdlog::debug("Hitbox {} lifeSpan removed", static_cast<int>(entity));
+					registry.emplace<common::components::remove>(entity);
+				}
 			}
 		}
 	}

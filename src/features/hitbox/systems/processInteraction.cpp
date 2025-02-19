@@ -16,11 +16,14 @@ namespace features::hitbox::systems
 		{
 			for (auto entity : hitbox.entities)
 			{
-				auto &children = registry.get<common::entities::Attributes>(source.entity);
-				auto &damage = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Damage]);
-				auto &health = registry.get<common::components::health>(entity);
+				if (registry.valid(entity))
+				{
+					auto &children = registry.get<common::entities::Attributes>(source.entity);
+					auto &damage = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Damage]);
+					auto &health = registry.get<common::components::health>(entity);
 
-				health.value -= damage.value;
+					health.value -= damage.value;
+				}
 			}
 			auto it = std::next(hitbox.entities.begin(), hitbox.entities.size());
 
