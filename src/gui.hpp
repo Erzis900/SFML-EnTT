@@ -10,7 +10,7 @@ class GUI
 	void handleEvent(sf::Event event);
 	void draw();
 
-	void update(int fps);
+	void update(entt::registry &registry, int fps);
 
   private:
 	void getAttributes(entt::registry &registry);

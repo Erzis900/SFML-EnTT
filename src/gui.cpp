@@ -41,12 +41,13 @@ void GUI::handleEvent(sf::Event event) { gui.handleEvent(event); }
 
 void GUI::draw() { gui.draw(); }
 
-void GUI::update(int fps)
+void GUI::update(entt::registry &registry, int fps)
 {
 	if (fpsCheckbox->isChecked())
 	{
 		fpsLabel->setText("FPS: " + std::to_string(static_cast<int>(fps)));
 	}
+	getAttributes(registry);
 }
 
 void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)

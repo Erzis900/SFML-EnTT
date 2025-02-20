@@ -235,7 +235,7 @@ int main()
 			frameCount = 0;
 			lastTime = currentTime;
 
-			gui.update(static_cast<int>(fps));
+			gui.update(registry, static_cast<int>(fps));
 		}
 
 		processEvents(registry, window, gui);
