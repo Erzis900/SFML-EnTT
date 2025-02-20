@@ -22,6 +22,69 @@ const selectItems = ({label}: {label: string}) => ({
   },
 })
 
+const modifiers = fields.array({
+  kind: 'conditional',
+  discriminant: fields.select({
+      label: 'Modifiers',
+      options: [
+        { label: 'Value', value: 'value' },
+        { label: 'Trigger', value: 'trigger' },
+      ],
+      defaultValue: 'value',
+    }),
+  values: {
+    value: fields.object({
+        attribute: fields.relationship({
+          label: 'Attribute',
+          collection: 'attribute',
+          validation: {
+            isRequired: true,
+          }
+        }),
+        value: fields.number({
+          label: 'Value',
+          validation: {
+            isRequired: true,
+          }
+        }),
+        scope: fields.relationship({
+          label: 'Scope',
+          collection: 'scope',
+          validation: {
+            isRequired: true,
+          }
+        }),
+    }),
+    trigger: fields.object({
+      attribute: fields.text({
+        label: 'Attribute',
+        defaultValue: 'trigger',
+        validation: {
+          isRequired: true,
+        }
+      }),
+      value: fields.relationship({
+        label: 'Value',
+        collection: 'trigger',
+        validation: {
+          isRequired: true,
+        }
+      }),
+      scope: fields.text({
+        label: 'Scope',
+        defaultValue: 'set',
+        validation: {
+          isRequired: true,
+        }
+      }),
+    }),
+  },
+}, 
+{
+  label: 'Modifiers',
+  itemLabel: props => `${props.value.fields.attribute.value}#${props.value.fields.scope.value} - ${props.value.fields.value.value}`
+})
+
 export default config({
   storage: {
     kind: 'local',
@@ -105,68 +168,7 @@ export default config({
             isRequired: true,
           }
         }),
-        modifiers: fields.array({
-          kind: 'conditional',
-          discriminant: fields.select({
-              label: 'Modifiers',
-              options: [
-                { label: 'Value', value: 'value' },
-                { label: 'Trigger', value: 'trigger' },
-              ],
-              defaultValue: 'value',
-            }),
-          values: {
-            value: fields.object({
-                attribute: fields.relationship({
-                  label: 'Attribute',
-                  collection: 'attribute',
-                  validation: {
-                    isRequired: true,
-                  }
-                }),
-                value: fields.number({
-                  label: 'Value',
-                  validation: {
-                    isRequired: true,
-                  }
-                }),
-                scope: fields.relationship({
-                  label: 'Scope',
-                  collection: 'scope',
-                  validation: {
-                    isRequired: true,
-                  }
-                }),
-            }),
-            trigger: fields.object({
-              attribute: fields.text({
-                label: 'Attribute',
-                defaultValue: 'trigger',
-                validation: {
-                  isRequired: true,
-                }
-              }),
-              value: fields.relationship({
-                label: 'Value',
-                collection: 'trigger',
-                validation: {
-                  isRequired: true,
-                }
-              }),
-              scope: fields.text({
-                label: 'Scope',
-                defaultValue: 'set',
-                validation: {
-                  isRequired: true,
-                }
-              }),
-            }),
-          },
-        }, 
-        {
-          label: 'Modifiers',
-          itemLabel: props => `${props.value.fields.attribute.value}#${props.value.fields.scope.value} - ${props.value.fields.value.value}`
-        }),
+        modifiers: modifiers,
         sprite: ANfields.spriteRegion({
           x: fields.number({
             label: 'Position X',
