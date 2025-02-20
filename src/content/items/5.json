@@ -2,7 +2,24 @@
   "name": "Cape",
   "slot": "cape",
   "type": "cape",
-  "modifiers": [],
+  "modifiers": [
+    {
+      "discriminant": "trigger",
+      "value": {
+        "attribute": "trigger",
+        "value": "on-roll",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "speed",
+        "value": 11,
+        "scope": "flat"
+      }
+    }
+  ],
   "sprite": {
     "x": 10,
     "y": 0,
