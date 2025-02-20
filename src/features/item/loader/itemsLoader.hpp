@@ -9,12 +9,6 @@
 
 namespace features::item
 {
-	struct Modifier
-	{
-		common::entities::Stat attribute;
-		common::entities::Scope scope;
-		float value;
-	};
 
 	enum Type : int
 	{
@@ -33,7 +27,7 @@ namespace features::item
 	struct Item
 	{
 		std::string name;
-		std::vector<Modifier> modifiers;
+		std::vector<common::entities::Modifier> modifiers;
 		components::SlotType slot;
 		Type type;
 		int id;
@@ -47,10 +41,14 @@ namespace features::item
 		OnNone = 0,
 		OnAttack = 1,
 		OnShot = 2,
-		OnCast = 3
+		OnCast = 3,
+		OnRoll = 4,
+		OnDash = 5,
+		OnBlink = 6
 	};
-	static std::unordered_map<std::string, Trigger> const mapTrigger = {
-		{"on-attack", Trigger::OnAttack}, {"on-shot", Trigger::OnShot}, {"on-cast", Trigger::OnCast}};
+	static std::unordered_map<std::string, Trigger> const mapTrigger = {{"on-attack", Trigger::OnAttack}, {"on-shot", Trigger::OnShot},
+																		{"on-cast", Trigger::OnCast},	  {"on-roll", Trigger::OnRoll},
+																		{"on-dash", Trigger::OnDash},	  {"on-blink", Trigger::OnBlink}};
 
 	float getTrigger(std::string trigger);
 

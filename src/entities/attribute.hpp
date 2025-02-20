@@ -5,6 +5,7 @@
 #include "components/children.hpp"
 #include "components/collider.hpp"
 #include "components/modifiers.hpp"
+#include "entities/attribute.hpp"
 
 namespace common::entities
 {
@@ -33,9 +34,18 @@ namespace common::entities
 		{"min-damage", Stat::MinDamage}, {"max-damage", Stat::MaxDamage}, {"trigger", Stat::Trigger}, {"base-attack-speed", Stat::BaseAttackSpeed},
 		{"radius", Stat::Radius}};
 
+	struct Modifier
+	{
+		common::entities::Stat attribute;
+		common::entities::Scope scope;
+		float value;
+	};
+
 	Stat getStat(std::string stat);
 	Scope getScope(std::string scope);
 	entt::entity createAttribute(entt::registry &registry, entt::entity unit, Stat stat, float initialValue);
 	void initAttributes(entt::registry &registry, entt::entity entity);
 	entt::entity createModifier(entt::registry &registry, entt::entity parent, entities::Scope scope, float value);
+	void applyModifiers(entt::registry &registry, entt::entity entity, common::entities::Attributes &attributes, std::vector<Modifier> &modifiers);
+	void removeModifiers(entt::registry &registry, entt::entity source, common::entities::Attributes &attributes, std::vector<Modifier> &modifiers);
 }  // namespace common::entities

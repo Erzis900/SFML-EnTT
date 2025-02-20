@@ -62,6 +62,64 @@ namespace common::entities
 
 		return modifierEntity;
 	}
+
+	void applyModifiers(entt::registry &registry, entt::entity target, common::entities::Attributes &attributes, std::vector<Modifier> &modifiers)
+	{
+		for (auto modifier : modifiers)
+		{
+			auto modifierEntity = common::entities::createModifier(registry, target, modifier.scope, modifier.value);
+
+			auto &relationship = registry.get<common::components::relationship>(attributes.entities[modifier.attribute]);
+			if (relationship.first_child == entt::null)
+			{
+				relationship.first_child = modifierEntity;
+			}
+			else
+			{
+				auto lastModifier = relationship.first_child;
+				while (registry.get<common::components::relationship>(lastModifier).next != entt::null)
+				{
+					lastModifier = registry.get<common::components::relationship>(lastModifier).next;
+				}
+				registry.get<common::components::relationship>(lastModifier).next = modifierEntity;
+				registry.get<common::components::relationship>(modifierEntity).prev = lastModifier;
+			}
+			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute], true);
+		}
+	}
+
+	void removeModifiers(entt::registry &registry, entt::entity source, common::entities::Attributes &attributes, std::vector<Modifier> &modifiers)
+	{
+		for (auto modifier : modifiers)
+		{
+			auto &relationship = registry.get<common::components::relationship>(attributes.entities[modifier.attribute]);
+			auto modifierEntity = relationship.first_child;
+			while (modifierEntity != entt::null)
+			{
+				if (registry.get<common::components::relationship>(modifierEntity).source == source)
+				{
+					auto &mod = registry.get<common::components::modifier>(modifierEntity);
+					auto &modifierRelationship = registry.get<common::components::relationship>(modifierEntity);
+					if (modifierRelationship.prev != entt::null)
+					{
+						registry.get<common::components::relationship>(modifierRelationship.prev).next = modifierRelationship.next;
+					}
+					if (modifierRelationship.next != entt::null)
+					{
+						registry.get<common::components::relationship>(modifierRelationship.next).prev = modifierRelationship.prev;
+					}
+					if (relationship.first_child == modifierEntity)
+					{
+						relationship.first_child = modifierRelationship.next;
+					}
+					registry.destroy(modifierEntity);
+					modifierEntity = modifierRelationship.next;
+				}
+			}
+			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute], true);
+		}
+	}
+
 	Stat getStat(std::string stat)
 	{
 		auto it = mapStat.find(stat);

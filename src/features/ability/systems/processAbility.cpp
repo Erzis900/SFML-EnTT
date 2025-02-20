@@ -33,16 +33,31 @@ namespace features::ability::systems
 
 	void processCast(entt::registry &registry, float deltaTime)
 	{
-		auto view = registry.view<components::cast, components::ability>();
+		auto view = registry.view<components::cast, components::ability, common::entities::Attributes>();
 
-		for (auto [entity, cast, ability] : view.each())
+		for (auto [entity, cast, ability, attributes] : view.each())
 		{
 			cast.time -= deltaTime;
 
 			if (cast.time <= 0.f)
 			{
-				entt::entity hitbox = features::hitbox::entities::createHitbox(registry, entity);
-				spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
+				auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
+				entt::entity hitbox;
+				switch (static_cast<int>(trigger.value))
+				{
+				case features::item::Trigger::OnAttack:
+				case features::item::Trigger::OnShot:
+				case features::item::Trigger::OnCast:
+					hitbox = features::hitbox::entities::createHitbox(registry, entity);
+					spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
+					break;
+				case features::item::Trigger::OnRoll:
+				case features::item::Trigger::OnDash:
+				case features::item::Trigger::OnBlink:
+					break;
+				default:
+					break;
+				}
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, ability.activeTime);

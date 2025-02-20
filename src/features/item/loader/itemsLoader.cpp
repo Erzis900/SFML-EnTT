@@ -12,14 +12,14 @@ namespace features::item
 				std::ifstream itemsFile(entry.path());
 				nlohmann::json itemJson = nlohmann::json::parse(itemsFile);
 
-				std::vector<Modifier> modifiers = {};
+				std::vector<common::entities::Modifier> modifiers = {};
 				for (auto &modifierJson : itemJson["modifiers"])
 				{
 					auto attribute = modifierJson["value"];
 					auto stat = common::entities::getStat(attribute["attribute"]);
 					auto scope = common::entities::getScope(attribute["scope"]);
 					auto val = attribute["value"];
-					Modifier modifier;
+					common::entities::Modifier modifier;
 					switch (stat)
 					{
 					case common::entities::Stat::Trigger:
