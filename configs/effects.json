@@ -1,0 +1,12 @@
+{
+    "bleed": {
+        "duration": 3,
+        "stacks": 1,
+        "refresh": false
+    },
+    "fortify": {
+        "duration": 5,
+        "stacks": 1,
+        "refresh": false
+    }
+}

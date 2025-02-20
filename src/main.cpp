@@ -27,6 +27,7 @@
 #include "features/unit/loader/unitsLoader.hpp"
 #include "features/unit/renderers/renderUnits.hpp"
 
+#include "features/effect/loader/effectLoader.hpp"
 #include "features/map/systems/checkTileCollision.hpp"
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
@@ -191,6 +192,7 @@ int main()
 	spdlog::info("Window created");
 
 	StateManager stateManager;
+	features::effect::EffectLoader effectLoader("../../configs/effects.json");
 
 	entt::registry registry;
 	spdlog::info("Registry created");
