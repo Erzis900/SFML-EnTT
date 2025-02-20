@@ -4,5 +4,8 @@
 
 namespace common::components
 {
-	entt::entity target;
-}
+	struct target
+	{
+		entt::entity entity;
+	};
+}  // namespace common::components
