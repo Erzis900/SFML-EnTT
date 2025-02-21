@@ -14,8 +14,8 @@ namespace features::ability::systems
 	void processReady(entt::registry &registry)
 	{
 		auto view = registry.view<components::ready, components::ability>();
-		auto viewEvents = registry.view<components::castEvent>();
-		for (auto [entityEvent, castEvent] : viewEvents.each())
+		auto viewEvents = registry.view<components::castEvent, components::pointsAt>();
+		for (auto [entityEvent, castEvent, pointsAt] : viewEvents.each())
 		{
 			for (auto [entity, rdy, ability] : view.each())
 			{
@@ -25,6 +25,7 @@ namespace features::ability::systems
 					{
 						registry.remove<components::ready>(entity);
 						registry.emplace<components::cast>(entity, ability.castTime);
+						registry.emplace<components::pointsAt>(entity, pointsAt.target);
 					}
 				}
 			}
@@ -33,9 +34,9 @@ namespace features::ability::systems
 
 	void processCast(entt::registry &registry, float deltaTime)
 	{
-		auto view = registry.view<components::cast, components::ability, common::entities::Attributes>();
+		auto view = registry.view<components::cast, components::ability, components::pointsAt, common::entities::Attributes>();
 
-		for (auto [entity, cast, ability, attributes] : view.each())
+		for (auto [entity, cast, ability, pointsAt, attributes] : view.each())
 		{
 			cast.time -= deltaTime;
 
@@ -53,7 +54,10 @@ namespace features::ability::systems
 					break;
 				case features::item::Trigger::OnRoll:
 				case features::item::Trigger::OnDash:
+					break;
 				case features::item::Trigger::OnBlink:
+					spdlog::debug("Blinked entity {} to ({},{})", static_cast<int>(ability.source), pointsAt.target.x, pointsAt.target.y);
+					registry.replace<common::components::position>(ability.source, pointsAt.target.x, pointsAt.target.y);
 					break;
 				default:
 					break;

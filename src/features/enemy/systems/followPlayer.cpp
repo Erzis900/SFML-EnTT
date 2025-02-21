@@ -11,7 +11,7 @@ namespace features::enemy::systems
 		}
 		auto playerEntity = *playerView.begin();
 		auto &playerPos = playerView.get<common::components::position>(playerEntity);
-
+		sf::Vector2f targetPosition = {playerPos.x, playerPos.y};
 		auto enemyView = registry.view<features::enemy::components::aiControlled, common::components::position>();
 
 		for (auto enemyEntity : enemyView)
@@ -33,6 +33,7 @@ namespace features::enemy::systems
 				auto entityEvent = registry.create();
 				registry.emplace<features::ability::components::castEvent>(entityEvent, enemyEntity, features::item::components::SlotType::Mainhand,
 																		   features::ability::components::castEvent::State::Press);
+				registry.emplace<features::ability::components::pointsAt>(entityEvent, targetPosition);
 			}
 			registry.replace<common::components::direction>(enemyEntity, dirVec.x, dirVec.y);
 			registry.replace<common::components::lookDirection>(enemyEntity, dirVec.x, dirVec.y);

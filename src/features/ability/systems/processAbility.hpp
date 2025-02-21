@@ -7,6 +7,7 @@
 #include "../components/castEvent.hpp"
 #include "../components/cooldown.hpp"
 #include "../components/delay.hpp"
+#include "../components/pointsAt.hpp"
 #include "../components/ready.hpp"
 
 #include "components/attribute.hpp"

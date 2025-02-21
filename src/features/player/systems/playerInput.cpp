@@ -53,18 +53,21 @@ namespace features::player::systems
 					auto entityEvent = registry.create();
 					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
 																			   features::ability::components::castEvent::State::Press);
+					registry.emplace<features::ability::components::pointsAt>(entityEvent, mousePos);
 				}
 				else if (inputManager.isKeyHeld(key))
 				{
 					auto entityEvent = registry.create();
 					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
 																			   features::ability::components::castEvent::State::Hold);
+					registry.emplace<features::ability::components::pointsAt>(entityEvent, mousePos);
 				}
 				else if (inputManager.isKeyReleased(key))
 				{
 					auto entityEvent = registry.create();
 					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
 																			   features::ability::components::castEvent::State::Release);
+					registry.emplace<features::ability::components::pointsAt>(entityEvent, mousePos);
 				}
 			}
 		}

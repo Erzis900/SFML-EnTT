@@ -5,6 +5,7 @@
 #include "components/lookDirection.hpp"
 #include "components/position.hpp"
 #include "features/ability/components/castEvent.hpp"
+#include "features/ability/components/pointsAt.hpp"
 #include "features/item/components/equipped.hpp"
 #include "features/player/components/playerControlled.hpp"
 

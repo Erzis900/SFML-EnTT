@@ -21,7 +21,7 @@ namespace features::player::entities
 
 		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, features::item::components::SlotType::Mainhand, false);
 		features::item::entities::equipItem(registry, itemsLoader, offhandEntity, unitBase.offhand, features::item::components::SlotType::Offhand, false);
-		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.cape, features::item::components::SlotType::Cape, false);
+		features::item::entities::equipItem(registry, itemsLoader, capeEntity, unitBase.cape, features::item::components::SlotType::Cape, false);
 
 		return entity;
 	}
