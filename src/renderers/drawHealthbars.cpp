@@ -7,17 +7,24 @@ namespace common::renderers
 		auto view = registry.view<common::components::renderable, common::components::collider, common::components::position, common::components::health,
 								  common::components::maxHealth>();
 
+		const int healthbarWidth = 60;
+		const int healthbarHeight = 5;
+
+		sf::RectangleShape healthbar;
+		healthbar.setSize({healthbarWidth, healthbarHeight});
+		healthbar.setFillColor(sf::Color::Red);
+
+		sf::RectangleShape currentHealth;
+		currentHealth.setFillColor(sf::Color::Green);
+
 		for (auto [entity, render, collider, pos, health, maxHealth] : view.each())
 		{
-			sf::RectangleShape healthbar;
-			healthbar.setSize({60, 5});
-			healthbar.setFillColor(sf::Color::Red);
-			healthbar.setPosition({pos.x - healthbar.getSize().x / 2, pos.y - collider.radius - 18});
+			float xPos = pos.x - healthbarWidth / 2;
+			float yPos = pos.y - collider.radius - 18;
 
-			sf::RectangleShape currentHealth;
-			currentHealth.setSize({60 * health.value / maxHealth.value, 5});
-			currentHealth.setFillColor(sf::Color::Green);
-			currentHealth.setPosition({pos.x - healthbar.getSize().x / 2, pos.y - collider.radius - 18});
+			healthbar.setPosition({xPos, yPos});
+			currentHealth.setSize({healthbarWidth * health.value / maxHealth.value, healthbarHeight});
+			currentHealth.setPosition({xPos, yPos});
 
 			window.draw(healthbar);
 			window.draw(currentHealth);
