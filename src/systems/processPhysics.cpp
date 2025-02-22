@@ -20,10 +20,13 @@ namespace common::systems
 
 			if (registry.all_of<features::player::components::playerControlled>(entityA))
 			{
-				if (posA.x < window.getSize().x / 2) posA.x = window.getSize().x / 2;
-				if (posA.y < window.getSize().y / 2) posA.y = window.getSize().y / 2;
-				if (posA.x > mapDim.x) posA.x = mapDim.x;
-				if (posA.y > mapDim.y) posA.y = mapDim.y;
+				float halfX = window.getSize().x / 2;
+				float halfY = window.getSize().y / 2;
+
+				if (posA.x < halfX) posA.x = halfX;
+				if (posA.y < halfY) posA.y = halfY;
+				if (posA.x + halfX > mapDim.x) posA.x = mapDim.x - halfX;
+				if (posA.y + halfY > mapDim.y) posA.y = mapDim.y - halfY;
 
 				registry.replace<common::components::position>(entityA, posA.x, posA.y);
 			}
