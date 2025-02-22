@@ -27,7 +27,10 @@
 #include "features/unit/loader/unitsLoader.hpp"
 #include "features/unit/renderers/renderUnits.hpp"
 
+#include "features/effect/entities/effect.hpp"
 #include "features/effect/loader/effectLoader.hpp"
+#include "features/effect/systems/applyEffects.hpp"
+#include "features/effect/systems/processEffects.hpp"
 #include "features/map/systems/checkTileCollision.hpp"
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
@@ -105,6 +108,8 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry); }},
 		{"processLifeSpan", [&] { features::hitbox::systems::processLifeSpan(registry, deltaTime); }},
 		{"updateFrame", [&] { features::animation::systems::updateFrame(registry, deltaTime); }},
+		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
+		{"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
 		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},						   // keep -9
 		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},							   // keep -8
 		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},					   // keep -7
@@ -204,13 +209,14 @@ int main()
 
 	entt::entity player = features::player::entities::createPlayer(registry, itemsLoader, unitsLoader);
 	spdlog::debug("Player entity created, ID {}", static_cast<int>(player));
+	features::effect::entities::createEffect(registry, player, features::effect::Type::Bleed, effectLoader);
 
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));

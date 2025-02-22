@@ -32,8 +32,6 @@ GUI::GUI(sf::RenderWindow &window, Config &config, entt::registry &registry, Sta
 	fpsLimit = config.screen.maxFps;
 	windowSize = {config.screen.width, config.screen.height};
 
-	getAttributes(registry);
-
 	handleCallbacks(window, stateManager);
 }
 

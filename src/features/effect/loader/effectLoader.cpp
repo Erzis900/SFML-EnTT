@@ -25,12 +25,22 @@ namespace features::effect
 
 		for (auto &[effectName, effectData] : data.items())
 		{
-			EffectData effect;
+			Effect effect;
 			effect.duration = effectData["duration"];
 			effect.stacks = effectData["stacks"];
 			effect.refresh = effectData["refresh"];
 
-			effects[effectName] = effect;
+			effects[getType(effectName)] = effect;
 		}
+	}
+
+	Type EffectLoader::getType(std::string type)
+	{
+		auto it = mapType.find(type);
+		if (it != mapType.end())
+		{
+			return it->second;
+		}
+		return Type::NoEffect;
 	}
 }  // namespace features::effect
