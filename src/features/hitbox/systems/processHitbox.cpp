@@ -47,8 +47,7 @@ namespace features::hitbox::systems
 					hitbox.hitCount -= 1;
 					spdlog::debug("Hitbox {} collided with unit {}", static_cast<int>(hitboxEntity), static_cast<int>(unitEntity));
 					hitbox.entities.push_back(unitEntity);
-					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount,
-																		   hitbox.entities, hitbox.doneEntities);
+					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
 					if (hitbox.hitCount < 1.f)
 					{
 						spdlog::debug("Hitbox {} removed", static_cast<int>(hitboxEntity));

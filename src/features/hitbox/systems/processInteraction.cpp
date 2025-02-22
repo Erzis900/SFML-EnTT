@@ -30,8 +30,7 @@ namespace features::hitbox::systems
 			std::move(hitbox.entities.begin(), it, std::back_inserter(hitbox.doneEntities));
 
 			hitbox.entities.erase(hitbox.entities.begin(), it);
-			registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.lifeSpan, hitbox.initialLifeSpan, hitbox.hitCount, hitbox.entities,
-																   hitbox.doneEntities);
+			registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
 		}
 	}
 }  // namespace features::hitbox::systems

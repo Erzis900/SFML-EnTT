@@ -2,8 +2,11 @@
 
 namespace features::effect::components
 {
-	struct stacks
+	struct effect
 	{
-		int value;
+		int id;
+		float duration;
+		float stacks;
+		bool refresh;
 	};
 }  // namespace features::effect::components

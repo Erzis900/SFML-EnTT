@@ -197,6 +197,72 @@ export default config({
         }),
       },
     }),
+    effects: collection({
+      label: "Effects",
+      slugField: 'id',
+      columns: ["name"],
+      path: "src/content/effects/*",
+      format: "json",
+      schema: {
+        id: fields.text({
+          label: 'Id',
+          validation: {
+            isRequired: true,
+          }
+        }),
+        name: fields.text({
+          label: 'Name',
+          validation: {
+            isRequired: true,
+          }
+        }),
+        duration: fields.number({
+          label: 'Duration',
+          validation: {
+            isRequired: true,
+          },
+          defaultValue: 1,
+        }),
+        stacks: fields.number({
+          label: 'Stacks',
+          validation: {
+            isRequired: true,
+          },
+          defaultValue: 1,
+        }),
+        refresh: fields.checkbox({
+          label: 'Refresh',
+          defaultValue: true,
+        }),
+        modifiers: modifiers,
+        sprite: ANfields.spriteRegion({
+          x: fields.number({
+            label: 'Position X',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          y: fields.number({
+            label: 'Position Y',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          width: fields.number({
+            label: 'Width',
+            validation: {
+              isRequired: true,
+            }
+          }),
+          height: fields.number({
+            label: 'Height',
+            validation: {
+              isRequired: true,
+            }
+          }),
+        }),
+      },
+    }),
     units: collection({
       label: "Units",
       slugField: 'id',

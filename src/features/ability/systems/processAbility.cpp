@@ -25,7 +25,7 @@ namespace features::ability::systems
 					{
 						registry.remove<components::ready>(entity);
 						registry.emplace<components::cast>(entity, ability.castTime);
-						registry.emplace<components::pointsAt>(entity, pointsAt.target);
+						registry.emplace_or_replace<components::pointsAt>(entity, pointsAt.target);
 					}
 				}
 			}

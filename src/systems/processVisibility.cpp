@@ -27,7 +27,7 @@ namespace common::systems
 				else
 				{
 					registry.emplace_or_replace<common::components::visible>(entity);
-					spdlog::info("VISIBLE");
+					// spdlog::info("VISIBLE");
 				}
 			}
 		}

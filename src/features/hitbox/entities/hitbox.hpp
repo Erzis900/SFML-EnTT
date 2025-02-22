@@ -6,6 +6,7 @@
 #include "components/damage.hpp"
 #include "components/direction.hpp"
 #include "components/faction.hpp"
+#include "components/lifespan.hpp"
 #include "components/lookDirection.hpp"
 #include "components/position.hpp"
 #include "components/relationship.hpp"

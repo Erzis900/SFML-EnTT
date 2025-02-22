@@ -1,0 +1,22 @@
+{
+  "name": "Fortify",
+  "duration": 5,
+  "stacks": 4,
+  "refresh": true,
+  "modifiers": [
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "health",
+        "value": 2,
+        "scope": "flat"
+      }
+    }
+  ],
+  "sprite": {
+    "x": 8,
+    "y": 0,
+    "width": 1,
+    "height": 1
+  }
+}

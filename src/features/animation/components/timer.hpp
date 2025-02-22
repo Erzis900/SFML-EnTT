@@ -2,7 +2,7 @@
 
 namespace features::animation::components
 {
-	struct timer
+	struct lifespan
 	{
 		float value;
 		float totalTime;

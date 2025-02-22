@@ -10,28 +10,24 @@
 #include "features/animation/entities/animation.hpp"
 #include "features/animation/loader/animationLoader.hpp"
 #include "features/animation/systems/renderAnimation.hpp"
-#include "features/animation/systems/updateFrame.hpp"
+#include "features/effect/entities/effect.hpp"
+#include "features/effect/loader/effectLoader.hpp"
+#include "features/effect/systems/applyEffects.hpp"
+#include "features/effect/systems/processEffects.hpp"
 #include "features/enemy/entities/enemy.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
-#include "features/hitbox/systems/isOnScreen.hpp"
 #include "features/hitbox/systems/processHitbox.hpp"
 #include "features/hitbox/systems/processInteraction.hpp"
-#include "features/hitbox/systems/processLifeSpan.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "features/item/renderers/renderItems.hpp"
 #include "features/map/map.hpp"
+#include "features/map/systems/checkTileCollision.hpp"
 #include "features/player/entities/player.hpp"
 #include "features/player/managers/inputManager.hpp"
 #include "features/player/systems/playerCamera.hpp"
 #include "features/player/systems/playerInput.hpp"
 #include "features/unit/loader/unitsLoader.hpp"
 #include "features/unit/renderers/renderUnits.hpp"
-
-#include "features/effect/entities/effect.hpp"
-#include "features/effect/loader/effectLoader.hpp"
-#include "features/effect/systems/applyEffects.hpp"
-#include "features/effect/systems/processEffects.hpp"
-#include "features/map/systems/checkTileCollision.hpp"
 #include "renderers/drawHealthbars.hpp"
 #include "renderers/drawShapes.hpp"
 #include "systems/applyUnitStat.hpp"
@@ -39,6 +35,7 @@
 #include "systems/cleanupRemoved.hpp"
 #include "systems/moveEntities.hpp"
 #include "systems/processDeath.hpp"
+#include "systems/processLifespan.hpp"
 #include "systems/processPhysics.hpp"
 #include "systems/processVisibility.hpp"
 #include "systems/recalculateStat.hpp"
@@ -107,8 +104,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"followPlayer", [&] { features::enemy::systems::followPlayer(registry); }},
 		{"processHitbox", [&] { features::hitbox::systems::processHitbox(registry); }},
 		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry); }},
-		{"processLifeSpan", [&] { features::hitbox::systems::processLifeSpan(registry, deltaTime); }},
-		{"updateFrame", [&] { features::animation::systems::updateFrame(registry, deltaTime); }},
+		{"processLifespan", [&] { common::systems::processLifespan(registry, deltaTime); }},
 		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
 		{"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
 		{"processVisibility", [&] { common::systems::processVisibility(registry, window); }},
@@ -199,7 +195,6 @@ int main()
 	spdlog::info("Window created");
 
 	StateManager stateManager;
-	features::effect::EffectLoader effectLoader("../../configs/effects.json");
 
 	entt::registry registry;
 	spdlog::info("Registry created");
@@ -207,11 +202,12 @@ int main()
 
 	features::item::ItemsLoader itemsLoader;
 	features::unit::UnitsLoader unitsLoader;
+	features::effect::EffectLoader effectLoader;
 	features::player::InputManager inputManager;
 
 	entt::entity player = features::player::entities::createPlayer(registry, itemsLoader, unitsLoader);
 	spdlog::debug("Player entity created, ID {}", static_cast<int>(player));
-	features::effect::entities::createEffect(registry, player, features::effect::Type::Bleed, effectLoader);
+	features::effect::entities::createEffect(registry, effectLoader, features::effect::Effects::Bleed, player);
 
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);

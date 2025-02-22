@@ -2,45 +2,39 @@
 
 namespace features::effect
 {
-	EffectLoader::EffectLoader(std::string configPath)
+	EffectLoader::EffectLoader()
 	{
-		std::ifstream effectsFile(configPath);
-		if (!effectsFile.is_open())
+		for (const auto &entry : std::filesystem::directory_iterator("../../src/content/effects"))
 		{
-			spdlog::error("Failed to load {}", configPath);
-			std::exit(EXIT_FAILURE);
-		}
-		spdlog::info("Loaded {}", configPath);
+			auto id = std::stoi(entry.path().filename().replace_extension().string());
+			if (entry.path().extension() == ".json")
+			{
+				std::ifstream effectFile(entry.path());
+				nlohmann::json effectJson = nlohmann::json::parse(effectFile);
 
-		try
-		{
-			data = nlohmann::json::parse(effectsFile);
-			spdlog::info("Parsed {}", configPath);
+				std::vector<common::entities::Modifier> modifiers = {};
+				for (auto &modifierJson : effectJson["modifiers"])
+				{
+					auto attribute = modifierJson["value"];
+					auto stat = common::entities::getStat(attribute["attribute"]);
+					auto scope = common::entities::getScope(attribute["scope"]);
+					auto val = attribute["value"];
+					common::entities::Modifier modifier({stat, scope, val});
+					modifiers.push_back(modifier);
+				}
+				Effect effectData = {effectJson["name"],
+									 modifiers,
+									 effectJson["duration"],
+									 effectJson["stacks"],
+									 effectJson["refresh"],
+									 id,
+									 effectJson["sprite"]["x"],
+									 effectJson["sprite"]["y"],
+									 effectJson["sprite"]["width"],
+									 effectJson["sprite"]["height"]};
+				effectsData[id] = effectData;
+			}
 		}
-		catch (const nlohmann::json::parse_error &e)
-		{
-			spdlog::error("Failed to parse {}. Error: {}", configPath, e.what());
-			std::exit(EXIT_FAILURE);
-		}
-
-		for (auto &[effectName, effectData] : data.items())
-		{
-			Effect effect;
-			effect.duration = effectData["duration"];
-			effect.stacks = effectData["stacks"];
-			effect.refresh = effectData["refresh"];
-
-			effects[getType(effectName)] = effect;
-		}
-	}
-
-	Type EffectLoader::getType(std::string type)
-	{
-		auto it = mapType.find(type);
-		if (it != mapType.end())
-		{
-			return it->second;
-		}
-		return Type::NoEffect;
+		texture = sf::Texture("../../public/items.png", false, sf::IntRect({0, 0}, {512, 512}));
 	}
 }  // namespace features::effect

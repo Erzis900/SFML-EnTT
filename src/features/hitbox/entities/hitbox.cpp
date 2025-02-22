@@ -22,22 +22,21 @@ namespace features::hitbox::entities
 			case features::item::Trigger::OnAttack:
 				registry.emplace<common::components::attach>(hitboxEntity, ability.source);
 				lifeSpan = 0.3f;
-
-				registry.emplace<components::hitbox>(hitboxEntity, lifeSpan, lifeSpan, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
+				registry.emplace<components::hitbox>(hitboxEntity, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
 				radius = 150.f;
 				break;
 			case features::item::Trigger::OnShot:
 			case features::item::Trigger::OnCast:
 				registry.emplace<common::components::speed>(hitboxEntity, 500.f);
-
 				lifeSpan = 0.7f;
-				registry.emplace<components::hitbox>(hitboxEntity, lifeSpan, lifeSpan, 2.f, std::vector<entt::entity>(), std::vector<entt::entity>());
+				registry.emplace<components::hitbox>(hitboxEntity, 2.f, std::vector<entt::entity>(), std::vector<entt::entity>());
 				radius = 50.f;
 				break;
 			default:
 				spdlog::warn("Incorrect state for entity {}, probably item has incorrect trigger or wrong item assigned", static_cast<int>(source));
 				break;
 			}
+			registry.emplace<common::components::lifespan>(hitboxEntity, lifeSpan, lifeSpan);
 			registry.emplace<common::components::source>(hitboxEntity, ability.source);
 
 			auto pos = registry.get<common::components::position>(ability.source);

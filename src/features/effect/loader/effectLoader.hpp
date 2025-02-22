@@ -2,9 +2,12 @@
 
 #include "pch.hpp"
 
+#include "components/modifiers.hpp"
+#include "entities/attribute.hpp"
+
 namespace features::effect
 {
-	enum Type : int
+	enum Effects : int
 	{
 		NoEffect = 0,
 		Bleed = 1,
@@ -13,22 +16,28 @@ namespace features::effect
 
 	struct Effect
 	{
+		std::string name;
+		std::vector<common::entities::Modifier> modifiers;
 		float duration;
-		int stacks;
+		float stacks;
 		bool refresh;
+		int id;
+		int x;
+		int y;
+		int width;
+		int height;
 	};
-
-	const std::unordered_map<std::string, Type> mapType = {{"bleed", Type::Bleed}, {"fortify", Type::Fortify}};
 
 	class EffectLoader
 	{
 	  public:
-		EffectLoader(std::string configPath);
-		Type getType(std::string effect);
-		Effect getEffect(Type type) { return effects[type]; }
+		EffectLoader();
+		Effect getEffect(int id) { return effectsData[id]; }
+		sf::Sprite getSprite(int id);
 
 	  private:
 		nlohmann::json data;
-		std::unordered_map<Type, Effect> effects;
+		std::map<int, Effect> effectsData;
+		sf::Texture texture;
 	};
 }  // namespace features::effect
