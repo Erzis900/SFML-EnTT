@@ -2,6 +2,7 @@
 #include "components/collider.hpp"
 #include "components/position.hpp"
 #include "components/speed.hpp"
+#include "components/visible.hpp"
 #include "features/player/components/playerControlled.hpp"
 
 namespace common::systems

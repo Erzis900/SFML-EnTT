@@ -1,13 +1,15 @@
 #include "renderUnits.hpp"
+#include "components/visible.hpp"
 
 namespace features::unit::renderers
 {
 	constexpr float pi = acos(-1);
 	void renderUnits(entt::registry &registry, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader)
 	{
-		auto view = registry.view<common::components::unit, common::components::position, common::components::lookDirection, common::components::renderable>();
+		auto view = registry.view<common::components::unit, common::components::position, common::components::lookDirection, common::components::renderable,
+								  common::components::visible>();
 
-		for (auto [entity, unit, pos, dir, render] : view.each())
+		for (auto [entity, unit, pos, dir, render, visible] : view.each())
 		{
 			auto sprite = unitsLoader.getSprite(unit.id);
 			auto width = sprite.getTextureRect().size.x;

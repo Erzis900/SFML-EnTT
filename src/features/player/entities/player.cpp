@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "components/visible.hpp"
 
 namespace features::player::entities
 {
@@ -9,6 +10,7 @@ namespace features::player::entities
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
 		registry.emplace<features::player::components::camera>(entity, sf::View{});
+		registry.emplace<common::components::visible>(entity);
 
 		registry.emplace<common::components::faction>(entity, common::components::ALLY_MASK, common::components::ALLY_MASK, common::components::FOES_MASK);
 

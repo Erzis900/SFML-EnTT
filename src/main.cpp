@@ -40,6 +40,7 @@
 #include "systems/moveEntities.hpp"
 #include "systems/processDeath.hpp"
 #include "systems/processPhysics.hpp"
+#include "systems/processVisibility.hpp"
 #include "systems/recalculateStat.hpp"
 
 void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
@@ -110,6 +111,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"updateFrame", [&] { features::animation::systems::updateFrame(registry, deltaTime); }},
 		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
 		{"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
+		{"processVisibility", [&] { common::systems::processVisibility(registry, window); }},
 		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -9
 		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -8
 		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},						// keep -7
@@ -216,7 +218,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));
