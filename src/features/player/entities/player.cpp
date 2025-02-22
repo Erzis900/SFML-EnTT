@@ -5,7 +5,7 @@ namespace features::player::entities
 	entt::entity createPlayer(entt::registry &registry, features::item::ItemsLoader &itemsLoader, features::unit::UnitsLoader &unitsLoader)
 	{
 		// auto entity = unitsLoader.createUnit(registry, 0, 200.f, 200.f);
-		auto entity = unitsLoader.createUnit(registry, itemsLoader, 0, 200.f, 200.f);  // replace with above once saving progress is done
+		auto entity = unitsLoader.createUnit(registry, itemsLoader, 0, 700.f, 500.f);  // replace with above once saving progress is done
 
 		registry.emplace<features::player::components::playerControlled>(entity, true);
 		registry.emplace<features::player::components::camera>(entity, sf::View{});

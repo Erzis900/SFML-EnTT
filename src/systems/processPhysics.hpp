@@ -4,5 +4,5 @@
 
 namespace common::systems
 {
-	void processPhysics(entt::registry &registry, float deltaTime, sf::Vector2i mapDim);
+	void processPhysics(entt::registry &registry, float deltaTime, sf::Vector2i mapDim, sf::RenderWindow &window);
 }

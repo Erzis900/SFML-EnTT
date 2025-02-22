@@ -6,7 +6,7 @@
 
 namespace common::systems
 {
-	void processPhysics(entt::registry &registry, float deltaTime, sf::Vector2i mapDim)
+	void processPhysics(entt::registry &registry, float deltaTime, sf::Vector2i mapDim, sf::RenderWindow &window)
 	{
 		auto view = registry.view<common::components::position, common::components::collider, common::components::speed>();
 
@@ -19,8 +19,8 @@ namespace common::systems
 
 			if (registry.all_of<features::player::components::playerControlled>(entityA))
 			{
-				if (posA.x < 0) posA.x = 0;
-				if (posA.y < 0) posA.y = 0;
+				if (posA.x < window.getSize().x / 2) posA.x = window.getSize().x / 2;
+				if (posA.y < window.getSize().y / 2) posA.y = window.getSize().y / 2;
 				if (posA.x > mapDim.x) posA.x = mapDim.x;
 				if (posA.y > mapDim.y) posA.y = mapDim.y;
 

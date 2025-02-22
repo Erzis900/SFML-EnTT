@@ -110,17 +110,17 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"updateFrame", [&] { features::animation::systems::updateFrame(registry, deltaTime); }},
 		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
 		{"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
-		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},						   // keep -9
-		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},							   // keep -8
-		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},					   // keep -7
-		{"attachEntities", [&] { common::systems::attachEntities(registry); }},							   // keep -6
-		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim); }},		   // keep -5
-		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},  // keep -4
-		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},	   // decide where to place it
-		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},			   // keep -3
-		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},				   // keep -2
-		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},					   // keep -2
-		{"cleanupRemoved", [&] { common::systems::cleanupRemoved(registry); }},							   // keep -1
+		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -9
+		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -8
+		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},						// keep -7
+		{"attachEntities", [&] { common::systems::attachEntities(registry); }},								// keep -6
+		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim, window); }},	// keep -5
+		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},	// keep -4
+		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},		// decide where to place it
+		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},				// keep -3
+		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},					// keep -2
+		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},						// keep -2
+		{"cleanupRemoved", [&] { common::systems::cleanupRemoved(registry); }},								// keep -1
 	};
 
 	for (const auto &[name, func] : systems)

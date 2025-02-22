@@ -21,6 +21,9 @@ namespace features::effect::systems
 					registry.emplace<common::components::health>(target.entity, targetHealth);
 					break;
 				}
+				default:
+					spdlog::warn("Effect with id {} not found", type.value);
+					break;
 				}
 			}
 		}
