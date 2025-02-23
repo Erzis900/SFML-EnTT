@@ -19,4 +19,6 @@ namespace features::player::systems
 		std::make_tuple(sf::Keyboard::Key::R, features::item::components::SlotType::Cape)};
 
 	void playerInput(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager);
+	void playerCasting(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager);
+	void playerDirection(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager);
 }  // namespace features::player::systems

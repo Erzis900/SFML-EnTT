@@ -8,7 +8,7 @@ namespace features::hitbox::entities
 		auto hitboxEntity = registry.create();
 		auto ability = registry.get<features::ability::components::ability>(source);
 
-		if (registry.valid(ability.source))
+		if (registry.valid(ability.source))	 // TODO: consider rewriting this check to avoid creating hitbox entity
 		{
 			auto attributes = registry.get<common::entities::Attributes>(source);
 
@@ -41,7 +41,7 @@ namespace features::hitbox::entities
 
 			auto pos = registry.get<common::components::position>(ability.source);
 			auto lookDir = registry.get<common::components::lookDirection>(ability.source);
-			registry.emplace<common::components::direction>(hitboxEntity, lookDir.x, lookDir.y);
+			registry.emplace<common::components::direction>(hitboxEntity, lookDir.x, lookDir.y, true);
 			registry.emplace<common::components::position>(hitboxEntity, pos.x, pos.y);
 			registry.emplace<common::components::damage>(hitboxEntity, 10.f);
 			auto faction = registry.get<common::components::faction>(ability.source);

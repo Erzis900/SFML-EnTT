@@ -37,13 +37,13 @@ namespace features::player::systems
 
 		auto mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-		auto view = registry.view<features::player::components::playerControlled, common::components::position>();
-		for (auto [entityUnit, playerControlled, pos] : view.each())
+		auto view = registry.view<features::player::components::playerControlled, common::components::position, common::components::direction>();
+		for (auto [entityUnit, playerControlled, pos, direction] : view.each())
 		{
 			sf::Vector2f dirVec = {mousePos.x - pos.x, mousePos.y - pos.y};
 			dirVec = normalize(dirVec);
 
-			registry.replace<common::components::direction>(entityUnit, dir.x, dir.y);
+			registry.replace<common::components::direction>(entityUnit, dir.x, dir.y, direction.movable);
 			registry.emplace_or_replace<common::components::lookDirection>(entityUnit, dirVec.x, dirVec.y);
 
 			for (auto [key, slotType] : keyToSlotType)

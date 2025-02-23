@@ -50,7 +50,7 @@ namespace features::unit
 	{
 		auto entity = registry.create();
 		registry.emplace<common::components::unit>(entity, id);
-		registry.emplace<common::components::direction>(entity, 0.f, 0.f);
+		registry.emplace<common::components::direction>(entity, 0.f, 0.f, true);
 		registry.emplace<common::components::lookDirection>(entity, 0.f, 0.f);
 
 		common::entities::initAttributes(registry, entity);

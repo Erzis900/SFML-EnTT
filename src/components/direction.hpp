@@ -6,5 +6,6 @@ namespace common::components
 	{
 		float x;
 		float y;
+		bool movable;
 	};
 }  // namespace common::components
