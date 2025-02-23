@@ -23,6 +23,8 @@ namespace features::ability::systems
 				{
 					if (castEvent.state == components::castEvent::State::Press || castEvent.state == components::castEvent::State::Hold)
 					{
+						auto dir = registry.get<common::components::direction>(ability.source);
+						registry.replace<common::components::direction>(ability.source, dir.x, dir.y, false);
 						registry.remove<components::ready>(entity);
 						registry.emplace<components::cast>(entity, ability.castTime);
 						registry.emplace_or_replace<components::pointsAt>(entity, pointsAt.target);
@@ -32,10 +34,34 @@ namespace features::ability::systems
 		}
 	}
 
+	void processCastCancel(entt::registry &registry)
+	{
+		auto viewCasts = registry.view<components::cast, components::ability>();
+		auto viewEvents = registry.view<components::castEvent>();
+		for (auto [entityEvent, castEvent] : viewEvents.each())
+		{
+			for (auto [entity, cast, ability] : viewCasts.each())
+			{
+				if (ability.source == castEvent.unit)
+				{
+					auto cancelsCast = castEvent.state == components::castEvent::State::Press && castEvent.slot == features::item::components::SlotType::NoSlot;
+					if (cancelsCast)
+					{
+						auto dir = registry.get<common::components::direction>(ability.source);
+						registry.replace<common::components::direction>(ability.source, dir.x, dir.y, true);
+
+						registry.remove<components::cast>(entity);
+						registry.emplace<components::ready>(entity);
+					}
+				}
+			}
+		}
+	}
+
 	void processCast(entt::registry &registry, float deltaTime)
 	{
+		processCastCancel(registry);
 		auto view = registry.view<components::cast, components::ability, components::pointsAt, common::entities::Attributes>();
-
 		for (auto [entity, cast, ability, pointsAt, attributes] : view.each())
 		{
 			cast.time -= deltaTime;
@@ -65,6 +91,8 @@ namespace features::ability::systems
 
 				registry.remove<components::cast>(entity);
 				registry.emplace<components::active>(entity, ability.activeTime);
+				auto dir = registry.get<common::components::direction>(ability.source);
+				registry.replace<common::components::direction>(ability.source, dir.x, dir.y, true);
 			}
 		}
 	}

@@ -107,14 +107,13 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry); }},
 		{"processLifespan", [&] { common::systems::processLifespan(registry, deltaTime); }},
 		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
-		// {"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
-		{"processVisibility", [&] { common::systems::processVisibility(registry, window); }},
-		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -10
-		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -9
-		{"processPosition", [&] { common::systems::processPosition(registry, deltaTime); }},				// keep -8
-		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim, window); }},	// keep -7
-		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},	// keep -6
-		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},				// keep -5
+		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -11
+		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -10
+		{"processPosition", [&] { common::systems::processPosition(registry, deltaTime); }},				// keep -9
+		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim, window); }},	// keep -8
+		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},	// keep -7
+		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},				// keep -6
+		{"processVisibility", [&] { common::systems::processVisibility(registry, window); }},				// keep -5
 		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},					// keep -4
 		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},						// keep -3
 		{"processInvalid", [&] { common::systems::processInvalid(registry); }},								// keep -2

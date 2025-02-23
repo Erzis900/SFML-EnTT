@@ -25,7 +25,7 @@ namespace features::enemy::entities
 		registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
 
 		auto mainhandEntity =
-			features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.2f, 0.1f, 0.1f, 0.1f);
+			features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.5f, 0.1f, 0.1f, 0.1f);
 		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, features::item::components::SlotType::Mainhand, false);
 
 		return entity;

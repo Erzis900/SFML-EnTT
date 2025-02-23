@@ -18,7 +18,7 @@ namespace features::player::entities
 		auto unitBase = unitsLoader.getUnit(unit.id);
 		auto mainhandEntity =
 			features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.02f, 0.01f, 0.01f, 0.5f);
-		auto offhandEntity = features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Offhand, 0.2f, 0.1f, 0.1f, 3.f);
+		auto offhandEntity = features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Offhand, 0.5f, 0.1f, 0.1f, 3.f);
 		auto capeEntity = features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Cape, 0.02f, 0.01f, 0.01f, 0.5f);
 
 		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, features::item::components::SlotType::Mainhand, false);

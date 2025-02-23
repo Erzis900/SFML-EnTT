@@ -11,6 +11,7 @@
 #include "../components/ready.hpp"
 
 #include "components/attribute.hpp"
+#include "components/direction.hpp"
 #include "entities/attribute.hpp"
 
 #include "features/hitbox/entities/hitbox.hpp"
@@ -26,4 +27,5 @@ namespace features::ability::systems
 	void processActive(entt::registry &registry, float deltaTime);
 	void processDelay(entt::registry &registry, float deltaTime);
 	void processCooldown(entt::registry &registry, float deltaTime);
+	void processCastCancel(entt::registry &registry);
 }  // namespace features::ability::systems

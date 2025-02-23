@@ -1,6 +1,6 @@
 {
   "name": "Bleed",
-  "duration": 10,
+  "duration": 2,
   "stacks": 2,
   "refresh": true,
   "modifiers": [
