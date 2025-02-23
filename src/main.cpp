@@ -35,6 +35,7 @@
 #include "systems/cleanupRemoved.hpp"
 #include "systems/moveEntities.hpp"
 #include "systems/processDeath.hpp"
+#include "systems/processInvalid.hpp"
 #include "systems/processLifespan.hpp"
 #include "systems/processPhysics.hpp"
 #include "systems/processVisibility.hpp"
@@ -106,18 +107,19 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry); }},
 		{"processLifespan", [&] { common::systems::processLifespan(registry, deltaTime); }},
 		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
-		{"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
+		// {"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime); }},
 		{"processVisibility", [&] { common::systems::processVisibility(registry, window); }},
-		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -9
-		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -8
-		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},						// keep -7
-		{"attachEntities", [&] { common::systems::attachEntities(registry); }},								// keep -6
-		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim, window); }},	// keep -5
-		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},	// keep -4
+		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -11
+		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -10
+		{"moveEntities", [&] { common::systems::moveEntities(registry, deltaTime); }},						// keep -9
+		{"attachEntities", [&] { common::systems::attachEntities(registry); }},								// keep -8
+		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim, window); }},	// keep -7
+		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},	// keep -6
 		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},		// decide where to place it
-		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},				// keep -3
-		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},					// keep -2
-		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},						// keep -2
+		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},				// keep -5
+		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},					// keep -4
+		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},						// keep -3
+		{"processInvalid", [&] { common::systems::processInvalid(registry); }},								// keep -2
 		{"cleanupRemoved", [&] { common::systems::cleanupRemoved(registry); }},								// keep -1
 	};
 

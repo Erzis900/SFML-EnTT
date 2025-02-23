@@ -12,6 +12,7 @@ namespace features::effect::systems
 		for (auto [entity, effect, target] : view.each())
 		{
 			float targetHealth = registry.get<common::components::health>(target.entity).value;
+			// std::cout << targetHealth << std::endl;
 			if (targetHealth <= 0.f)
 			{
 				spdlog::info("Effect {} has expired", effect.id);
