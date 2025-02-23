@@ -10,11 +10,11 @@ namespace common::renderers
 		const int healthbarWidth = 60;
 		const int healthbarHeight = 5;
 
-		sf::RectangleShape healthbar;
+		static sf::RectangleShape healthbar;
 		healthbar.setSize({healthbarWidth, healthbarHeight});
 		healthbar.setFillColor(sf::Color::Red);
 
-		sf::RectangleShape currentHealth;
+		static sf::RectangleShape currentHealth;
 		currentHealth.setFillColor(sf::Color::Green);
 
 		for (auto [entity, render, collider, pos, health, maxHealth] : view.each())
