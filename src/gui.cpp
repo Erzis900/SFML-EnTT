@@ -14,18 +14,25 @@ GUI::GUI(sf::RenderWindow &window, Config &config, entt::registry &registry, Sta
 
 	settingsWindow = gui.get<tgui::ChildWindow>("settingsWindow");
 	statsWindow = gui.get<tgui::ChildWindow>("statsWindow");
-	// settingsBtn = gui.get<tgui::Button>("settingsBtn");
+	inventoryWindow = gui.get<tgui::ChildWindow>("inventoryWindow");
+
+	// settings
 	settingsPic = gui.get<tgui::Picture>("settingsPic");
-	statsPic = gui.get<tgui::Picture>("statsPic");
 	fpsCheckbox = gui.get<tgui::CheckBox>("fpsCheckbox");
 	fpsLimitCombo = gui.get<tgui::ComboBox>("fpsLimitCombo");
 	resolutionCombo = gui.get<tgui::ComboBox>("resolutionCombo");
 	fpsLabel = gui.get<tgui::Label>("fpsLabel");
 	fullscreenCheckbox = gui.get<tgui::CheckBox>("fullscreenCheckbox");
 	maxHealthLabel = gui.get<tgui::Label>("maxHealthLabel");
+	exitBtn = gui.get<tgui::Button>("exitBtn");
+
+	// character page
+	statsPic = gui.get<tgui::Picture>("statsPic");
 	speedLabel = gui.get<tgui::Label>("speedLabel");
 	damageLabel = gui.get<tgui::Label>("damageLabel");
-	exitBtn = gui.get<tgui::Button>("exitBtn");
+
+	// inventory
+	inventoryPic = gui.get<tgui::Picture>("inventoryPic");
 
 	fpsLabel->setVisible(fpsCheckbox->isChecked());
 
@@ -60,13 +67,17 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 		stateManager.setState(State::Game, !stateManager.isActive(State::Game));
 	});
 
-	statsPic->onMousePress([this, &window, &stateManager] { statsWindow->setVisible(!statsWindow->isVisible()); });
+	statsPic->onMousePress([this, &window] { statsWindow->setVisible(!statsWindow->isVisible()); });
+	inventoryPic->onMousePress([this, &window] { inventoryWindow->setVisible(!inventoryWindow->isVisible()); });
 
 	settingsPic->onMouseEnter([this] { settingsPic->setInheritedOpacity(0.5); });
 	settingsPic->onMouseLeave([this] { settingsPic->setInheritedOpacity(1); });
 
 	statsPic->onMouseEnter([this] { statsPic->setInheritedOpacity(0.5); });
 	statsPic->onMouseLeave([this] { statsPic->setInheritedOpacity(1); });
+
+	inventoryPic->onMouseEnter([this] { inventoryPic->setInheritedOpacity(0.5); });
+	inventoryPic->onMouseLeave([this] { inventoryPic->setInheritedOpacity(1); });
 
 	// settingsBtn->onPress([this, &window, &stateManager] {
 	// 	settingsWindow->setVisible(!settingsWindow->isVisible());

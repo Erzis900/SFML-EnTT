@@ -18,12 +18,15 @@ class GUI
 	tgui::Gui gui;
 	tgui::ChildWindow::Ptr settingsWindow;
 	tgui::ChildWindow::Ptr statsWindow;
-	// tgui::Button::Ptr settingsBtn;
+	tgui::ChildWindow::Ptr inventoryWindow;
+
 	tgui::Picture::Ptr settingsPic;
 	tgui::Picture::Ptr statsPic;
+	tgui::Picture::Ptr inventoryPic;
 
 	tgui::Label::Ptr fpsLabel;
 
+	// settings
 	tgui::CheckBox::Ptr fpsCheckbox;
 	tgui::CheckBox::Ptr fullscreenCheckbox;
 
@@ -31,10 +34,11 @@ class GUI
 	tgui::ComboBox::Ptr resolutionCombo;
 
 	tgui::Label::Ptr maxHealthLabel;
+	tgui::Button::Ptr exitBtn;
+
+	// character page
 	tgui::Label::Ptr speedLabel;
 	tgui::Label::Ptr damageLabel;
-
-	tgui::Button::Ptr exitBtn;
 
 	void handleCallbacks(sf::RenderWindow &window, StateManager &stateManager);
 
