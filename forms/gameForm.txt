@@ -497,13 +497,14 @@ ChildWindow.statsWindow {
 
 ChildWindow.inventoryWindow {
     CloseBehavior = Hide;
-    Position = (886, 500.8);
+    Position = (69%, 70%);
     Renderer = &4;
     Size = (386, 215);
     Title = Inventory;
     TitleAlignment = Left;
     TitleButtons = Close;
     TitleTextSize = 13;
+    Visible = false;
 
     ScrollablePanel.inventoryPanel {
         ContentSize = (0, 0);
