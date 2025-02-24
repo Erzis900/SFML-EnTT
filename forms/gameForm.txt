@@ -180,7 +180,7 @@ Renderer.4 {
 }
 
 Renderer.5 {
-    Texture = "resources/DefaultPicture.png" Smooth;
+    Texture = "../public/inventory_cell.png" Smooth;
     TransparentTexture = false;
 }
 
@@ -499,12 +499,11 @@ ChildWindow.inventoryWindow {
     CloseBehavior = Hide;
     Position = (886, 500.8);
     Renderer = &4;
-    Size = (386, 214);
+    Size = (386, 215);
     Title = Inventory;
     TitleAlignment = Left;
     TitleButtons = Close;
     TitleTextSize = 13;
-    Visible = false;
 
     ScrollablePanel.inventoryPanel {
         ContentSize = (0, 0);
@@ -546,79 +545,51 @@ ChildWindow.inventoryWindow {
                 Size = (64, 64);
 
                 Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
+                    Texture = "../public/inventory_cell.png" Smooth;
                     TransparentTexture = false;
                 }
             }
 
             Picture.Picture2 {
                 Position = (64, 0);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture3 {
                 Position = (128, 0);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture4 {
                 Position = (192, 0);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture5 {
                 Position = (256, 0);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture6 {
                 Position = (320, 0);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture7 {
                 Position = (0, 64);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture8 {
                 Position = (64, 64);
+                Renderer = &5;
                 Size = (64, 64);
-
-                Renderer {
-                    Texture = "resources/DefaultPicture.png" Smooth;
-                    TransparentTexture = false;
-                }
             }
 
             Picture.Picture9 {
