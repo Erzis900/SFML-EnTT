@@ -64,35 +64,38 @@ namespace features::ability::systems
 		auto view = registry.view<components::cast, components::ability, components::pointsAt, common::entities::Attributes>();
 		for (auto [entity, cast, ability, pointsAt, attributes] : view.each())
 		{
-			cast.time -= deltaTime;
-
-			if (cast.time <= 0.f)
+			if (registry.valid(ability.source))
 			{
-				auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
-				entt::entity hitbox;
-				switch (static_cast<int>(trigger.value))
-				{
-				case features::item::Trigger::OnAttack:
-				case features::item::Trigger::OnShot:
-				case features::item::Trigger::OnCast:
-					hitbox = features::hitbox::entities::createHitbox(registry, entity);
-					spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
-					break;
-				case features::item::Trigger::OnRoll:
-				case features::item::Trigger::OnDash:
-					break;
-				case features::item::Trigger::OnBlink:
-					spdlog::debug("Blinked entity {} to ({},{})", static_cast<int>(ability.source), pointsAt.target.x, pointsAt.target.y);
-					registry.replace<common::components::position>(ability.source, pointsAt.target.x, pointsAt.target.y);
-					break;
-				default:
-					break;
-				}
+				cast.time -= deltaTime;
 
-				registry.remove<components::cast>(entity);
-				registry.emplace<components::active>(entity, ability.activeTime);
-				auto dir = registry.get<common::components::direction>(ability.source);
-				registry.replace<common::components::direction>(ability.source, dir.x, dir.y, true);
+				if (cast.time <= 0.f)
+				{
+					auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
+					entt::entity hitbox;
+					switch (static_cast<int>(trigger.value))
+					{
+					case features::item::Trigger::OnAttack:
+					case features::item::Trigger::OnShot:
+					case features::item::Trigger::OnCast:
+						hitbox = features::hitbox::entities::createHitbox(registry, entity);
+						spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
+						break;
+					case features::item::Trigger::OnRoll:
+					case features::item::Trigger::OnDash:
+						break;
+					case features::item::Trigger::OnBlink:
+						spdlog::debug("Blinked entity {} to ({},{})", static_cast<int>(ability.source), pointsAt.target.x, pointsAt.target.y);
+						registry.replace<common::components::position>(ability.source, pointsAt.target.x, pointsAt.target.y);
+						break;
+					default:
+						break;
+					}
+
+					registry.remove<components::cast>(entity);
+					registry.emplace<components::active>(entity, ability.activeTime);
+					auto dir = registry.get<common::components::direction>(ability.source);
+					registry.replace<common::components::direction>(ability.source, dir.x, dir.y, true);
+				}
 			}
 		}
 	}
