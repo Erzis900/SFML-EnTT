@@ -1,17 +1,10 @@
 #include "processInteraction.hpp"
 
-#include "../components/hitbox.hpp"
-
-#include "components/attribute.hpp"
-#include "components/health.hpp"
-#include "components/source.hpp"
-#include "entities/attribute.hpp"
-
 namespace features::hitbox::systems
 {
-	void processInteraction(entt::registry &registry)
+	void processInteraction(entt::registry &registry, effect::EffectsLoader &effectsLoader)
 	{
-		auto hitboxView = registry.view<features::hitbox::components::hitbox, common::components::source>();
+		auto hitboxView = registry.view<hitbox::components::hitbox, common::components::source>();
 		for (auto [hitboxEntity, hitbox, source] : hitboxView.each())
 		{
 			for (auto entity : hitbox.entities)
@@ -21,6 +14,7 @@ namespace features::hitbox::systems
 					auto &children = registry.get<common::entities::Attributes>(source.entity);
 					auto &damage = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Damage]);
 					auto &health = registry.get<common::components::health>(entity);
+					effect::entities::applyEffect(registry, effectsLoader, effect::Effects::Bleed, entity, true);
 
 					health.value -= damage.value;
 				}
@@ -30,7 +24,7 @@ namespace features::hitbox::systems
 			std::move(hitbox.entities.begin(), it, std::back_inserter(hitbox.doneEntities));
 
 			hitbox.entities.erase(hitbox.entities.begin(), it);
-			registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
+			registry.replace<hitbox::components::hitbox>(hitboxEntity, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
 		}
 	}
 }  // namespace features::hitbox::systems

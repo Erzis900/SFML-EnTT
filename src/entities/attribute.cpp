@@ -2,6 +2,7 @@
 
 #include "components/attribute.hpp"
 #include "components/health.hpp"
+#include "components/healthRegen.hpp"
 #include "components/maxHealth.hpp"
 #include "components/recalculate.hpp"
 #include "components/relationship.hpp"
@@ -21,6 +22,9 @@ namespace common::entities
 			break;
 		case Stat::MaxHealth:
 			registry.emplace<components::maxHealth>(unit, initialValue);
+			break;
+		case Stat::HealthRegen:
+			registry.emplace<components::healthRegen>(unit, initialValue);
 			break;
 		case Stat::Speed:
 			registry.emplace<components::speed>(unit, initialValue);
@@ -44,6 +48,7 @@ namespace common::entities
 		auto &attributes = registry.get<Attributes>(entity).entities;
 		attributes[Stat::Health] = createAttribute(registry, entity, Stat::Health, 50.f);
 		attributes[Stat::MaxHealth] = createAttribute(registry, entity, Stat::MaxHealth, 50.f);
+		attributes[Stat::HealthRegen] = createAttribute(registry, entity, Stat::HealthRegen, 0.2f);
 		attributes[Stat::Speed] = createAttribute(registry, entity, Stat::Speed, 180.f);
 		attributes[Stat::Damage] = createAttribute(registry, entity, Stat::Damage, 10.f);
 		attributes[Stat::MinDamage] = createAttribute(registry, entity, Stat::MinDamage, 0.f);
@@ -53,11 +58,11 @@ namespace common::entities
 		attributes[Stat::Radius] = createAttribute(registry, entity, Stat::Radius, 50.f);
 	}
 
-	entt::entity createModifier(entt::registry &registry, entt::entity parent, entities::Scope scope, float value)
+	entt::entity createModifier(entt::registry &registry, entt::entity target, entities::Scope scope, float value)
 	{
 		auto modifierEntity = registry.create();
 		auto &relationship = registry.emplace<components::relationship>(modifierEntity);
-		relationship.source = parent;
+		relationship.source = target;
 		registry.emplace<components::modifier>(modifierEntity, value, scope);
 
 		return modifierEntity;
@@ -114,6 +119,10 @@ namespace common::entities
 					}
 					registry.destroy(modifierEntity);
 					modifierEntity = modifierRelationship.next;
+				}
+				else
+				{
+					modifierEntity = registry.get<common::components::relationship>(modifierEntity).next;
 				}
 			}
 			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute], true);

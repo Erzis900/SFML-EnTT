@@ -24,6 +24,4 @@ namespace features::player::systems
 	};
 
 	void playerInput(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager);
-	void playerCasting(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager);
-	void playerDirection(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager);
 }  // namespace features::player::systems

@@ -7,12 +7,6 @@
 
 namespace features::effect
 {
-	enum Effects : int
-	{
-		NoEffect = 0,
-		Bleed = 1,
-		Fortify = 2
-	};
 
 	struct Effect
 	{
@@ -28,10 +22,10 @@ namespace features::effect
 		int height;
 	};
 
-	class EffectLoader
+	class EffectsLoader
 	{
 	  public:
-		EffectLoader();
+		EffectsLoader();
 		Effect getEffect(int id) { return effectsData[id]; }
 		sf::Sprite getSprite(int id);
 

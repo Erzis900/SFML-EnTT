@@ -1,10 +1,12 @@
 #pragma once
 
+#include "../models/effects.hpp"
+
 namespace features::effect::components
 {
 	struct effect
 	{
-		int id;
+		Effects id;
 		float duration;
 		float stacks;
 		bool refresh;

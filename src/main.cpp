@@ -11,8 +11,7 @@
 #include "features/animation/loader/animationLoader.hpp"
 #include "features/animation/systems/renderAnimation.hpp"
 #include "features/effect/entities/effect.hpp"
-#include "features/effect/loader/effectLoader.hpp"
-#include "features/effect/systems/applyEffects.hpp"
+#include "features/effect/loader/effectsLoader.hpp"
 #include "features/effect/systems/processEffects.hpp"
 #include "features/enemy/entities/enemy.hpp"
 #include "features/enemy/systems/followPlayer.hpp"
@@ -39,6 +38,7 @@
 #include "systems/processPosition.hpp"
 #include "systems/processVisibility.hpp"
 #include "systems/recalculateStat.hpp"
+#include "systems/regenerateHealth.hpp"
 
 void processEvents(entt::registry &registry, sf::RenderWindow &window, GUI &gui)
 {
@@ -83,7 +83,7 @@ auto measureExecutionTime = [](const std::string &funcName, auto &&func, bool lo
 
 static float timer = .5f;
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader,
-			features::player::InputManager &inputManager, sf::Vector2i mapDim, StateManager &stateManager)
+			features::player::InputManager &inputManager, sf::Vector2i mapDim, StateManager &stateManager, features::effect::EffectsLoader &effectsLoader)
 {
 	timer -= deltaTime;
 	bool didTimerReset = false;
@@ -104,11 +104,12 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"followPlayer", [&] { features::enemy::systems::followPlayer(registry); }},
 		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},
 		{"processHitbox", [&] { features::hitbox::systems::processHitbox(registry); }},
-		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry); }},
+		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry, effectsLoader); }},
 		{"processLifespan", [&] { common::systems::processLifespan(registry, deltaTime); }},
-		{"applyEffects", [&] { features::effect::systems::applyEffects(registry, deltaTime); }},
+		{"processEffects", [&] { features::effect::systems::processEffects(registry, deltaTime, effectsLoader); }},
 		{"recalculateStat", [&] { common::systems::recalculateStat(registry); }},							// keep -11
 		{"applyUnitStat", [&] { common::systems::applyUnitStat(registry); }},								// keep -10
+		{"regenerateHealth", [&] { common::systems::regenerateHealth(registry, deltaTime); }},				// keep -9
 		{"processPosition", [&] { common::systems::processPosition(registry, deltaTime); }},				// keep -9
 		{"processPhysics", [&] { common::systems::processPhysics(registry, deltaTime, mapDim, window); }},	// keep -8
 		{"checkTileCollision", [&] { features::map::systems::checkTileCollision(registry, deltaTime); }},	// keep -7
@@ -201,12 +202,11 @@ int main()
 
 	features::item::ItemsLoader itemsLoader;
 	features::unit::UnitsLoader unitsLoader;
-	features::effect::EffectLoader effectLoader;
+	features::effect::EffectsLoader effectsLoader;
 	features::player::InputManager inputManager;
 
 	entt::entity player = features::player::entities::createPlayer(registry, itemsLoader, unitsLoader);
 	spdlog::debug("Player entity created, ID {}", static_cast<int>(player));
-	features::effect::entities::createEffect(registry, effectLoader, features::effect::Effects::Bleed, player);
 
 	GUI gui(window, config, registry, stateManager);
 	HUD hud(registry, window, stateManager);
@@ -246,7 +246,7 @@ int main()
 
 		if (stateManager.isActive(State::Game))
 		{
-			update(registry, deltaTime, window, animationLoader, inputManager, map.getMapDim(), stateManager);
+			update(registry, deltaTime, window, animationLoader, inputManager, map.getMapDim(), stateManager, effectsLoader);
 			hud.update(registry);
 		}
 		else if (stateManager.isActive(State::GameOver))

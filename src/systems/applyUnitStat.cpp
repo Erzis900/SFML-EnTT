@@ -2,6 +2,7 @@
 #include "components/attribute.hpp"
 #include "components/children.hpp"
 #include "components/health.hpp"
+#include "components/healthRegen.hpp"
 #include "components/maxHealth.hpp"
 #include "components/speed.hpp"
 #include "components/unit.hpp"
@@ -34,11 +35,13 @@ namespace common::systems
 		{
 			auto &hp = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Health]);
 			auto &maxHp = registry.get<common::components::attribute>(children.entities[common::entities::Stat::MaxHealth]);
+			auto &healthRegen = registry.get<common::components::attribute>(children.entities[common::entities::Stat::HealthRegen]);
 
 			auto maxHpDiff = std::clamp(maxHp.value - maxHealth.value, 0.f, maxHp.value);
 			auto addedHealth = std::clamp(health.value + maxHpDiff, 0.f, hp.value);
 			registry.replace<common::components::health>(entity, addedHealth);
 			registry.replace<common::components::maxHealth>(entity, maxHp.value);
+			registry.replace<common::components::healthRegen>(entity, healthRegen.value);
 		}
 	}
 }  // namespace common::systems

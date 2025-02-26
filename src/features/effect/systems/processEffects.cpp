@@ -1,21 +1,18 @@
 #include "processEffects.hpp"
-#include "../components/effect.hpp"
-#include "components/health.hpp"
-#include "components/remove.hpp"
-#include "components/target.hpp"
 
 namespace features::effect::systems
 {
-	void processEffects(entt::registry &registry, float deltaTime)
+	void processEffects(entt::registry &registry, float deltaTime, EffectsLoader &effectsLoader)
 	{
-		auto view = registry.view<features::effect::components::effect, common::components::target>();
-		for (auto [entity, effect, target] : view.each())
+		auto view = registry.view<features::effect::components::affected>();
+		for (auto [entity, affected] : view.each())
 		{
-			float targetHealth = registry.get<common::components::health>(target.entity).value;
-			// std::cout << targetHealth << std::endl;
-			if (targetHealth <= 0.f)
+			auto nextTime = affected.remainingTime - deltaTime;
+			registry.replace<features::effect::components::affected>(entity, affected.target, nextTime);
+			if (nextTime <= 0.f)
 			{
-				spdlog::info("Effect {} has expired", effect.id);
+				spdlog::info("Affected entity {} has expired", static_cast<int>(entity));
+				entities::removeEffect(registry, effectsLoader, entity);
 				registry.emplace<common::components::remove>(entity);
 			}
 		}

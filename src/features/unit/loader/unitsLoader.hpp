@@ -9,6 +9,7 @@
 #include "components/unit.hpp"
 #include "entities/attribute.hpp"
 
+#include "features/effect/components/effects.hpp"
 #include "features/item/entities/item.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "features/map/components/rectCollider.hpp"

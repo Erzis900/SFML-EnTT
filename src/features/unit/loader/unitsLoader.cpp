@@ -52,6 +52,7 @@ namespace features::unit
 		registry.emplace<common::components::unit>(entity, id);
 		registry.emplace<common::components::direction>(entity, 0.f, 0.f, true);
 		registry.emplace<common::components::lookDirection>(entity, 0.f, 0.f);
+		registry.emplace<features::effect::components::effects>(entity);
 
 		common::entities::initAttributes(registry, entity);
 

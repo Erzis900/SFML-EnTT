@@ -1,8 +1,8 @@
-#include "effectLoader.hpp"
+#include "effectsLoader.hpp"
 
 namespace features::effect
 {
-	EffectLoader::EffectLoader()
+	EffectsLoader::EffectsLoader()
 	{
 		for (const auto &entry : std::filesystem::directory_iterator("../../src/content/effects"))
 		{

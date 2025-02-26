@@ -24,14 +24,16 @@ namespace common::entities
 		MaxDamage = 6,
 		Trigger = 7,
 		BaseAttackSpeed = 8,
-		Radius = 9
+		Radius = 9,
+		HealthRegen = 10
 	};
-	constexpr std::size_t ATTRIBUTES_SIZE = 9;
+	constexpr std::size_t ATTRIBUTES_SIZE = 11;
 	using Attributes = components::children<ATTRIBUTES_SIZE>;
 
 	static std::unordered_map<std::string, Stat> const mapStat = {
-		{"health", Stat::Health},		 {"max-health", Stat::MaxHealth}, {"speed", Stat::Speed},	  {"damage", Stat::Damage},
-		{"min-damage", Stat::MinDamage}, {"max-damage", Stat::MaxDamage}, {"trigger", Stat::Trigger}, {"base-attack-speed", Stat::BaseAttackSpeed},
+		{"health", Stat::Health},		 {"max-health", Stat::MaxHealth}, {"health-regen", Stat::HealthRegen},
+		{"speed", Stat::Speed},			 {"damage", Stat::Damage},		  {"min-damage", Stat::MinDamage},
+		{"max-damage", Stat::MaxDamage}, {"trigger", Stat::Trigger},	  {"base-attack-speed", Stat::BaseAttackSpeed},
 		{"radius", Stat::Radius}};
 
 	struct Modifier

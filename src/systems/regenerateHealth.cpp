@@ -11,9 +11,9 @@ namespace common::systems
 
 		for (auto [entity, health, maxHealth, healthRegen] : view.each())
 		{
-			if (health.value > 0.f && health.value <= maxHealth.value)
+			if (health.value > 0.f)
 			{
-				registry.emplace<common::components::health>(entity, health.value + healthRegen.value * deltaTime);
+				registry.replace<common::components::health>(entity, std::min(health.value + healthRegen.value * deltaTime, maxHealth.value));
 			}
 		}
 	}

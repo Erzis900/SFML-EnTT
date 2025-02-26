@@ -44,6 +44,9 @@ namespace common::systems
 				case common::entities::Scope::PercentMult:
 					value *= 1 + mod.value;
 					break;
+				case common::entities::Scope::FlatLast:
+					value += mod.value;
+					break;
 				case common::entities::Scope::Set:
 					value = mod.value;
 					break;
