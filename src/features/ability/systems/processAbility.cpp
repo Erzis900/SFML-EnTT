@@ -102,9 +102,7 @@ namespace features::ability::systems
 					switch (static_cast<int>(trigger.value))
 					{
 					case features::item::Trigger::OnAttack:
-						break;
 					case features::item::Trigger::OnShot:
-						break;
 					case features::item::Trigger::OnCast:
 						hitbox = features::hitbox::entities::createHitbox(registry, entity);
 						spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
@@ -125,7 +123,6 @@ namespace features::ability::systems
 						break;
 					}
 					case features::item::Trigger::OnDash:
-						break;
 					case features::item::Trigger::OnBlink:
 						spdlog::debug("Blinked entity {} to ({},{})", static_cast<int>(ability.source), pointsAt.target.x, pointsAt.target.y);
 						registry.replace<common::components::position>(ability.source, pointsAt.target.x, pointsAt.target.y);

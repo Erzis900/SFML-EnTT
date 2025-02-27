@@ -49,4 +49,4 @@ file(GLOB_RECURSE SOURCES "${SRC_DIR}/*.cpp")
 add_executable(main ${SOURCES})
 
 target_precompile_headers(main PRIVATE ${CMAKE_SOURCE_DIR}/src/pch.hpp)
-target_link_libraries(main PRIVATE features entities renderers systems SFML::Graphics TGUI::TGUI)
+target_link_libraries(main PRIVATE features entities renderers systems SFML::Graphics SFML::Audio TGUI::TGUI)

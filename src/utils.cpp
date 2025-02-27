@@ -12,5 +12,7 @@ namespace utils
 		return vec;
 	}
 
+	float getDistance(const sf::Vector2f &a, const sf::Vector2f &b) { return std::sqrt(std::pow(b.x - a.x, 2) + std::pow(b.y - a.y, 2)); }
+
 	float lerp(float start, float end, float t) { return start + t * (end - start); }
 }  // namespace utils

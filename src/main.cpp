@@ -21,6 +21,8 @@
 #include "features/item/renderers/renderItems.hpp"
 #include "features/map/map.hpp"
 #include "features/map/systems/checkTileCollision.hpp"
+#include "features/npc/entities/npc.hpp"
+#include "features/npc/systems/checkInteraction.hpp"
 #include "features/player/entities/player.hpp"
 #include "features/player/managers/inputManager.hpp"
 #include "features/player/systems/playerCamera.hpp"
@@ -102,6 +104,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 	std::tuple<std::string, std::function<void()>> systems[] = {
 		{"playerInput", [&] { features::player::systems::playerInput(registry, window, inputManager); }},
 		{"followPlayer", [&] { features::enemy::systems::followPlayer(registry); }},
+		{"checkInteraction", [&] { features::npc::systems::checkInteraction(registry, window, inputManager); }},
 		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},
 		{"processHitbox", [&] { features::hitbox::systems::processHitbox(registry); }},
 		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry, effectsLoader); }},
@@ -218,6 +221,10 @@ int main()
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));
 	}
+
+	sf::SoundBuffer buffer("../../public/audio/hello.wav");
+	sf::Sound sound(buffer);
+	features::npc::entities::createNPC(registry, sound);
 
 	sf::Clock clock;
 	sf::Clock fpsClock;
