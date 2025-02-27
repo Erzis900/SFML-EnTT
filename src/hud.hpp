@@ -17,8 +17,13 @@ class HUD
 
 	tgui::ProgressBar::Ptr qAbilityBar;
 	tgui::ProgressBar::Ptr eAbilityBar;
+	tgui::ProgressBar::Ptr rAbilityBar;
+
 	tgui::Picture::Ptr qSpellPic;
 	tgui::Picture::Ptr eSpellPic;
+	tgui::Picture::Ptr rSpellPic;
 
 	int mainCD;
+
+	void updateSpell(int mainCD, tgui::ProgressBar::Ptr bar, tgui::Picture::Ptr pic);
 };

@@ -10,13 +10,29 @@ HUD::HUD(entt::registry &registry, sf::RenderWindow &window, StateManager &state
 	hud.loadWidgetsFromFile("../../forms/hudForm.txt");
 	qAbilityBar = hud.get<tgui::ProgressBar>("qAbilityBar");
 	eAbilityBar = hud.get<tgui::ProgressBar>("eAbilityBar");
+	rAbilityBar = hud.get<tgui::ProgressBar>("rAbilityBar");
+
 	qSpellPic = hud.get<tgui::Picture>("qSpellPic");
 	eSpellPic = hud.get<tgui::Picture>("eSpellPic");
+	rSpellPic = hud.get<tgui::Picture>("rSpellPic");
 }
 
 void HUD::handleEvent(sf::Event event) { hud.handleEvent(event); }
 
 void HUD::draw() { hud.draw(); }
+
+void HUD::updateSpell(int mainCD, tgui::ProgressBar::Ptr bar, tgui::Picture::Ptr pic)
+{
+	bar->setValue(mainCD);
+	if (mainCD > 0)
+	{
+		pic->setInheritedOpacity(0.5);
+	}
+	else
+	{
+		pic->setInheritedOpacity(1);
+	}
+}
 
 void HUD::update(entt::registry &registry)
 {
@@ -25,29 +41,19 @@ void HUD::update(entt::registry &registry)
 	{
 		mainCD = static_cast<int>((cooldown.time / ability.cooldownTime) * 100);
 
-		if (ability.slot == features::item::components::SlotType::Mainhand)
+		switch (ability.slot)
 		{
-			qAbilityBar->setValue(mainCD);
-			if (mainCD > 0)
-			{
-				qSpellPic->setInheritedOpacity(0.5);
-			}
-			else
-			{
-				qSpellPic->setInheritedOpacity(1);
-			}
-		}
-		else if (ability.slot == features::item::components::SlotType::Offhand)
-		{
-			eAbilityBar->setValue(mainCD);
-			if (mainCD > 0)
-			{
-				eSpellPic->setInheritedOpacity(0.5);
-			}
-			else
-			{
-				eSpellPic->setInheritedOpacity(1);
-			}
+		case features::item::components::SlotType::Mainhand:
+			updateSpell(mainCD, qAbilityBar, qSpellPic);
+			break;
+		case features::item::components::SlotType::Offhand:
+			updateSpell(mainCD, eAbilityBar, eSpellPic);
+			break;
+		case features::item::components::SlotType::Cape:
+			updateSpell(mainCD, rAbilityBar, rSpellPic);
+			break;
+		default:
+			break;
 		}
 	}
 }
