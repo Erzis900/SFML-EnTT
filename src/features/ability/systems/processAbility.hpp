@@ -28,4 +28,5 @@ namespace features::ability::systems
 	void processDelay(entt::registry &registry, float deltaTime);
 	void processCooldown(entt::registry &registry, float deltaTime);
 	void processCastCancel(entt::registry &registry);
+	void processRoll(entt::registry &registry, float deltaTime);
 }  // namespace features::ability::systems

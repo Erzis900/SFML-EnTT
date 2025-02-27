@@ -7,7 +7,7 @@
       "discriminant": "trigger",
       "value": {
         "attribute": "trigger",
-        "value": "on-blink",
+        "value": "on-roll",
         "scope": "set"
       }
     },

@@ -1,17 +1,8 @@
 #include "playerInput.hpp"
+#include "utils.hpp"
 
 namespace features::player::systems
 {
-	sf::Vector2f normalize(const sf::Vector2f &vec)
-	{
-		float magnitude = std::sqrt(vec.x * vec.x + vec.y * vec.y);
-		if (magnitude > 0)
-		{
-			return {vec.x / magnitude, vec.y / magnitude};
-		}
-		return vec;
-	}
-
 	void playerInput(entt::registry &registry, sf::RenderWindow &window, InputManager &inputManager)
 	{
 		sf::Vector2f dir = {0.f, 0.f};
@@ -33,7 +24,7 @@ namespace features::player::systems
 			dir.x = 1.f;
 		}
 
-		dir = normalize(dir);
+		dir = utils::normalize(dir);
 
 		auto mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -41,7 +32,7 @@ namespace features::player::systems
 		for (auto [entityUnit, playerControlled, pos, direction] : view.each())
 		{
 			sf::Vector2f dirVec = {mousePos.x - pos.x, mousePos.y - pos.y};
-			dirVec = normalize(dirVec);
+			dirVec = utils::normalize(dirVec);
 
 			registry.replace<common::components::direction>(entityUnit, dir.x, dir.y, direction.movable);
 			registry.emplace_or_replace<common::components::lookDirection>(entityUnit, dirVec.x, dirVec.y);

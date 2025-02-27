@@ -1,4 +1,6 @@
 #include "processAbility.hpp"
+#include "features/player/components/roll.hpp"
+#include "utils.hpp"
 
 namespace features::ability::systems
 {
@@ -9,6 +11,7 @@ namespace features::ability::systems
 		processActive(registry, deltaTime);
 		processDelay(registry, deltaTime);
 		processCooldown(registry, deltaTime);
+		processRoll(registry, deltaTime);
 	}
 
 	void processReady(entt::registry &registry)
@@ -58,6 +61,27 @@ namespace features::ability::systems
 		}
 	}
 
+	void processRoll(entt::registry &registry, float deltaTime)
+	{
+		auto view = registry.view<player::components::roll, common::components::position>();
+		for (auto [entity, roll, position] : view.each())
+		{
+			roll.currentTime += deltaTime;
+
+			if (roll.currentTime >= roll.duration)
+			{
+				registry.remove<player::components::roll>(entity);
+			}
+			else
+			{
+				float t = roll.currentTime / roll.duration;
+				float newX = utils::lerp(roll.startX, roll.targetX, t);
+				float newY = utils::lerp(roll.startY, roll.targetY, t);
+				registry.replace<common::components::position>(entity, newX, newY);
+			}
+		}
+	}
+
 	void processCast(entt::registry &registry, float deltaTime)
 	{
 		processCastCancel(registry);
@@ -75,12 +99,19 @@ namespace features::ability::systems
 					switch (static_cast<int>(trigger.value))
 					{
 					case features::item::Trigger::OnAttack:
+						break;
 					case features::item::Trigger::OnShot:
+						break;
 					case features::item::Trigger::OnCast:
 						hitbox = features::hitbox::entities::createHitbox(registry, entity);
 						spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
 						break;
-					case features::item::Trigger::OnRoll:
+					case features::item::Trigger::OnRoll: {
+						auto startPosition = registry.get<common::components::position>(ability.source);
+						registry.emplace_or_replace<player::components::roll>(ability.source, startPosition.x, startPosition.y, pointsAt.target.x,
+																			  pointsAt.target.y, 0.f, ability.activeTime);
+						break;
+					}
 					case features::item::Trigger::OnDash:
 						break;
 					case features::item::Trigger::OnBlink:
