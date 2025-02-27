@@ -25,7 +25,8 @@ namespace common::entities
 		Trigger = 7,
 		BaseAttackSpeed = 8,
 		Radius = 9,
-		HealthRegen = 10
+		HealthRegen = 10,
+		Range = 11
 	};
 	constexpr std::size_t ATTRIBUTES_SIZE = 11;
 	using Attributes = components::children<ATTRIBUTES_SIZE>;
@@ -34,7 +35,7 @@ namespace common::entities
 		{"health", Stat::Health},		 {"max-health", Stat::MaxHealth}, {"health-regen", Stat::HealthRegen},
 		{"speed", Stat::Speed},			 {"damage", Stat::Damage},		  {"min-damage", Stat::MinDamage},
 		{"max-damage", Stat::MaxDamage}, {"trigger", Stat::Trigger},	  {"base-attack-speed", Stat::BaseAttackSpeed},
-		{"radius", Stat::Radius}};
+		{"radius", Stat::Radius},		 {"range", Stat::Range}};
 
 	struct Modifier
 	{

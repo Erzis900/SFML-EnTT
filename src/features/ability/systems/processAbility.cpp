@@ -1,4 +1,5 @@
 #include "processAbility.hpp"
+#include "components/range.hpp"
 #include "features/player/components/roll.hpp"
 #include "utils.hpp"
 
@@ -66,15 +67,17 @@ namespace features::ability::systems
 		auto view = registry.view<player::components::roll, common::components::position>();
 		for (auto [entity, roll, position] : view.each())
 		{
-			roll.currentTime += deltaTime;
+			static float currentTime = 0.f;
+			currentTime += deltaTime;
 
-			if (roll.currentTime >= roll.duration)
+			if (currentTime >= roll.duration)
 			{
 				registry.remove<player::components::roll>(entity);
+				currentTime = 0.f;
 			}
 			else
 			{
-				float t = roll.currentTime / roll.duration;
+				float t = currentTime / roll.duration;
 				float newX = utils::lerp(roll.startX, roll.targetX, t);
 				float newY = utils::lerp(roll.startY, roll.targetY, t);
 				registry.replace<common::components::position>(entity, newX, newY);
@@ -108,8 +111,17 @@ namespace features::ability::systems
 						break;
 					case features::item::Trigger::OnRoll: {
 						auto startPosition = registry.get<common::components::position>(ability.source);
-						registry.emplace_or_replace<player::components::roll>(ability.source, startPosition.x, startPosition.y, pointsAt.target.x,
-																			  pointsAt.target.y, 0.f, ability.activeTime);
+						auto range = registry.get<common::components::range>(ability.source);
+
+						float dirX = pointsAt.target.x - startPosition.x;
+						float dirY = pointsAt.target.y - startPosition.y;
+						sf::Vector2f dir = utils::normalize({dirX, dirY});
+
+						float targetX = startPosition.x + dir.x * range.value;
+						float targetY = startPosition.y + dir.y * range.value;
+
+						registry.emplace_or_replace<player::components::roll>(ability.source, startPosition.x, startPosition.y, targetX, targetY,
+																			  ability.activeTime);
 						break;
 					}
 					case features::item::Trigger::OnDash:

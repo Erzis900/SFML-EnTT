@@ -4,6 +4,7 @@
 #include "components/health.hpp"
 #include "components/healthRegen.hpp"
 #include "components/maxHealth.hpp"
+#include "components/range.hpp"
 #include "components/recalculate.hpp"
 #include "components/relationship.hpp"
 #include "components/speed.hpp"
@@ -32,6 +33,9 @@ namespace common::entities
 		case Stat::Radius:
 			registry.emplace<components::collider>(unit, initialValue);
 			break;
+		case Stat::Range:
+			registry.emplace<components::range>(unit, initialValue);
+			break;
 		default:
 			break;
 		}
@@ -56,6 +60,7 @@ namespace common::entities
 		attributes[Stat::Trigger] = createAttribute(registry, entity, Stat::Trigger, 0.f);
 		attributes[Stat::BaseAttackSpeed] = createAttribute(registry, entity, Stat::BaseAttackSpeed, 0.f);
 		attributes[Stat::Radius] = createAttribute(registry, entity, Stat::Radius, 50.f);
+		attributes[Stat::Range] = createAttribute(registry, entity, Stat::Range, 200.f);
 	}
 
 	entt::entity createModifier(entt::registry &registry, entt::entity target, entities::Scope scope, float value)
