@@ -1,4 +1,5 @@
 #include "dropItems.hpp"
+#include "../components/dropSpread.hpp"
 #include "../components/dropped.hpp"
 #include "../components/equipped.hpp"
 #include "../components/itemId.hpp"
@@ -10,18 +11,20 @@ namespace features::item::systems
 {
 	void dropItems(entt::registry &registry, features::item::ItemsLoader &itemsLoader)
 	{
-		auto view = registry.view<item::components::itemId, common::components::position>(entt::exclude<item::components::dropped>);
-		for (auto [item, itemId, position] : view.each())
+		auto view =
+			registry.view<item::components::itemId, common::components::position, item::components::dropSpread>(entt::exclude<item::components::dropped>);
+		for (auto [item, itemId, position, dropSpread] : view.each())
 		{
 			float dropChance = itemsLoader.getItem(itemId.id).dropChance;
 			float randomValue = utils::randomFloat(0.f, 100.f);
-
-			// spdlog::debug("{} {}", dropChance, randomValue);
 
 			if (dropChance < randomValue)
 			{
 				registry.emplace<common::components::remove>(item);
 			}
+
+			position.x += utils::randomFloat(-dropSpread.value, dropSpread.value);
+			position.y += utils::randomFloat(-dropSpread.value, dropSpread.value);
 
 			registry.emplace<item::components::dropped>(item);
 		}

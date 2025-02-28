@@ -1,4 +1,5 @@
 #include "processDeath.hpp"
+#include "features/item/components/dropSpread.hpp"
 #include "features/player/components/playerControlled.hpp"
 
 namespace common::systems
@@ -37,6 +38,7 @@ namespace common::systems
 				auto itemEntity = registry.create();
 				registry.emplace<features::item::components::itemId>(itemEntity, itemId.id);
 				registry.emplace<common::components::position>(itemEntity, registry.get<common::components::position>(equipped.unit));
+				registry.emplace<features::item::components::dropSpread>(itemEntity, 100.f);
 			}
 		}
 	}
