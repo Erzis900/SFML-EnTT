@@ -3,7 +3,80 @@
   "slot": "shoulder",
   "type": "shoulder",
   "dropChance": 20,
-  "modifiers": [],
+  "modifiers": [
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "min-damage",
+        "value": 3,
+        "scope": "flat"
+      }
+    },
+    {
+      "discriminant": "value",
+      "value": {
+        "attribute": "max-damage",
+        "value": 6,
+        "scope": "flat"
+      }
+    },
+    {
+      "discriminant": "place",
+      "value": {
+        "attribute": "place",
+        "value": "ground",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "group",
+      "value": {
+        "attribute": "group",
+        "value": "enemy",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "travel",
+      "value": {
+        "attribute": "travel",
+        "value": "stand",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "moment",
+      "value": {
+        "attribute": "moment",
+        "value": "active",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "trigger",
+      "value": {
+        "attribute": "trigger",
+        "value": "on-hit",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "area",
+      "value": {
+        "attribute": "area",
+        "value": "circle",
+        "scope": "set"
+      }
+    },
+    {
+      "discriminant": "kind",
+      "value": {
+        "attribute": "kind",
+        "value": "attack",
+        "scope": "set"
+      }
+    }
+  ],
   "sprite": {
     "x": 5,
     "y": 0,

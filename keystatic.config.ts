@@ -22,13 +22,43 @@ const selectItems = ({label}: {label: string}) => ({
   },
 })
 
+const collectionModifier = (collection: string) => fields.object({
+  attribute: fields.text({
+    label: 'Attribute',
+    defaultValue: collection,
+    validation: {
+      isRequired: true,
+    }
+  }),
+  value: fields.relationship({
+    label: 'Value',
+    collection: collection,
+    validation: {
+      isRequired: true,
+    }
+  }),
+  scope: fields.text({
+    label: 'Scope',
+    defaultValue: 'set',
+    validation: {
+      isRequired: true,
+    }
+  }),
+})
+
 const modifiers = fields.array({
   kind: 'conditional',
   discriminant: fields.select({
       label: 'Modifiers',
       options: [
         { label: 'Value', value: 'value' },
+        { label: 'Place', value: 'place' },
+        { label: 'Group', value: 'group' },
+        { label: 'Travel', value: 'travel' },
+        { label: 'Moment', value: 'moment' },
         { label: 'Trigger', value: 'trigger' },
+        { label: 'Area', value: 'area' },
+        { label: 'Kind', value: 'kind' },
       ],
       defaultValue: 'value',
     }),
@@ -55,29 +85,13 @@ const modifiers = fields.array({
           }
         }),
     }),
-    trigger: fields.object({
-      attribute: fields.text({
-        label: 'Attribute',
-        defaultValue: 'trigger',
-        validation: {
-          isRequired: true,
-        }
-      }),
-      value: fields.relationship({
-        label: 'Value',
-        collection: 'trigger',
-        validation: {
-          isRequired: true,
-        }
-      }),
-      scope: fields.text({
-        label: 'Scope',
-        defaultValue: 'set',
-        validation: {
-          isRequired: true,
-        }
-      }),
-    }),
+    place: collectionModifier('place'),
+    group: collectionModifier('group'),
+    travel: collectionModifier('travel'),
+    moment: collectionModifier('moment'),
+    trigger: collectionModifier('trigger'),
+    area: collectionModifier('area'),
+    kind: collectionModifier('kind'),
   },
 }, 
 {
@@ -126,6 +140,42 @@ export default config({
         type: fields.slug({ name: {label: 'Type'}})
       }
     }),
+    place: collection({
+      label: 'Place',
+      slugField: 'place',
+      path: 'src/content/place/*',
+      format: "json",
+      schema: {
+        place: fields.slug({ name: {label: 'Place'}})
+      }
+    }),
+    group: collection({
+      label: 'Group',
+      slugField: 'group',
+      path: 'src/content/group/*',
+      format: "json",
+      schema: {
+        group: fields.slug({ name: {label: 'Group'}})
+      }
+    }),
+    travel: collection({
+      label: 'Travel',
+      slugField: 'travel',
+      path: 'src/content/travel/*',
+      format: "json",
+      schema: {
+        travel: fields.slug({ name: {label: 'Travel'}})
+      }
+    }),
+    moment: collection({
+      label: 'Moment',
+      slugField: 'moment',
+      path: 'src/content/moment/*',
+      format: "json",
+      schema: {
+        moment: fields.slug({ name: {label: 'Moment'}})
+      }
+    }),
     trigger: collection({
       label: 'Trigger',
       slugField: 'trigger',
@@ -133,6 +183,24 @@ export default config({
       format: "json",
       schema: {
         trigger: fields.slug({ name: {label: 'Trigger'}})
+      }
+    }),
+    area: collection({
+      label: 'Area',
+      slugField: 'area',
+      path: 'src/content/area/*',
+      format: "json",
+      schema: {
+        area: fields.slug({ name: {label: 'Area'}})
+      }
+    }),
+    kind: collection({
+      label: 'Kind',
+      slugField: 'kind',
+      path: 'src/content/kind/*',
+      format: "json",
+      schema: {
+        kind: fields.slug({ name: {label: 'Kind'}})
       }
     }),
     items: collection({

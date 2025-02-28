@@ -1,0 +1,13 @@
+{
+  "name": "OnHit",
+  "duration": 2,
+  "stacks": 0,
+  "refresh": true,
+  "modifiers": [],
+  "sprite": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  }
+}
