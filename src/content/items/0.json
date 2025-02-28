@@ -2,6 +2,7 @@
   "name": "None",
   "slot": "mainhand",
   "type": "none",
+  "dropChance": 0,
   "modifiers": [],
   "sprite": {
     "x": 0,

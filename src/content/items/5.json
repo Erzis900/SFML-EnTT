@@ -2,12 +2,13 @@
   "name": "Cape",
   "slot": "cape",
   "type": "cape",
+  "dropChance": 60,
   "modifiers": [
     {
       "discriminant": "trigger",
       "value": {
         "attribute": "trigger",
-        "value": "on-roll",
+        "value": "on-blink",
         "scope": "set"
       }
     },

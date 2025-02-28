@@ -35,6 +35,7 @@ namespace features::item
 		int y;
 		int width;
 		int height;
+		float dropChance;
 	};
 	enum Trigger : int
 	{

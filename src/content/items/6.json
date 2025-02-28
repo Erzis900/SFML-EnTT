@@ -2,6 +2,7 @@
   "name": "Shield",
   "slot": "offhand",
   "type": "shield",
+  "dropChance": 40,
   "modifiers": [
     {
       "discriminant": "trigger",

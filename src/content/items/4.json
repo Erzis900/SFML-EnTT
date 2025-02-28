@@ -2,6 +2,7 @@
   "name": "Shoulder",
   "slot": "shoulder",
   "type": "shoulder",
+  "dropChance": 20,
   "modifiers": [],
   "sprite": {
     "x": 5,

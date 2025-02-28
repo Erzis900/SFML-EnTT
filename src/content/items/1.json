@@ -2,6 +2,7 @@
   "name": "Club",
   "slot": "mainhand",
   "type": "club",
+  "dropChance": 50,
   "modifiers": [
     {
       "discriminant": "value",

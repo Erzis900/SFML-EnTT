@@ -1,4 +1,5 @@
 #include "followPlayer.hpp"
+#include "utils.hpp"
 
 namespace features::enemy::systems
 {

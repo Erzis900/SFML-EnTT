@@ -4,6 +4,7 @@
 #include "components/speed.hpp"
 #include "components/visible.hpp"
 #include "features/player/components/playerControlled.hpp"
+#include "utils.hpp"
 
 namespace common::systems
 {
@@ -46,12 +47,8 @@ namespace common::systems
 				{
 					sf::Vector2f dirVec = {posA.x - posB.x, posA.y - posB.y};
 
-					float magnitude = std::sqrt(dirVec.x * dirVec.x + dirVec.y * dirVec.y);
-					if (magnitude > 0)
-					{
-						dirVec.x /= magnitude;
-						dirVec.y /= magnitude;
-					}
+					dirVec = utils::normalize(dirVec);
+
 					registry.replace<common::components::position>(entityA, posA.x + dirVec.x * speedA.value * deltaTime,
 																   posA.y + dirVec.y * speedA.value * deltaTime);
 					registry.replace<common::components::position>(entityB, posB.x - dirVec.x * speedB.value * deltaTime,

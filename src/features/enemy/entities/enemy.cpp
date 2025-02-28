@@ -1,12 +1,5 @@
 #include "enemy.hpp"
-
-float randomFloat(float min, float max)
-{
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
-	std::uniform_real_distribution<> dis(min, max);
-	return dis(gen);
-}
+#include "utils.hpp"
 
 namespace features::enemy::entities
 {
@@ -14,7 +7,7 @@ namespace features::enemy::entities
 	{
 		float minX = 1000.f, maxX = 1300.f;
 		float minY = 700.f, maxY = 1200.f;
-		sf::Vector2f pos = {randomFloat(minX, maxX), randomFloat(minY, maxY)};
+		sf::Vector2f pos = {utils::randomFloat(minX, maxX), utils::randomFloat(minY, maxY)};
 
 		auto entity = unitsLoader.createUnit(registry, itemsLoader, 1, pos.x, pos.y);
 

@@ -19,6 +19,7 @@
 #include "features/hitbox/systems/processInteraction.hpp"
 #include "features/item/loader/itemsLoader.hpp"
 #include "features/item/renderers/renderItems.hpp"
+#include "features/item/systems/dropItems.hpp"
 #include "features/map/map.hpp"
 #include "features/map/systems/checkTileCollision.hpp"
 #include "features/npc/entities/npc.hpp"
@@ -85,7 +86,8 @@ auto measureExecutionTime = [](const std::string &funcName, auto &&func, bool lo
 
 static float timer = .5f;
 void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader,
-			features::player::InputManager &inputManager, sf::Vector2i mapDim, StateManager &stateManager, features::effect::EffectsLoader &effectsLoader)
+			features::player::InputManager &inputManager, features::item::ItemsLoader &itemsLoader, sf::Vector2i mapDim, StateManager &stateManager,
+			features::effect::EffectsLoader &effectsLoader)
 {
 	timer -= deltaTime;
 	bool didTimerReset = false;
@@ -106,6 +108,7 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"followPlayer", [&] { features::enemy::systems::followPlayer(registry); }},
 		{"checkInteraction", [&] { features::npc::systems::checkInteraction(registry, window, inputManager); }},
 		{"processAbility", [&] { features::ability::systems::processAbility(registry, deltaTime); }},
+		{"dropItems", [&] { features::item::systems::dropItems(registry, itemsLoader); }},
 		{"processHitbox", [&] { features::hitbox::systems::processHitbox(registry); }},
 		{"processInteraction", [&] { features::hitbox::systems::processInteraction(registry, effectsLoader); }},
 		{"processLifespan", [&] { common::systems::processLifespan(registry, deltaTime); }},
@@ -216,7 +219,7 @@ int main()
 
 	features::animation::AnimationLoader animationLoader;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		entt::entity enemy = features::enemy::entities::createEnemy(registry, itemsLoader, unitsLoader);
 		spdlog::debug("Enemy entity created, ID {}", static_cast<int>(enemy));
@@ -253,7 +256,7 @@ int main()
 
 		if (stateManager.isActive(State::Game))
 		{
-			update(registry, deltaTime, window, animationLoader, inputManager, map.getMapDim(), stateManager, effectsLoader);
+			update(registry, deltaTime, window, animationLoader, inputManager, itemsLoader, map.getMapDim(), stateManager, effectsLoader);
 			hud.update(registry);
 		}
 		else if (stateManager.isActive(State::GameOver))

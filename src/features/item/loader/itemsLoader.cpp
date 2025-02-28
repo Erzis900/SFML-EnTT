@@ -40,7 +40,8 @@ namespace features::item
 								 itemJson["sprite"]["x"],
 								 itemJson["sprite"]["y"],
 								 itemJson["sprite"]["width"],
-								 itemJson["sprite"]["height"]};
+								 itemJson["sprite"]["height"],
+								 itemJson["dropChance"]};
 				itemsData[id] = itemData;
 			}
 		}

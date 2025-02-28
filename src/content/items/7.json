@@ -2,6 +2,7 @@
   "name": "Sword",
   "slot": "mainhand",
   "type": "sword",
+  "dropChance": 40,
   "modifiers": [
     {
       "discriminant": "trigger",

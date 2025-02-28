@@ -2,6 +2,7 @@
   "name": "Helmet",
   "slot": "head",
   "type": "head",
+  "dropChance": 30,
   "modifiers": [],
   "sprite": {
     "x": 6,

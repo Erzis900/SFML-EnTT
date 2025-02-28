@@ -15,4 +15,12 @@ namespace utils
 	float getDistance(const sf::Vector2f &a, const sf::Vector2f &b) { return std::sqrt(std::pow(b.x - a.x, 2) + std::pow(b.y - a.y, 2)); }
 
 	float lerp(float start, float end, float t) { return start + t * (end - start); }
+
+	float randomFloat(float min, float max)
+	{
+		static std::random_device rd;
+		static std::mt19937 gen(rd());
+		std::uniform_real_distribution<> dis(min, max);
+		return dis(gen);
+	}
 }  // namespace utils

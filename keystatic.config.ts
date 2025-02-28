@@ -168,6 +168,12 @@ export default config({
             isRequired: true,
           }
         }),
+        dropChance: fields.number({
+          label: 'Drop chance',
+          validation: {
+            isRequired: true,
+          }
+        }),
         modifiers: modifiers,
         sprite: ANfields.spriteRegion({
           x: fields.number({

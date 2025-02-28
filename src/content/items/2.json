@@ -2,6 +2,7 @@
   "name": "Bow",
   "slot": "mainhand",
   "type": "bow",
+  "dropChance": 50,
   "modifiers": [
     {
       "discriminant": "trigger",

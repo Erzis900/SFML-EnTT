@@ -2,6 +2,7 @@
   "name": "Scepter",
   "slot": "mainhand",
   "type": "scepter",
+  "dropChance": 70,
   "modifiers": [
     {
       "discriminant": "trigger",
