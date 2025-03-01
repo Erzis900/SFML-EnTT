@@ -59,7 +59,7 @@ namespace features::map
 
 					if (tilemap[i][j] == 2591)
 					{
-						features::map::entities::createColliderTile(tilemap[i][j], j, i, tileSize.x, scalingFactor, registry);
+						entities::createColliderTile(tilemap[i][j], j, i, tileSize.x, scalingFactor, registry);
 						noColliders++;
 					}
 				}

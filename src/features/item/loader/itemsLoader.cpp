@@ -19,18 +19,37 @@ namespace features::item
 					auto stat = common::entities::getStat(attribute["attribute"]);
 					auto scope = common::entities::getScope(attribute["scope"]);
 					auto val = attribute["value"];
+					float value = 0.f;
 					common::entities::Modifier modifier;
 					switch (stat)
 					{
+					case common::entities::Stat::Place:
+						value = getPlace(val);
+						break;
+					case common::entities::Stat::Group:
+						value = getGroup(val);
+						break;
+					case common::entities::Stat::Travel:
+						value = getTravel(val);
+						break;
+					case common::entities::Stat::Moment:
+						value = getMoment(val);
+						break;
 					case common::entities::Stat::Trigger:
-						modifier = {stat, scope, getTrigger(val)};
-						modifiers.push_back(modifier);
+						value = getTrigger(val);
+						break;
+					case common::entities::Stat::Area:
+						value = getArea(val);
+						break;
+					case common::entities::Stat::Kind:
+						value = getKind(val);
 						break;
 					default:
-						modifier = {stat, scope, val};
-						modifiers.push_back(modifier);
+						value = val;
 						break;
 					}
+					modifier = {stat, scope, value};
+					modifiers.push_back(modifier);
 				}
 				Item itemData = {itemJson["name"],
 								 modifiers,
@@ -48,6 +67,46 @@ namespace features::item
 		texture = sf::Texture("../../public/items.png", false, sf::IntRect({0, 0}, {512, 512}));
 	}
 
+	float getPlace(std::string place)
+	{
+		auto it = mapPlace.find(place);
+		if (it != mapPlace.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Place::None);
+	}
+
+	float getGroup(std::string group)
+	{
+		auto it = mapGroup.find(group);
+		if (it != mapGroup.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Group::None);
+	}
+
+	float getTravel(std::string travel)
+	{
+		auto it = mapTravel.find(travel);
+		if (it != mapTravel.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Travel::None);
+	}
+
+	float getMoment(std::string moment)
+	{
+		auto it = mapMoment.find(moment);
+		if (it != mapMoment.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Moment::None);
+	}
+
 	float getTrigger(std::string trigger)
 	{
 		auto it = mapTrigger.find(trigger);
@@ -55,7 +114,27 @@ namespace features::item
 		{
 			return static_cast<float>(it->second);
 		}
-		return static_cast<float>(Trigger::OnNone);
+		return static_cast<float>(Trigger::None);
+	}
+
+	float getArea(std::string area)
+	{
+		auto it = mapArea.find(area);
+		if (it != mapArea.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Area::None);
+	}
+
+	float getKind(std::string kind)
+	{
+		auto it = mapKind.find(kind);
+		if (it != mapKind.end())
+		{
+			return static_cast<float>(it->second);
+		}
+		return static_cast<float>(Kind::None);
 	}
 
 	Type getType(std::string type)
@@ -65,7 +144,7 @@ namespace features::item
 		{
 			return it->second;
 		}
-		return Type::NoItem;
+		return Type::None;
 	}
 
 	components::SlotType getSlot(std::string slot)

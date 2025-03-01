@@ -8,7 +8,6 @@ namespace common
 	{
 		enum Scope : int
 		{
-			NoneScope = 0,
 			Flat = 100,
 			PercentAdd = 200,
 			PercentMult = 300,

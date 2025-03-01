@@ -8,7 +8,7 @@ namespace features::ability::components
 	struct ability
 	{
 		entt::entity source;
-		features::item::components::SlotType slot;
+		item::components::SlotType slot;
 		float castTime;
 		float activeTime;
 		float delayTime;

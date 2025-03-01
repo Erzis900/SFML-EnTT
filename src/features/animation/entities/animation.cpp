@@ -11,7 +11,7 @@ namespace features::animation::entities
 	{
 		auto entity = registry.create();
 		registry.emplace<common::components::lifespan>(entity, totalTime, totalTime);
-		registry.emplace<features::animation::components::Color>(entity, features::animation::components::Color::Blue);
+		registry.emplace<animation::components::Color>(entity, animation::components::Color::Blue);
 
 		registry.emplace<common::components::position>(entity, 0.f, 0.f);
 		registry.emplace<common::components::area>(entity, radius);

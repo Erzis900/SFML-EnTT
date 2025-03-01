@@ -4,12 +4,12 @@
 namespace features::unit::renderers
 {
 	constexpr float pi = acos(-1);
-	void renderUnits(entt::registry &registry, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader)
+	void renderUnits(entt::registry &registry, sf::RenderWindow &window, UnitsLoader &unitsLoader)
 	{
 		auto view = registry.view<common::components::unit, common::components::position, common::components::lookDirection, common::components::renderable,
 								  common::components::visible>();
 
-		for (auto [entity, unit, pos, dir, render, visible] : view.each())
+		for (auto [entity, unit, pos, dir, render] : view.each())
 		{
 			auto sprite = unitsLoader.getSprite(unit.id);
 			auto width = sprite.getTextureRect().size.x;

@@ -35,8 +35,8 @@ namespace features::player::systems
 {
 	void playerCamera(entt::registry &registry, sf::RenderWindow &window)
 	{
-		auto view = registry.view<features::player::components::playerControlled, common::components::position, features::player::components::camera>();
-		for (auto [entity, playerControlled, position, camera] : view.each())
+		auto view = registry.view<player::components::playerControlled, common::components::position, player::components::camera>();
+		for (auto [entity, position, camera] : view.each())
 		{
 			camera.view = window.getView();
 			camera.view.setCenter({position.x, position.y});

@@ -13,7 +13,6 @@
 
 namespace features::item::entities
 {
-	entt::entity equipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity unit, int itemId,
-						   features::item::components::SlotType slot, bool renderable);
-	bool unequipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity equippedEntity);
+	entt::entity equipItem(entt::registry &registry, ItemsLoader &itemLoader, entt::entity unit, int itemId, components::SlotType slot, bool renderable);
+	bool unequipItem(entt::registry &registry, ItemsLoader &itemLoader, entt::entity equippedEntity);
 }  // namespace features::item::entities

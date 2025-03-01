@@ -3,7 +3,7 @@
 
 namespace features::enemy::entities
 {
-	entt::entity createEnemy(entt::registry &registry, features::item::ItemsLoader &itemsLoader, features::unit::UnitsLoader &unitsLoader)
+	entt::entity createEnemy(entt::registry &registry, item::ItemsLoader &itemsLoader, unit::UnitsLoader &unitsLoader)
 	{
 		float minX = 1000.f, maxX = 1300.f;
 		float minY = 700.f, maxY = 1200.f;
@@ -14,12 +14,11 @@ namespace features::enemy::entities
 		auto unit = registry.get<common::components::unit>(entity);
 		auto unitBase = unitsLoader.getUnit(unit.id);
 
-		registry.emplace<features::enemy::components::aiControlled>(entity, true);
+		registry.emplace<components::aiControlled>(entity);
 		registry.emplace<common::components::faction>(entity, common::components::FOES_MASK, common::components::FOES_MASK, common::components::ALLY_MASK);
 
-		auto mainhandEntity =
-			features::ability::entities::createAbility(registry, entity, features::item::components::SlotType::Mainhand, 0.5f, 0.1f, 0.1f, 0.1f);
-		features::item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, features::item::components::SlotType::Mainhand, false);
+		auto mainhandEntity = ability::entities::createAbility(registry, entity, item::components::SlotType::Mainhand, 0.5f, 0.1f, 0.1f, 0.1f);
+		item::entities::equipItem(registry, itemsLoader, mainhandEntity, unitBase.mainhand, item::components::SlotType::Mainhand, false);
 
 		return entity;
 	}

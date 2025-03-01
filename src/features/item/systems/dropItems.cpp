@@ -9,7 +9,7 @@
 
 namespace features::item::systems
 {
-	void dropItems(entt::registry &registry, features::item::ItemsLoader &itemsLoader)
+	void dropItems(entt::registry &registry, ItemsLoader &itemsLoader)
 	{
 		auto view =
 			registry.view<item::components::itemId, common::components::position, item::components::dropSpread>(entt::exclude<item::components::dropped>);

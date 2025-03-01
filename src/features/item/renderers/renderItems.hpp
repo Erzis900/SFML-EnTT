@@ -14,7 +14,7 @@
 
 namespace features::item::renderers
 {
-	void renderItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader);
-	void renderEquippedItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader);
-	void renderGroundItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader);
+	void renderItems(entt::registry &registry, sf::RenderWindow &window, ItemsLoader &itemsLoader);
+	void renderEquippedItems(entt::registry &registry, sf::RenderWindow &window, ItemsLoader &itemsLoader);
+	void renderGroundItems(entt::registry &registry, sf::RenderWindow &window, ItemsLoader &itemsLoader);
 }  // namespace features::item::renderers

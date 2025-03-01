@@ -3,15 +3,15 @@
 namespace features::item::renderers
 {
 	constexpr float pi = acos(-1);
-	void renderItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
+	void renderItems(entt::registry &registry, sf::RenderWindow &window, ItemsLoader &itemsLoader)
 	{
 		renderGroundItems(registry, window, itemsLoader);
 		renderEquippedItems(registry, window, itemsLoader);
 	}
 
-	void renderEquippedItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
+	void renderEquippedItems(entt::registry &registry, sf::RenderWindow &window, ItemsLoader &itemsLoader)
 	{
-		auto view = registry.view<features::item::components::equipped, features::item::components::itemId, common::components::renderable>();
+		auto view = registry.view<components::equipped, components::itemId, common::components::renderable>();
 
 		for (auto [entity, equipped, itemId, renderable] : view.each())
 		{
@@ -27,28 +27,28 @@ namespace features::item::renderers
 			auto posY = height / 2.f;
 			switch (equipped.slot)
 			{
-			case features::item::components::SlotType::Head:
+			case components::SlotType::Head:
 				sprite.setOrigin({posX, posY});
 				sprite.setRotation(rotation);
 				break;
-			case features::item::components::SlotType::Chest:
+			case components::SlotType::Chest:
 				sprite.setOrigin({posX, posY});
 				sprite.setRotation(rotation);
 				break;
-			case features::item::components::SlotType::MainShoulder:
+			case components::SlotType::MainShoulder:
 				sprite.setOrigin({posX - 21.f, posY});
 				sprite.setRotation(rotation);
 				break;
-			case features::item::components::SlotType::OffShoulder:
+			case components::SlotType::OffShoulder:
 				sprite.setOrigin({posX - 20.f, posY});
 				sprite.setScale({-sprite.getScale().x, sprite.getScale().y});
 				sprite.setRotation(rotation);
 				break;
-			case features::item::components::SlotType::Mainhand:
+			case components::SlotType::Mainhand:
 				sprite.setRotation(rotation - sf::degrees(60.f));
 				sprite.setOrigin({posX - 26.f, posY - 5.f});
 				break;
-			case features::item::components::SlotType::Offhand:
+			case components::SlotType::Offhand:
 				if (type == Type::Quiver)
 				{
 					sprite.setOrigin({posX + 25.f, posY - 25.f});
@@ -60,7 +60,7 @@ namespace features::item::renderers
 					sprite.setRotation(rotation - sf::degrees(30.f));
 				}
 				break;
-			case features::item::components::SlotType::Cape:
+			case components::SlotType::Cape:
 				sprite.setOrigin({posX, posY - 15.f});
 				sprite.setRotation(rotation);
 				break;
@@ -74,9 +74,9 @@ namespace features::item::renderers
 		}
 	}
 
-	void renderGroundItems(entt::registry &registry, sf::RenderWindow &window, features::item::ItemsLoader &itemsLoader)
+	void renderGroundItems(entt::registry &registry, sf::RenderWindow &window, ItemsLoader &itemsLoader)
 	{
-		auto view = registry.view<common::components::position, features::item::components::itemId>();
+		auto view = registry.view<common::components::position, components::itemId>();
 		for (auto [entity, pos, itemId] : view.each())
 		{
 			auto sprite = itemsLoader.getSprite(itemId.id);

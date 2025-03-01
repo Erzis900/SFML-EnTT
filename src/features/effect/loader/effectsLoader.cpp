@@ -6,7 +6,7 @@ namespace features::effect
 	{
 		for (const auto &entry : std::filesystem::directory_iterator("../../src/content/effects"))
 		{
-			auto id = std::stoi(entry.path().filename().replace_extension().string());
+			auto id = static_cast<Effects>(std::stoi(entry.path().filename().replace_extension().string()));
 			if (entry.path().extension() == ".json")
 			{
 				std::ifstream effectFile(entry.path());

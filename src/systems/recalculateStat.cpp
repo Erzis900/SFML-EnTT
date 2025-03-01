@@ -13,7 +13,7 @@ namespace common::systems
 	{
 		auto view = registry.view<common::components::attribute, common::components::recalculate, common::components::relationship>();
 
-		for (auto [entity, attr, recalc, relation] : view.each())
+		for (auto [entity, attr, relation] : view.each())
 		{
 			auto &relationship = registry.get<common::components::relationship>(entity);
 			auto &attribute = registry.get<common::components::attribute>(entity);

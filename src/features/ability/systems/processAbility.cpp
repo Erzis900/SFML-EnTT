@@ -17,13 +17,15 @@ namespace features::ability::systems
 
 	void processReady(entt::registry &registry)
 	{
-		auto view = registry.view<components::ready, components::ability>();
-		auto viewEvents = registry.view<components::castEvent, components::pointsAt>();
-		for (auto [entityEvent, castEvent, pointsAt] : viewEvents.each())
+		auto view = registry.view<components::ready, components::ability, common::entities::Attributes>();
+		auto viewEvents = registry.view<components::castEvent, common::components::pointsAt, components::slot>();
+		auto viewTriggers = registry.view<components::castEvent, common::components::pointsAt, components::trigger>();
+		for (auto [entity, ready, ability, attributes] : view.each())
 		{
-			for (auto [entity, rdy, ability] : view.each())
+			auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
+			for (auto [entityEvent, castEvent, pointsAt, slot] : viewEvents.each())
 			{
-				if (ability.source == castEvent.unit && ability.slot == castEvent.slot)
+				if (ability.source == castEvent.unit && ability.slot == slot.slot)
 				{
 					if (castEvent.state == components::castEvent::State::Press || castEvent.state == components::castEvent::State::Hold)
 					{
@@ -31,24 +33,38 @@ namespace features::ability::systems
 						registry.replace<common::components::direction>(ability.source, dir.x, dir.y, false);
 						registry.remove<components::ready>(entity);
 						registry.emplace<components::cast>(entity, ability.castTime);
-						registry.emplace_or_replace<components::pointsAt>(entity, pointsAt.target);
+						registry.emplace<common::components::pointsAt>(entity, pointsAt.position);
 					}
 				}
 			}
+			// for (auto [entityEvent, castEvent, pointsAt, castTrigger] : viewTriggers.each())
+			// {
+			// 	if (ability.source == castEvent.unit)
+			// 	{
+			// 		if (castTrigger.trigger == static_cast<item::Trigger>(trigger.value))
+			// 		{
+			// 			auto dir = registry.get<common::components::direction>(ability.source);
+			// 			registry.replace<common::components::direction>(ability.source, dir.x, dir.y, false);
+			// 			registry.remove<components::ready>(entity);
+			// 			registry.emplace<components::cast>(entity, ability.castTime);
+			// 			registry.emplace<common::components::pointsAt>(entity, pointsAt.position);
+			// 		}
+			// 	}
+			// }
 		}
 	}
 
 	void processCastCancel(entt::registry &registry)
 	{
 		auto viewCasts = registry.view<components::cast, components::ability>();
-		auto viewEvents = registry.view<components::castEvent>();
-		for (auto [entityEvent, castEvent] : viewEvents.each())
+		auto viewEvents = registry.view<components::castEvent, components::slot>();
+		for (auto [entityEvent, castEvent, slot] : viewEvents.each())
 		{
 			for (auto [entity, cast, ability] : viewCasts.each())
 			{
 				if (ability.source == castEvent.unit)
 				{
-					auto cancelsCast = castEvent.state == components::castEvent::State::Press && castEvent.slot == features::item::components::SlotType::NoSlot;
+					auto cancelsCast = castEvent.state == components::castEvent::State::Press && slot.slot == item::components::SlotType::NoSlot;
 					if (cancelsCast)
 					{
 						auto dir = registry.get<common::components::direction>(ability.source);
@@ -88,7 +104,7 @@ namespace features::ability::systems
 	void processCast(entt::registry &registry, float deltaTime)
 	{
 		processCastCancel(registry);
-		auto view = registry.view<components::cast, components::ability, components::pointsAt, common::entities::Attributes>();
+		auto view = registry.view<components::cast, components::ability, common::components::pointsAt, common::entities::Attributes>();
 		for (auto [entity, cast, ability, pointsAt, attributes] : view.each())
 		{
 			if (registry.valid(ability.source))
@@ -99,20 +115,21 @@ namespace features::ability::systems
 				{
 					auto &trigger = registry.get<common::components::attribute>(attributes.entities[common::entities::Stat::Trigger]);
 					entt::entity hitbox;
-					switch (static_cast<int>(trigger.value))
+					switch (static_cast<item::Trigger>(trigger.value))
 					{
-					case features::item::Trigger::OnAttack:
-					case features::item::Trigger::OnShot:
-					case features::item::Trigger::OnCast:
-						hitbox = features::hitbox::entities::createHitbox(registry, entity);
+					case item::Trigger::OnAttack:
+					case item::Trigger::OnShot:
+					case item::Trigger::OnCast:
+					case item::Trigger::OnHit:
+						hitbox = hitbox::entities::createHitbox(registry, entity);
 						spdlog::debug("Hitbox entity created, ID {}", static_cast<int>(hitbox));
 						break;
-					case features::item::Trigger::OnRoll: {
+					case item::Trigger::OnRoll: {
 						auto startPosition = registry.get<common::components::position>(ability.source);
 						auto range = registry.get<common::components::range>(ability.source);
 
-						float dirX = pointsAt.target.x - startPosition.x;
-						float dirY = pointsAt.target.y - startPosition.y;
+						float dirX = pointsAt.position.x - startPosition.x;
+						float dirY = pointsAt.position.y - startPosition.y;
 						sf::Vector2f dir = utils::normalize({dirX, dirY});
 
 						float targetX = startPosition.x + dir.x * range.value;
@@ -122,10 +139,10 @@ namespace features::ability::systems
 																			  ability.activeTime);
 						break;
 					}
-					case features::item::Trigger::OnDash:
-					case features::item::Trigger::OnBlink:
-						spdlog::debug("Blinked entity {} to ({},{})", static_cast<int>(ability.source), pointsAt.target.x, pointsAt.target.y);
-						registry.replace<common::components::position>(ability.source, pointsAt.target.x, pointsAt.target.y);
+					case item::Trigger::OnDash:
+					case item::Trigger::OnBlink:
+						spdlog::debug("Blinked entity {} to ({},{})", static_cast<int>(ability.source), pointsAt.position.x, pointsAt.position.y);
+						registry.replace<common::components::position>(ability.source, pointsAt.position.x, pointsAt.position.y);
 						break;
 					default:
 						break;
@@ -183,6 +200,7 @@ namespace features::ability::systems
 			if (cooldown.time <= 0.f)
 			{
 				registry.remove<components::cooldown>(entity);
+				registry.remove<common::components::pointsAt>(entity);
 				registry.emplace<components::ready>(entity);
 			}
 		}

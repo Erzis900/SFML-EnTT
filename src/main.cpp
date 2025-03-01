@@ -5,7 +5,6 @@
 #include "pch.hpp"
 #include "stateManager.hpp"
 
-#include "features/ability/systems/clearEvents.hpp"
 #include "features/ability/systems/processAbility.hpp"
 #include "features/animation/entities/animation.hpp"
 #include "features/animation/loader/animationLoader.hpp"
@@ -122,7 +121,6 @@ void update(entt::registry &registry, float deltaTime, sf::RenderWindow &window,
 		{"playerCamera", [&] { features::player::systems::playerCamera(registry, window); }},				// keep -6
 		{"processVisibility", [&] { common::systems::processVisibility(registry, window); }},				// keep -5
 		{"processDeath", [&] { common::systems::processDeath(registry, stateManager); }},					// keep -4
-		{"clearEvents", [&] { features::ability::systems::clearEvents(registry); }},						// keep -3
 		{"processInvalid", [&] { common::systems::processInvalid(registry); }},								// keep -2
 		{"cleanupRemoved", [&] { common::systems::cleanupRemoved(registry); }},								// keep -1
 	};

@@ -4,8 +4,8 @@
 
 namespace common::components
 {
-	struct source
+	struct pointsAt
 	{
-		entt::entity entity;
+		sf::Vector2f position;
 	};
 }  // namespace common::components

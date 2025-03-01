@@ -4,5 +4,5 @@
 
 namespace features::item::systems
 {
-	void dropItems(entt::registry &registry, features::item::ItemsLoader &itemsLoader);
+	void dropItems(entt::registry &registry, ItemsLoader &itemsLoader);
 }

@@ -5,5 +5,5 @@
 
 namespace features::animation::renderers
 {
-	void renderAnimations(entt::registry &registry, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader);
+	void renderAnimations(entt::registry &registry, sf::RenderWindow &window, AnimationLoader &animationLoader);
 }

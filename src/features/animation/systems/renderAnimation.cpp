@@ -7,10 +7,9 @@
 
 namespace features::animation::renderers
 {
-	void renderAnimations(entt::registry &registry, sf::RenderWindow &window, features::animation::AnimationLoader &animationLoader)
+	void renderAnimations(entt::registry &registry, sf::RenderWindow &window, AnimationLoader &animationLoader)
 	{
-		auto view =
-			registry.view<common::components::lifespan, common::components::position, features::animation::components::Color, common::components::area>();
+		auto view = registry.view<common::components::lifespan, common::components::position, components::Color, common::components::area>();
 
 		for (auto [entity, lifespan, position, color, area] : view.each())
 		{

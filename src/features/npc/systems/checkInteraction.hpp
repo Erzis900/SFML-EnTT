@@ -4,5 +4,5 @@
 
 namespace features::npc::systems
 {
-	void checkInteraction(entt::registry &registry, sf::RenderWindow &window, features::player::InputManager &inputManager);
+	void checkInteraction(entt::registry &registry, sf::RenderWindow &window, player::InputManager &inputManager);
 }

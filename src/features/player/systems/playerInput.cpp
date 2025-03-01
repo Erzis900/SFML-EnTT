@@ -28,37 +28,29 @@ namespace features::player::systems
 
 		auto mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-		auto view = registry.view<features::player::components::playerControlled, common::components::position, common::components::direction>();
-		for (auto [entityUnit, playerControlled, pos, direction] : view.each())
+		auto view = registry.view<components::playerControlled, common::components::position, common::components::direction>();
+		for (auto [entityUnit, pos, direction] : view.each())
 		{
 			sf::Vector2f dirVec = {mousePos.x - pos.x, mousePos.y - pos.y};
 			dirVec = utils::normalize(dirVec);
 
 			registry.replace<common::components::direction>(entityUnit, dir.x, dir.y, direction.movable);
-			registry.emplace_or_replace<common::components::lookDirection>(entityUnit, dirVec.x, dirVec.y);
+			registry.replace<common::components::lookDirection>(entityUnit, dirVec.x, dirVec.y);
+			registry.replace<common::components::pointsAt>(entityUnit, mousePos);
 
 			for (auto [key, slotType] : keyToSlotType)
 			{
 				if (inputManager.isKeyPressed(key))
 				{
-					auto entityEvent = registry.create();
-					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
-																			   features::ability::components::castEvent::State::Press);
-					registry.emplace<features::ability::components::pointsAt>(entityEvent, mousePos);
+					ability::entities::createEvent(registry, slotType, ability::components::castEvent::State::Press, mousePos, entityUnit);
 				}
 				else if (inputManager.isKeyHeld(key))
 				{
-					auto entityEvent = registry.create();
-					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
-																			   features::ability::components::castEvent::State::Hold);
-					registry.emplace<features::ability::components::pointsAt>(entityEvent, mousePos);
+					ability::entities::createEvent(registry, slotType, ability::components::castEvent::State::Hold, mousePos, entityUnit);
 				}
 				else if (inputManager.isKeyReleased(key))
 				{
-					auto entityEvent = registry.create();
-					registry.emplace<features::ability::components::castEvent>(entityEvent, entityUnit, slotType,
-																			   features::ability::components::castEvent::State::Release);
-					registry.emplace<features::ability::components::pointsAt>(entityEvent, mousePos);
+					ability::entities::createEvent(registry, slotType, ability::components::castEvent::State::Release, mousePos, entityUnit);
 				}
 			}
 		}

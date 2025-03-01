@@ -18,7 +18,7 @@ namespace features::effect::entities
 {
 	entt::entity createEffect(entt::registry &registry, EffectsLoader &effectsLoader, Effects id, entt::entity target);
 
-	bool applyEffect(entt::registry &registry, EffectsLoader &effectsLoader, Effects id, entt::entity target, bool renderable);
+	bool applyEffect(entt::registry &registry, EffectsLoader &effectsLoader, Effects id, entt::entity target);
 	bool removeEffect(entt::registry &registry, EffectsLoader &effectsLoader, entt::entity effectEntity);
 	bool removeEffect(entt::registry &registry, EffectsLoader &effectsLoader, Effects effectType, entt::entity target);
 }  // namespace features::effect::entities

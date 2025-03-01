@@ -2,9 +2,9 @@
 
 namespace features::effect
 {
-	enum Effects : int
+	enum class Effects : int
 	{
-		NoEffect = 0,
+		None = 0,
 		Bleed = 1,
 		Fortify = 2
 	};

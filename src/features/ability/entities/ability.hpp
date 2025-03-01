@@ -9,6 +9,6 @@
 
 namespace features::ability::entities
 {
-	entt::entity createAbility(entt::registry &registry, entt::entity source, features::item::components::SlotType slotType, float castTime, float activeTime,
+	entt::entity createAbility(entt::registry &registry, entt::entity source, item::components::SlotType slotType, float castTime, float activeTime,
 							   float delayTime, float cooldown);
 }  // namespace features::ability::entities

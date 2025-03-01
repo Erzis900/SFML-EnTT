@@ -57,10 +57,16 @@ namespace common::entities
 		attributes[Stat::Damage] = createAttribute(registry, entity, Stat::Damage, 10.f);
 		attributes[Stat::MinDamage] = createAttribute(registry, entity, Stat::MinDamage, 0.f);
 		attributes[Stat::MaxDamage] = createAttribute(registry, entity, Stat::MaxDamage, 5.f);
-		attributes[Stat::Trigger] = createAttribute(registry, entity, Stat::Trigger, 0.f);
 		attributes[Stat::BaseAttackSpeed] = createAttribute(registry, entity, Stat::BaseAttackSpeed, 0.f);
 		attributes[Stat::Radius] = createAttribute(registry, entity, Stat::Radius, 50.f);
 		attributes[Stat::Range] = createAttribute(registry, entity, Stat::Range, 200.f);
+		attributes[Stat::Place] = createAttribute(registry, entity, Stat::Place, 0.f);
+		attributes[Stat::Group] = createAttribute(registry, entity, Stat::Group, 0.f);
+		attributes[Stat::Travel] = createAttribute(registry, entity, Stat::Travel, 0.f);
+		attributes[Stat::Moment] = createAttribute(registry, entity, Stat::Moment, 0.f);
+		attributes[Stat::Trigger] = createAttribute(registry, entity, Stat::Trigger, 0.f);
+		attributes[Stat::Area] = createAttribute(registry, entity, Stat::Area, 0.f);
+		attributes[Stat::Kind] = createAttribute(registry, entity, Stat::Kind, 0.f);
 	}
 
 	entt::entity createModifier(entt::registry &registry, entt::entity target, entities::Scope scope, float value)
@@ -94,7 +100,7 @@ namespace common::entities
 				registry.get<common::components::relationship>(lastModifier).next = modifierEntity;
 				registry.get<common::components::relationship>(modifierEntity).prev = lastModifier;
 			}
-			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute], true);
+			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute]);
 		}
 	}
 
@@ -130,7 +136,7 @@ namespace common::entities
 					modifierEntity = registry.get<common::components::relationship>(modifierEntity).next;
 				}
 			}
-			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute], true);
+			registry.emplace_or_replace<common::components::recalculate>(attributes.entities[modifier.attribute]);
 		}
 	}
 
@@ -143,7 +149,7 @@ namespace common::entities
 		}
 		else
 		{
-			return Stat::NoneStat;
+			throw std::invalid_argument("Invalid stat: " + stat);
 		}
 	}
 	Scope getScope(std::string scope)
@@ -155,7 +161,7 @@ namespace common::entities
 		}
 		else
 		{
-			return Scope::NoneScope;
+			throw std::invalid_argument("Invalid scope: " + scope);
 		}
 	}
 }  // namespace common::entities

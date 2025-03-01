@@ -4,6 +4,7 @@
 
 #include "components/direction.hpp"
 #include "components/lookDirection.hpp"
+#include "components/pointsAt.hpp"
 #include "components/position.hpp"
 #include "components/renderable.hpp"
 #include "components/unit.hpp"
@@ -42,8 +43,8 @@ namespace features::unit
 		sf::Sprite getSprite(int id);
 		entt::entity createUnit(entt::registry &registry, int id);
 		entt::entity createUnit(entt::registry &registry, int id, float x, float y);
-		entt::entity createUnit(entt::registry &registry, features::item::ItemsLoader &itemsLoader, int id, float x, float y);
-		void equipItems(entt::registry &registry, features::item::ItemsLoader &itemsLoader, int id, entt::entity entity);
+		entt::entity createUnit(entt::registry &registry, item::ItemsLoader &itemsLoader, int id, float x, float y);
+		void equipItems(entt::registry &registry, item::ItemsLoader &itemsLoader, int id, entt::entity entity);
 
 	  private:
 		std::map<int, Unit> unitsData = {};

@@ -8,6 +8,6 @@ namespace features::effect::components
 {
 	struct effects
 	{
-		std::map<features::effect::Effects, float> effectsCount;
+		std::map<Effects, float> effectsCount;
 	};
 }  // namespace features::effect::components

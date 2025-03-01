@@ -7,11 +7,13 @@
 #include "../components/castEvent.hpp"
 #include "../components/cooldown.hpp"
 #include "../components/delay.hpp"
-#include "../components/pointsAt.hpp"
 #include "../components/ready.hpp"
+#include "../components/slot.hpp"
+#include "../components/trigger.hpp"
 
 #include "components/attribute.hpp"
 #include "components/direction.hpp"
+#include "components/pointsAt.hpp"
 #include "entities/attribute.hpp"
 
 #include "features/hitbox/entities/hitbox.hpp"
@@ -23,10 +25,10 @@ namespace features::ability::systems
 	void processAbility(entt::registry &registry, float deltaTime);
 
 	void processReady(entt::registry &registry);
+	void processCastCancel(entt::registry &registry);
 	void processCast(entt::registry &registry, float deltaTime);
 	void processActive(entt::registry &registry, float deltaTime);
 	void processDelay(entt::registry &registry, float deltaTime);
 	void processCooldown(entt::registry &registry, float deltaTime);
-	void processCastCancel(entt::registry &registry);
 	void processRoll(entt::registry &registry, float deltaTime);
 }  // namespace features::ability::systems

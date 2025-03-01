@@ -6,14 +6,8 @@
 
 namespace features::ability::components
 {
-	struct castEvent
+	struct slot
 	{
-		entt::entity unit;
-		enum class State
-		{
-			Press,
-			Release,
-			Hold,
-		} state;
+		item::components::SlotType slot;
 	};
 }  // namespace features::ability::components

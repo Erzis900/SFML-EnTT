@@ -13,8 +13,7 @@ namespace features::hitbox::systems
 {
 	void processHitbox(entt::registry &registry)
 	{
-		auto hitboxView =
-			registry.view<features::hitbox::components::hitbox, common::components::faction, common::components::position, common::components::area>();
+		auto hitboxView = registry.view<components::hitbox, common::components::faction, common::components::position, common::components::area>();
 		auto unitView = registry.view<common::components::unit, common::components::faction, common::components::position, common::components::collider>();
 
 		for (auto [hitboxEntity, hitbox, hitboxFaction, hitboxPos, area] : hitboxView.each())
@@ -47,7 +46,7 @@ namespace features::hitbox::systems
 					hitbox.hitCount -= 1;
 					spdlog::debug("Hitbox {} collided with unit {}", static_cast<int>(hitboxEntity), static_cast<int>(unitEntity));
 					hitbox.entities.push_back(unitEntity);
-					registry.replace<features::hitbox::components::hitbox>(hitboxEntity, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
+					registry.replace<components::hitbox>(hitboxEntity, hitbox.hitCount, hitbox.entities, hitbox.doneEntities);
 					if (hitbox.hitCount < 1.f)
 					{
 						spdlog::debug("Hitbox {} removed", static_cast<int>(hitboxEntity));

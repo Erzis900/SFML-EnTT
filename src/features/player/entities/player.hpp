@@ -16,5 +16,5 @@
 #include "features/unit/loader/unitsLoader.hpp"
 namespace features::player::entities
 {
-	entt::entity createPlayer(entt::registry &registry, features::item::ItemsLoader &itemsLoader, features::unit::UnitsLoader &unitsLoader);
+	entt::entity createPlayer(entt::registry &registry, item::ItemsLoader &itemsLoader, unit::UnitsLoader &unitsLoader);
 }

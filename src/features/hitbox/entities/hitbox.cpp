@@ -6,7 +6,7 @@ namespace features::hitbox::entities
 	entt::entity createHitbox(entt::registry &registry, entt::entity source)
 	{
 		auto hitboxEntity = registry.create();
-		auto ability = registry.get<features::ability::components::ability>(source);
+		auto ability = registry.get<ability::components::ability>(source);
 
 		if (registry.valid(ability.source))	 // TODO: consider rewriting this check to avoid creating hitbox entity
 		{
@@ -17,16 +17,17 @@ namespace features::hitbox::entities
 
 			float lifeSpan = 0.f;
 
-			switch (static_cast<int>(trigger.value))
+			switch (static_cast<item::Trigger>(trigger.value))
 			{
-			case features::item::Trigger::OnAttack:
+			case item::Trigger::OnHit:
+			case item::Trigger::OnAttack:
 				registry.emplace<common::components::attach>(hitboxEntity, ability.source);
 				lifeSpan = 0.3f;
 				registry.emplace<components::hitbox>(hitboxEntity, INFINITY, std::vector<entt::entity>(), std::vector<entt::entity>());
 				radius = 150.f;
 				break;
-			case features::item::Trigger::OnShot:
-			case features::item::Trigger::OnCast:
+			case item::Trigger::OnShot:
+			case item::Trigger::OnCast:
 				registry.emplace<common::components::speed>(hitboxEntity, 500.f);
 				lifeSpan = 0.7f;
 				registry.emplace<components::hitbox>(hitboxEntity, 2.f, std::vector<entt::entity>(), std::vector<entt::entity>());
@@ -55,7 +56,7 @@ namespace features::hitbox::entities
 			registry.emplace<common::components::shape>(hitboxEntity, hitboxShape);
 			registry.emplace<common::components::area>(hitboxEntity, radius);
 
-			entt::entity animation = features::animation::entities::createAnimation(registry, hitboxEntity, radius, lifeSpan);
+			entt::entity animation = animation::entities::createAnimation(registry, hitboxEntity, radius, lifeSpan);
 			spdlog::debug("Animation entity created, ID {}", static_cast<int>(animation));
 		}
 

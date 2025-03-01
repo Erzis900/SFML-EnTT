@@ -5,6 +5,8 @@
 #include "components/modifiers.hpp"
 #include "entities/attribute.hpp"
 
+#include "../models/effects.hpp"
+
 namespace features::effect
 {
 
@@ -15,7 +17,7 @@ namespace features::effect
 		float duration;
 		float stacks;
 		bool refresh;
-		int id;
+		Effects id;
 		int x;
 		int y;
 		int width;
@@ -26,12 +28,12 @@ namespace features::effect
 	{
 	  public:
 		EffectsLoader();
-		Effect getEffect(int id) { return effectsData[id]; }
+		Effect getEffect(Effects id) { return effectsData[id]; }
 		sf::Sprite getSprite(int id);
 
 	  private:
 		nlohmann::json data;
-		std::map<int, Effect> effectsData;
+		std::map<Effects, Effect> effectsData;
 		sf::Texture texture;
 	};
 }  // namespace features::effect

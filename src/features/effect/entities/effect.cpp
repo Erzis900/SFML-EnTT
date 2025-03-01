@@ -13,7 +13,7 @@ namespace features::effect::entities
 		return entity;
 	}
 
-	bool applyEffect(entt::registry &registry, EffectsLoader &effectsLoader, Effects id, entt::entity target, bool renderable)
+	bool applyEffect(entt::registry &registry, EffectsLoader &effectsLoader, Effects id, entt::entity target)
 	{
 		auto effectsCount = registry.get<components::effects>(target).effectsCount;
 		auto count = effectsCount[id];
@@ -22,13 +22,10 @@ namespace features::effect::entities
 		{
 			return false;
 		}
+
 		auto entity = createEffect(registry, effectsLoader, id, target);
 		registry.emplace<components::affected>(entity, target, effect.duration);
-
-		if (renderable)
-		{
-			registry.emplace<common::components::renderable>(entity);
-		}
+		registry.emplace<common::components::renderable>(entity);
 
 		auto attributes = registry.get<common::entities::Attributes>(target);
 		common::entities::applyModifiers(registry, entity, attributes, effect.modifiers);

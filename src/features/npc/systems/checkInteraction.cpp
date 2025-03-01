@@ -7,14 +7,14 @@
 
 namespace features::npc::systems
 {
-	void checkInteraction(entt::registry &registry, sf::RenderWindow &window, features::player::InputManager &inputManager)
+	void checkInteraction(entt::registry &registry, sf::RenderWindow &window, player::InputManager &inputManager)
 	{
 		auto npcView = registry.view<npc::components::npc, common::components::position, common::components::shape>();
 		auto playerView = registry.view<player::components::playerControlled, common::components::position>();
 
 		for (auto [npcEntity, npc, npcPos, shape] : npcView.each())
 		{
-			for (auto [playerEntity, playerControlled, playerPos] : playerView.each())
+			for (auto [playerEntity, playerPos] : playerView.each())
 			{
 				float distance = utils::getDistance({npcPos.x, npcPos.y}, {playerPos.x, playerPos.y});
 				sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));

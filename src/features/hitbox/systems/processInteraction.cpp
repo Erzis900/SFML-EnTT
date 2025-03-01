@@ -14,7 +14,10 @@ namespace features::hitbox::systems
 					auto &children = registry.get<common::entities::Attributes>(source.entity);
 					auto &damage = registry.get<common::components::attribute>(children.entities[common::entities::Stat::Damage]);
 					auto &health = registry.get<common::components::health>(entity);
-					effect::entities::applyEffect(registry, effectsLoader, effect::Effects::Bleed, entity, true);
+					effect::entities::applyEffect(registry, effectsLoader, effect::Effects::Bleed, entity);
+					auto pointsAt = registry.get<common::components::pointsAt>(source.entity);
+					ability::entities::createEvent(registry, item::Trigger::OnHit, ability::components::castEvent::State::Press, pointsAt.position,
+												   source.entity);
 
 					health.value -= damage.value;
 				}

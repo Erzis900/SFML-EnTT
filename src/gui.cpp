@@ -146,7 +146,7 @@ void GUI::handleCallbacks(sf::RenderWindow &window, StateManager &stateManager)
 void GUI::getAttributes(entt::registry &registry)
 {
 	auto view = registry.view<features::player::components::playerControlled, common::components::maxHealth, common::components::speed>();
-	for (auto [entity, playerControlled, maxHealth, speed] : view.each())
+	for (auto [entity, maxHealth, speed] : view.each())
 	{
 		maxHealthLabel->setText("Max Health: " + std::to_string(maxHealth.value));
 		speedLabel->setText("Speed: " + std::to_string(speed.value));

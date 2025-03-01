@@ -15,27 +15,46 @@ namespace common::entities
 	 */
 	enum Stat : int
 	{
-		NoneStat = 0,
-		Health = 1,
-		MaxHealth = 2,
-		Speed = 3,
-		Damage = 4,
-		MinDamage = 5,
-		MaxDamage = 6,
-		Trigger = 7,
-		BaseAttackSpeed = 8,
-		Radius = 9,
-		HealthRegen = 10,
-		Range = 11
+		Health = 0,
+		MaxHealth = 1,
+		Speed = 2,
+		Damage = 3,
+		MinDamage = 4,
+		MaxDamage = 5,
+		Range = 6,
+		BaseAttackSpeed = 7,
+		Radius = 8,
+		HealthRegen = 9,
+		Place = 10,
+		Group = 11,
+		Travel = 12,
+		Moment = 13,
+		Trigger = 14,
+		Area = 15,
+		Kind = 16,
 	};
-	constexpr std::size_t ATTRIBUTES_SIZE = 11;
+	constexpr std::size_t ATTRIBUTES_SIZE = 17;	 // 1 + max(Stat)
 	using Attributes = components::children<ATTRIBUTES_SIZE>;
 
 	static std::unordered_map<std::string, Stat> const mapStat = {
-		{"health", Stat::Health},		 {"max-health", Stat::MaxHealth}, {"health-regen", Stat::HealthRegen},
-		{"speed", Stat::Speed},			 {"damage", Stat::Damage},		  {"min-damage", Stat::MinDamage},
-		{"max-damage", Stat::MaxDamage}, {"trigger", Stat::Trigger},	  {"base-attack-speed", Stat::BaseAttackSpeed},
-		{"radius", Stat::Radius},		 {"range", Stat::Range}};
+		{"health", Stat::Health},
+		{"max-health", Stat::MaxHealth},
+		{"health-regen", Stat::HealthRegen},
+		{"speed", Stat::Speed},
+		{"damage", Stat::Damage},
+		{"min-damage", Stat::MinDamage},
+		{"max-damage", Stat::MaxDamage},
+		{"base-attack-speed", Stat::BaseAttackSpeed},
+		{"radius", Stat::Radius},
+		{"range", Stat::Range},
+		{"place", Stat::Place},
+		{"group", Stat::Group},
+		{"travel", Stat::Travel},
+		{"moment", Stat::Moment},
+		{"trigger", Stat::Trigger},
+		{"area", Stat::Area},
+		{"kind", Stat::Kind},
+	};
 
 	struct Modifier
 	{

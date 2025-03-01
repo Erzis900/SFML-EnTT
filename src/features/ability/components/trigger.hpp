@@ -2,10 +2,12 @@
 
 #include "pch.hpp"
 
+#include "features/item/loader/itemsLoader.hpp"
+
 namespace features::ability::components
 {
-	struct pointsAt
+	struct trigger
 	{
-		sf::Vector2f target;
+		item::Trigger trigger;
 	};
 }  // namespace features::ability::components

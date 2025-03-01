@@ -40,7 +40,7 @@ void HUD::update(entt::registry &registry)
 	auto view = registry.view<features::ability::components::cooldown, features::ability::components::ability>();
 	auto playerView = registry.view<features::player::components::playerControlled>();
 
-	for (auto [player, playerControlled] : playerView.each())
+	for (auto [player] : playerView.each())
 	{
 		for (auto [entity, cooldown, ability] : view.each())
 		{

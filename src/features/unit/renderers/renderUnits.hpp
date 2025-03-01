@@ -11,5 +11,5 @@
 
 namespace features::unit::renderers
 {
-	void renderUnits(entt::registry &registry, sf::RenderWindow &window, features::unit::UnitsLoader &unitsLoader);
+	void renderUnits(entt::registry &registry, sf::RenderWindow &window, UnitsLoader &unitsLoader);
 }  // namespace features::unit::renderers

@@ -2,12 +2,11 @@
 
 namespace features::item::entities
 {
-	entt::entity equipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity unit, int itemId,
-						   features::item::components::SlotType slot, bool renderable)
+	entt::entity equipItem(entt::registry &registry, ItemsLoader &itemLoader, entt::entity unit, int itemId, components::SlotType slot, bool renderable)
 	{
 		auto entity = registry.create();
-		registry.emplace<features::item::components::equipped>(entity, unit, slot);
-		registry.emplace<features::item::components::itemId>(entity, itemId);
+		registry.emplace<components::equipped>(entity, unit, slot);
+		registry.emplace<components::itemId>(entity, itemId);
 		if (renderable)
 		{
 			registry.emplace<common::components::renderable>(entity);
@@ -20,10 +19,10 @@ namespace features::item::entities
 		return entity;
 	}
 
-	bool unequipItem(entt::registry &registry, features::item::ItemsLoader &itemLoader, entt::entity equippedEntity)
+	bool unequipItem(entt::registry &registry, ItemsLoader &itemLoader, entt::entity equippedEntity)
 	{
-		auto equipped = registry.get<features::item::components::equipped>(equippedEntity);
-		auto itemId = registry.get<features::item::components::itemId>(equippedEntity).id;
+		auto equipped = registry.get<components::equipped>(equippedEntity);
+		auto itemId = registry.get<components::itemId>(equippedEntity).id;
 		auto unit = equipped.unit;
 		auto &attributes = registry.get<common::entities::Attributes>(unit);
 		auto item = itemLoader.getItem(itemId);

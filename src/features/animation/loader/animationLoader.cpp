@@ -18,13 +18,13 @@ namespace features::animation
 		totalTime = frameTime * noFrames;
 	}
 
-	sf::Sprite AnimationLoader::getSprite(float time, features::animation::components::Color color)
+	sf::Sprite AnimationLoader::getSprite(float time, components::Color color)
 	{
 		int index = (1 - time) * noFrames;
 
 		sf::Sprite sprite(texture);
 
-		if (color == features::animation::components::Color::Rainbow)
+		if (color == components::Color::Rainbow)
 		{
 			int yIndex = index > noEffects ? (index - noEffects - 1) % noEffects : index;
 			sprite.setTextureRect(sf::IntRect({index * frameSize, yIndex * frameSize}, {frameSize, frameSize}));

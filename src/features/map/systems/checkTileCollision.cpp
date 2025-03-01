@@ -8,19 +8,18 @@ namespace features::map::systems
 {
 	void checkTileCollision(entt::registry &registry, float deltaTime)
 	{
-		auto playerView = registry.view<features::player::components::playerControlled>();
+		auto playerView = registry.view<player::components::playerControlled>();
 		if (playerView.empty()) return;
 
 		entt::entity entityA = *playerView.begin();
 
 		auto &posA = registry.get<common::components::position>(entityA);
-		auto &collA = registry.get<features::map::components::rectCollider>(entityA);
+		auto &collA = registry.get<components::rectCollider>(entityA);
 		auto &speedA = registry.get<common::components::speed>(entityA);
 
 		sf::FloatRect rectA({posA.x - collA.width / 2, posA.y - collA.height / 2}, {collA.width, collA.height});
 
-		auto view =
-			registry.view<common::components::position, features::map::components::rectCollider>(entt::exclude<features::player::components::playerControlled>);
+		auto view = registry.view<common::components::position, components::rectCollider>(entt::exclude<player::components::playerControlled>);
 
 		for (auto [entityB, posB, collB] : view.each())
 		{

@@ -13,5 +13,5 @@
 
 namespace features::enemy::entities
 {
-	entt::entity createEnemy(entt::registry &registry, features::item::ItemsLoader &itemsLoader, features::unit::UnitsLoader &unitsLoader);
+	entt::entity createEnemy(entt::registry &registry, item::ItemsLoader &itemsLoader, unit::UnitsLoader &unitsLoader);
 }
