@@ -33,7 +33,7 @@ namespace features::ability::systems
 						registry.replace<common::components::direction>(ability.source, dir.x, dir.y, false);
 						registry.remove<components::ready>(entity);
 						registry.emplace<components::cast>(entity, ability.castTime);
-						registry.emplace<common::components::pointsAt>(entity, pointsAt.position);
+						registry.emplace_or_replace<common::components::pointsAt>(entity, pointsAt.position);
 					}
 				}
 			}
